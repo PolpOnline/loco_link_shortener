@@ -1,0 +1,23 @@
+use color_eyre::eyre::Context;
+use loco_link_shortener::app::App;
+#[allow(unused_imports)]
+use loco_rs::{cli::playground, prelude::*};
+
+#[tokio::main]
+async fn main() -> color_eyre::Result<()> {
+    color_eyre::install()?;
+    let _ctx = playground::<App>().await.context("playground")?;
+
+    // let active_model: articles::ActiveModel = ActiveModel {
+    //     title: Set(Some("how to build apps in 3 steps".to_string())),
+    //     content: Set(Some("use Loco: https://loco.rs".to_string())),
+    //     ..Default::default()
+    // };
+    // active_model.insert(&ctx.db).await.unwrap();
+
+    // let res = articles::Entity::find().all(&ctx.db).await.unwrap();
+    // println!("{:?}", res);
+    println!("Welcome to Playground. Edit me at `examples/playground.rs`");
+
+    Ok(())
+}
