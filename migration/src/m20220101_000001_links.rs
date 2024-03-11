@@ -44,7 +44,44 @@ impl MigrationTrait for Migration {
                     .to_owned(),
             )
             .await?;
-
+    
+        manager
+            .create_table(
+                Table::create()
+                    .table(Clicks::Table)
+                    .col(
+                        ColumnDef::new(Clicks::Id)
+                            .integer()
+                            .not_null()
+                            .auto_increment()
+                            .primary_key(),
+                    )
+                    .col(
+                        ColumnDef::new(Clicks::LinkId)
+                            .integer()
+                            .not_null()
+                    )
+                    .col(
+                        ColumnDef::new(Clicks::ClickedAt)
+                            .timestamp()
+                            .not_null(),
+                    )
+                    .col(
+                        ColumnDef::new(Clicks::Address)
+                            .string()
+                            .not_null(),
+                    )
+                    .foreign_key(
+                        ForeignKey::create()
+                            .name("fk-clicks-link-id")
+                            .from(Clicks::Table, Clicks::LinkId)
+                            .to(Links::Table, Links::Id)
+                            .on_delete(ForeignKeyAction::Cascade)
+                            .on_update(ForeignKeyAction::Cascade),
+                    )
+                    .to_owned(),
+            ).await?;
+        
         Ok(())
     }
 
@@ -62,4 +99,13 @@ pub enum Links {
     Original,
     Shortened,
     Clicks,
+}
+
+#[derive(DeriveIden)]
+pub enum Clicks {
+    Table,
+    Id,
+    LinkId,
+    ClickedAt,
+    Address,
 }
