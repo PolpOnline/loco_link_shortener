@@ -44,7 +44,7 @@ impl MigrationTrait for Migration {
                     .to_owned(),
             )
             .await?;
-    
+
         manager
             .create_table(
                 Table::create()
@@ -56,21 +56,9 @@ impl MigrationTrait for Migration {
                             .auto_increment()
                             .primary_key(),
                     )
-                    .col(
-                        ColumnDef::new(Clicks::LinkId)
-                            .integer()
-                            .not_null()
-                    )
-                    .col(
-                        ColumnDef::new(Clicks::ClickedAt)
-                            .timestamp()
-                            .not_null(),
-                    )
-                    .col(
-                        ColumnDef::new(Clicks::Address)
-                            .string()
-                            .not_null(),
-                    )
+                    .col(ColumnDef::new(Clicks::LinkId).integer().not_null())
+                    .col(ColumnDef::new(Clicks::ClickedAt).timestamp().not_null())
+                    .col(ColumnDef::new(Clicks::Address).string().not_null())
                     .foreign_key(
                         ForeignKey::create()
                             .name("fk-clicks-link-id")
@@ -80,8 +68,9 @@ impl MigrationTrait for Migration {
                             .on_update(ForeignKeyAction::Cascade),
                     )
                     .to_owned(),
-            ).await?;
-        
+            )
+            .await?;
+
         Ok(())
     }
 

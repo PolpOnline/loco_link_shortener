@@ -1,11 +1,9 @@
 use axum::http::StatusCode;
 use loco_rs::{controller::ErrorDetail, prelude::*};
-
 use serde::{Deserialize, Serialize};
 use tracing::error;
 
-use crate::models::_entities::links;
-use crate::models::links::info::InfoError;
+use crate::models::{_entities::links, links::info::InfoError};
 
 #[derive(Deserialize)]
 pub struct InfoRequest {

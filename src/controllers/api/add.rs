@@ -1,16 +1,17 @@
-use crate::{
-    common,
-    models::{_entities::links, links::add::AddError},
-};
 use axum::http::StatusCode;
 use loco_rs::{controller::ErrorDetail, prelude::*};
 use rand::{distributions::Alphanumeric, Rng};
 use tracing::error;
-use crate::controllers::api::add::types::{AddRequest, AddResponse};
+
+use crate::{
+    common,
+    controllers::api::add::types::{AddRequest, AddResponse},
+    models::{_entities::links, links::add::AddError},
+};
 
 mod validate_params {
     use validator::ValidationError;
-    
+
     #[allow(dead_code)]
     pub fn validate_custom(custom: &Option<String>) -> Result<(), ValidationError> {
         if let Some(custom) = custom {
