@@ -1,22 +1,42 @@
-use axum::http::StatusCode;
-use loco_rs::{controller::ErrorDetail, prelude::*};
-use rand::{distributions::Alphanumeric, Rng};
-use serde::{Deserialize, Serialize};
-use tracing::error;
 use crate::{
     common,
     models::{_entities::links, links::add::AddError},
 };
+use axum::http::StatusCode;
+use loco_rs::{controller::ErrorDetail, prelude::*};
+use rand::{distributions::Alphanumeric, Rng};
+use tracing::error;
+use crate::controllers::api::add::types::{AddRequest, AddResponse};
 
-#[derive(Deserialize)]
-pub struct AddRequest {
-    pub url: String,
-    pub custom: Option<String>,
+mod validate_params {
+    use validator::ValidationError;
+    
+    #[allow(dead_code)]
+    pub fn validate_custom(custom: &Option<String>) -> Result<(), ValidationError> {
+        if let Some(custom) = custom {
+            if custom.chars().any(|c| !c.is_alphanumeric()) {
+                return Err(ValidationError::new("CUSTOM_INVALID"));
+            }
+        }
+
+        Ok(())
+    }
 }
 
-#[derive(Serialize)]
-pub struct AddResponse {
-    pub shortened: String,
+pub mod types {
+    use serde::{Deserialize, Serialize};
+    use validator::Validate;
+
+    #[derive(Deserialize, Validate)]
+    pub struct AddRequest {
+        pub url: String,
+        pub custom: Option<String>,
+    }
+
+    #[derive(Serialize)]
+    pub struct AddResponse {
+        pub shortened: String,
+    }
 }
 
 pub async fn add(
@@ -25,7 +45,7 @@ pub async fn add(
 ) -> Result<impl IntoResponse> {
     let settings = &ctx.config.settings.unwrap();
     let settings = common::settings::Settings::from_json(settings)?;
-    
+
     if let Some(custom) = &params.custom {
         if custom.len() > settings.max_custom_length {
             return Err(Error::CustomError(
@@ -40,7 +60,7 @@ pub async fn add(
             ));
         }
     }
-    
+
     let shortened = generate_shortened(settings.shortened_length);
 
     links::Model::add(&ctx.db, params.url.as_str(), &shortened)
@@ -50,7 +70,7 @@ pub async fn add(
             let err_shorthand;
 
             match err {
-                AddError::InvalidUrl(_e) => {
+                AddError::InvalidUrl(ref _e) => {
                     status_code = StatusCode::BAD_REQUEST;
                     err_shorthand = "INVALID_URL";
                 }
