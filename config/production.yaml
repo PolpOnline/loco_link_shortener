@@ -77,9 +77,9 @@ server:
       must_exist: true
       precompressed: true
       folder:
-        uri: "/dash"
-        path: "frontend/dist"
-      fallback: "frontend/dist/index.html"
+        uri: "/"
+        path: "frontend/build"
+      fallback: "frontend/build/index.html"
 
 # Worker Configuration
 workers:

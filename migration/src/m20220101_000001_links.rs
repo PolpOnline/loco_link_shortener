@@ -35,10 +35,16 @@ impl MigrationTrait for Migration {
                             .not_null()
                             .default(0),
                     )
+                    .col(
+                        ColumnDef::new(Links::CreatedAt)
+                            .timestamp()
+                            .not_null()
+                            .default(SimpleExpr::Keyword(Keyword::CurrentTimestamp))
+                    )
                     .index(
                         Index::create()
                             .unique()
-                            .name("idx-shortened")
+                            .name("idx_shortened")
                             .col(Links::Shortened),
                     )
                     .to_owned(),
@@ -88,6 +94,7 @@ pub enum Links {
     Original,
     Shortened,
     Clicks,
+    CreatedAt,
 }
 
 #[derive(DeriveIden)]

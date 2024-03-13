@@ -10,7 +10,7 @@ pub struct InfoRequest {
     pub shortened: String,
 }
 
-#[derive(Serialize)]
+#[derive(Serialize, Default)]
 pub struct InfoResponse {
     pub original: String,
     pub clicks: i32,
@@ -56,7 +56,8 @@ impl From<links::Model> for InfoResponse {
         InfoResponse {
             original: model.original,
             clicks: model.clicks,
-            created_at: model.created_at.to_string(),
+            created_at: Default::default(),
+            // created_at: model.created_at.to_string(),
         }
     }
 }
