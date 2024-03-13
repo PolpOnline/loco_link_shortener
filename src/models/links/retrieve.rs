@@ -16,7 +16,7 @@ pub enum RetrieveError {
 impl links::Model {
     /// Retrieves the original URL from the shortened URL and increases the
     /// click count
-    pub async fn retrieve_original_and_increase_clicks_by_shortened<T: Into<String>>(
+    pub async fn retrieve_original_and_increase_clicks_by_shortened<T: Into<String> + Send>(
         db: &DatabaseConnection,
         shortened: T,
     ) -> std::result::Result<String, RetrieveError> {

@@ -14,7 +14,7 @@ pub enum DeleteError {
 }
 
 impl links::Model {
-    pub async fn delete<T: Into<String>>(
+    pub async fn delete<T: Into<String> + Send>(
         db: &DatabaseConnection,
         shortened: T,
     ) -> std::result::Result<(), DeleteError> {

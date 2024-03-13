@@ -14,7 +14,7 @@ pub enum InfoError {
 }
 
 impl links::Model {
-    pub async fn info<T: Into<String>>(
+    pub async fn info<T: Into<String> + Send>(
         db: &DatabaseConnection,
         shortened: T,
     ) -> std::result::Result<links::Model, InfoError> {

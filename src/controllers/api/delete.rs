@@ -19,17 +19,14 @@ pub async fn delete(
         .map_err(|err| {
             let status_code;
             let err_shorthand;
-
-            match err {
-                DeleteError::NotFound => {
-                    status_code = StatusCode::NOT_FOUND;
-                    err_shorthand = "NOT_FOUND";
-                }
-                _ => {
-                    error!("Error deleting: {:?}", err);
-                    status_code = StatusCode::INTERNAL_SERVER_ERROR;
-                    err_shorthand = "INTERNAL_SERVER_ERROR";
-                }
+            
+            if let DeleteError::NotFound = err {
+                status_code = StatusCode::NOT_FOUND;
+                err_shorthand = "NOT_FOUND";
+            } else {
+                error!("Error deleting: {:?}", err);
+                status_code = StatusCode::INTERNAL_SERVER_ERROR;
+                err_shorthand = "INTERNAL_SERVER_ERROR";
             }
 
             Error::CustomError(

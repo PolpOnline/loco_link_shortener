@@ -69,17 +69,14 @@ pub async fn add(
         .map_err(|err| {
             let status_code;
             let err_shorthand;
-
-            match err {
-                AddError::InvalidUrl(ref _e) => {
-                    status_code = StatusCode::BAD_REQUEST;
-                    err_shorthand = "INVALID_URL";
-                }
-                _ => {
-                    error!("Error adding: {:?}", err);
-                    status_code = StatusCode::INTERNAL_SERVER_ERROR;
-                    err_shorthand = "INTERNAL_SERVER_ERROR";
-                }
+            
+            if let AddError::InvalidUrl(ref _e) = err {
+                status_code = StatusCode::BAD_REQUEST;
+                err_shorthand = "INVALID_URL";
+            } else {
+                error!("Error adding: {:?}", err);
+                status_code = StatusCode::INTERNAL_SERVER_ERROR;
+                err_shorthand = "INTERNAL_SERVER_ERROR";
             }
 
             Error::CustomError(

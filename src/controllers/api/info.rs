@@ -26,17 +26,14 @@ pub async fn info(
         .map_err(|err| {
             let status_code;
             let err_shorthand;
-
-            match err {
-                InfoError::NotFound => {
-                    status_code = StatusCode::NOT_FOUND;
-                    err_shorthand = "NOT_FOUND";
-                }
-                _ => {
-                    error!("Error getting info: {:?}", err);
-                    status_code = StatusCode::INTERNAL_SERVER_ERROR;
-                    err_shorthand = "INTERNAL_SERVER_ERROR";
-                }
+            
+            if let InfoError::NotFound = err {
+                status_code = StatusCode::NOT_FOUND;
+                err_shorthand = "NOT_FOUND";
+            } else {
+                error!("Error getting info: {:?}", err);
+                status_code = StatusCode::INTERNAL_SERVER_ERROR;
+                err_shorthand = "INTERNAL_SERVER_ERROR";
             }
 
             Error::CustomError(

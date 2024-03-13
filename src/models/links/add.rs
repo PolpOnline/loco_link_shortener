@@ -14,7 +14,7 @@ pub enum AddError {
 }
 
 impl links::Model {
-    pub async fn add<T: Into<String>>(
+    pub async fn add<T: Into<String> + Send>(
         db: &DatabaseConnection,
         original: T,
         shortened: T,

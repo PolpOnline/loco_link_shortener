@@ -16,16 +16,13 @@ pub async fn retrieve(
                 let status_code;
                 let err_shorthand;
 
-                match err {
-                    RetrieveError::NotFound => {
-                        status_code = StatusCode::NOT_FOUND;
-                        err_shorthand = "NOT_FOUND";
-                    }
-                    _ => {
-                        error!("Error retrieving: {:?}", err);
-                        status_code = StatusCode::INTERNAL_SERVER_ERROR;
-                        err_shorthand = "INTERNAL_SERVER_ERROR";
-                    }
+                if let RetrieveError::NotFound = err {
+                    status_code = StatusCode::NOT_FOUND;
+                    err_shorthand = "NOT_FOUND";
+                } else {
+                    error!("Error retrieving: {:?}", err);
+                    status_code = StatusCode::INTERNAL_SERVER_ERROR;
+                    err_shorthand = "INTERNAL_SERVER_ERROR";
                 }
 
                 Error::CustomError(
