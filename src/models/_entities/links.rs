@@ -12,7 +12,7 @@ pub struct Model {
     pub original: String,
     #[sea_orm(unique)]
     pub shortened: String,
-    pub clicks: i32,
+    pub created_at: DateTime,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]

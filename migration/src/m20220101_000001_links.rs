@@ -30,12 +30,6 @@ impl MigrationTrait for Migration {
                             .unique_key(),
                     )
                     .col(
-                        ColumnDef::new(Links::Clicks)
-                            .integer()
-                            .not_null()
-                            .default(0),
-                    )
-                    .col(
                         ColumnDef::new(Links::CreatedAt)
                             .timestamp()
                             .not_null()
@@ -93,7 +87,6 @@ pub enum Links {
     Id,
     Original,
     Shortened,
-    Clicks,
     CreatedAt,
 }
 

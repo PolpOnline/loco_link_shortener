@@ -11,7 +11,6 @@ pub struct Model {
     pub link_id: i32,
     pub clicked_at: DateTime,
     pub address: String,
-    pub created_at: DateTime,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]

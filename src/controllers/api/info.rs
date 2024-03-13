@@ -1,27 +1,27 @@
 use axum::http::StatusCode;
 use loco_rs::{controller::ErrorDetail, prelude::*};
-use serde::{Deserialize, Serialize};
+use serde::Deserialize;
 use tracing::error;
 
-use crate::models::{_entities::links, links::info::InfoError};
+use crate::{
+    models::{
+        _entities::{clicks, links},
+        links::info::InfoError,
+    },
+    views::link_view::InfoLinkView,
+};
 
 #[derive(Deserialize)]
 pub struct InfoRequest {
     pub shortened: String,
 }
 
-#[derive(Serialize, Default)]
-pub struct InfoResponse {
-    pub original: String,
-    pub clicks: i32,
-    pub created_at: String,
-}
-
+/// Retrieves the info about the url
 pub async fn info(
     State(ctx): State<AppContext>,
     Json(params): Json<InfoRequest>,
 ) -> Result<impl IntoResponse> {
-    let link = links::Model::info(&ctx.db, &params.shortened)
+    let link = links::Model::get_info_by_shortened(&ctx.db, &params.shortened)
         .await
         .map_err(|err| {
             let status_code;
@@ -45,16 +45,9 @@ pub async fn info(
             )
         })?;
 
-    Ok(Json(InfoResponse::from(link)))
-}
+    let clicks = clicks::Model::get_info_by_id(&ctx.db, link.id).await?;
 
-impl From<links::Model> for InfoResponse {
-    fn from(model: links::Model) -> Self {
-        InfoResponse {
-            original: model.original,
-            clicks: model.clicks,
-            created_at: Default::default(),
-            // created_at: model.created_at.to_string(),
-        }
-    }
+    let view = InfoLinkView::new(link, clicks);
+
+    Ok(Json(view))
 }

@@ -40,6 +40,7 @@ lazy_static = "1.4.0"
 thiserror = "1.0.57"
 url = { version = "2.5.0", features = ["serde"] }
 dotenvy = "0.15.7"
+axum-client-ip = "0.5.1"
 # /view engine
 
 [[bin]]

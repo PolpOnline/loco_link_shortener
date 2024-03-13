@@ -1,9 +1,10 @@
-use std::path::Path;
+use std::{net::SocketAddr, path::Path};
 
 use async_trait::async_trait;
+use axum::Router as AxumRouter;
 use loco_rs::{
     app::{AppContext, Hooks, Initializer},
-    boot::{create_app, BootResult, StartMode},
+    boot::{create_app, BootResult, ServeParams, StartMode},
     controller::AppRoutes,
     db::truncate_table,
     environment::Environment,
@@ -11,10 +12,11 @@ use loco_rs::{
     worker::Processor,
     Result,
 };
-use migration::Migrator;
 use sea_orm::DatabaseConnection;
 
-use crate::{controllers, models::_entities::prelude::*};
+use migration::Migrator;
+
+use crate::{controllers, initializers, models::_entities::prelude::*};
 
 pub struct App;
 
@@ -38,8 +40,24 @@ impl Hooks for App {
         create_app::<Self, Migrator>(mode, environment).await
     }
 
+    async fn serve(app: AxumRouter, server_config: ServeParams) -> Result<()> {
+        let listener = tokio::net::TcpListener::bind(&format!(
+            "{}:{}",
+            server_config.binding, server_config.port
+        ))
+        .await?;
+
+        axum::serve(
+            listener,
+            app.into_make_service_with_connect_info::<SocketAddr>(),
+        )
+        .await?;
+
+        Ok(())
+    }
+
     async fn initializers(_ctx: &AppContext) -> Result<Vec<Box<dyn Initializer>>> {
-        Ok(vec![])
+        Ok(vec![Box::new(initializers::ip_getter::IPGetterInitializer)])
     }
 
     fn routes(_ctx: &AppContext) -> AppRoutes {

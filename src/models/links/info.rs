@@ -1,8 +1,9 @@
 use loco_rs::{model::ModelError, prelude::*};
 use sea_orm::{entity::prelude::*, DatabaseConnection};
 
-pub use super::super::_entities::prelude::*;
 use crate::models::_entities::links;
+
+pub use super::super::_entities::prelude::*;
 
 #[derive(thiserror::Error, Debug)]
 pub enum InfoError {
@@ -14,7 +15,7 @@ pub enum InfoError {
 }
 
 impl links::Model {
-    pub async fn info<T: Into<String> + Send>(
+    pub async fn get_info_by_shortened<T: Into<String> + Send>(
         db: &DatabaseConnection,
         shortened: T,
     ) -> std::result::Result<links::Model, InfoError> {
