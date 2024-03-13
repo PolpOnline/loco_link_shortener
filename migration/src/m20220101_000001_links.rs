@@ -39,7 +39,7 @@ impl MigrationTrait for Migration {
                         ColumnDef::new(Links::CreatedAt)
                             .timestamp()
                             .not_null()
-                            .default(SimpleExpr::Keyword(Keyword::CurrentTimestamp))
+                            .default(SimpleExpr::Keyword(Keyword::CurrentTimestamp)),
                     )
                     .index(
                         Index::create()
