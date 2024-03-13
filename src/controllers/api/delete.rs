@@ -19,7 +19,7 @@ pub async fn delete(
         .map_err(|err| {
             let status_code;
             let err_shorthand;
-            
+
             if let DeleteError::NotFound = err {
                 status_code = StatusCode::NOT_FOUND;
                 err_shorthand = "NOT_FOUND";

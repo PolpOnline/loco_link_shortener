@@ -69,7 +69,7 @@ pub async fn add(
         .map_err(|err| {
             let status_code;
             let err_shorthand;
-            
+
             if let AddError::InvalidUrl(ref _e) = err {
                 status_code = StatusCode::BAD_REQUEST;
                 err_shorthand = "INVALID_URL";
