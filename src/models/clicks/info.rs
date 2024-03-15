@@ -23,7 +23,7 @@ impl clicks::Model {
         id: i32,
     ) -> ModelResult<Vec<clicks::Model>> {
         Ok(Clicks::find()
-            .filter(clicks::Column::Id.eq(id))
+            .filter(clicks::Column::LinkId.eq(id))
             .all(db)
             .await?)
     }
