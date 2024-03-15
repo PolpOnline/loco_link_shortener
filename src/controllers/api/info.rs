@@ -45,7 +45,7 @@ pub async fn info(
             )
         })?;
 
-    let clicks = clicks::Model::get_info_by_id(&ctx.db, link.id).await?;
+    let clicks = clicks::Model::get_clicks_by_id(&ctx.db, link.id).await?;
 
     let view = InfoLinkView::new(link, clicks);
 

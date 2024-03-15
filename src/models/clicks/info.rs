@@ -4,9 +4,8 @@ use loco_rs::{
 };
 use sea_orm::{entity::prelude::*, DatabaseConnection};
 
-use crate::models::_entities::clicks;
-
 pub use super::super::_entities::prelude::*;
+use crate::models::_entities::clicks;
 
 #[derive(thiserror::Error, Debug)]
 pub enum InfoError {
@@ -18,7 +17,7 @@ pub enum InfoError {
 }
 
 impl clicks::Model {
-    pub async fn get_info_by_id(
+    pub async fn get_clicks_by_id(
         db: &DatabaseConnection,
         id: i32,
     ) -> ModelResult<Vec<clicks::Model>> {

@@ -1,9 +1,8 @@
 use loco_rs::{model::ModelError, prelude::*};
 use sea_orm::{entity::prelude::*, DatabaseConnection};
 
-use crate::models::_entities::links;
-
 pub use super::super::_entities::prelude::*;
+use crate::models::_entities::links;
 
 #[derive(thiserror::Error, Debug)]
 pub enum InfoError {
