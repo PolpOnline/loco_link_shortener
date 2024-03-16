@@ -9,6 +9,33 @@ impl MigrationTrait for Migration {
         manager
             .create_table(
                 Table::create()
+                    .table(Users::Table)
+                    .col(
+                        ColumnDef::new(Users::Id)
+                            .integer()
+                            .not_null()
+                            .auto_increment()
+                            .primary_key(),
+                    )
+                    .col(
+                        ColumnDef::new(Users::Username)
+                            .string()
+                            .not_null()
+                            .unique_key(),
+                    )
+                    .col(
+                        ColumnDef::new(Users::AccessToken)
+                            .string()
+                            .not_null()
+                            .unique_key(),
+                    )
+                    .to_owned(),
+            )
+            .await?;
+
+        manager
+            .create_table(
+                Table::create()
                     .table(Links::Table)
                     .col(
                         ColumnDef::new(Links::Id)
@@ -17,6 +44,7 @@ impl MigrationTrait for Migration {
                             .auto_increment()
                             .primary_key(),
                     )
+                    .col(ColumnDef::new(Links::UserId).integer().not_null())
                     .col(
                         ColumnDef::new(Links::Original)
                             .string()
@@ -34,6 +62,14 @@ impl MigrationTrait for Migration {
                             .timestamp()
                             .not_null()
                             .default(SimpleExpr::Keyword(Keyword::CurrentTimestamp)),
+                    )
+                    .foreign_key(
+                        ForeignKey::create()
+                            .name("fk-links-user-id")
+                            .from(Links::Table, Links::UserId)
+                            .to(Users::Table, Users::Id)
+                            .on_delete(ForeignKeyAction::Cascade)
+                            .on_update(ForeignKeyAction::Cascade),
                     )
                     .index(
                         Index::create()
@@ -82,9 +118,18 @@ impl MigrationTrait for Migration {
 }
 
 #[derive(DeriveIden)]
+pub enum Users {
+    Table,
+    Id,
+    Username,
+    AccessToken,
+}
+
+#[derive(DeriveIden)]
 pub enum Links {
     Table,
     Id,
+    UserId,
     Original,
     Shortened,
     CreatedAt,

@@ -4,3 +4,4 @@ pub mod prelude;
 
 pub mod clicks;
 pub mod links;
+pub mod users;
