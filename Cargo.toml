@@ -41,6 +41,8 @@ thiserror = "1.0.57"
 url = { version = "2.5.0", features = ["serde"] }
 dotenvy = "0.15.7"
 axum-client-ip = "0.5.1"
+loco-oauth2 = "0.1.0"
+axum_session = "0.13.0"
 # /view engine
 
 [[bin]]

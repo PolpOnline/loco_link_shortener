@@ -9,6 +9,32 @@ impl MigrationTrait for Migration {
         manager
             .create_table(
                 Table::create()
+                    .table(Users::Table)
+                    .col(
+                        ColumnDef::new(Users::Id)
+                            .integer()
+                            .not_null()
+                            .auto_increment()
+                            .primary_key(),
+                    )
+                    .col(ColumnDef::new(Users::Pid).uuid().not_null().unique_key())
+                    .col(
+                        ColumnDef::new(Users::Email)
+                            .string()
+                            .not_null()
+                            .unique_key(),
+                    )
+                    .col(ColumnDef::new(Users::Name).string().not_null())
+                    .col(ColumnDef::new(Users::EmailVerifiedAt).timestamp())
+                    .col(ColumnDef::new(Users::Password).string().not_null())
+                    .index(Index::create().unique().name("idx_email").col(Users::Email))
+                    .to_owned(),
+            )
+            .await?;
+
+        manager
+            .create_table(
+                Table::create()
                     .table(Links::Table)
                     .col(
                         ColumnDef::new(Links::Id)
@@ -34,6 +60,15 @@ impl MigrationTrait for Migration {
                             .timestamp()
                             .not_null()
                             .default(SimpleExpr::Keyword(Keyword::CurrentTimestamp)),
+                    )
+                    .col(ColumnDef::new(Links::UserId).integer().not_null())
+                    .foreign_key(
+                        ForeignKey::create()
+                            .name("fk-links-user-id")
+                            .from(Links::Table, Links::UserId)
+                            .to(Users::Table, Users::Id)
+                            .on_delete(ForeignKeyAction::Cascade)
+                            .on_update(ForeignKeyAction::Cascade),
                     )
                     .index(
                         Index::create()
@@ -76,6 +111,9 @@ impl MigrationTrait for Migration {
 
     async fn down(&self, manager: &SchemaManager) -> Result<(), DbErr> {
         manager
+            .drop_table(Table::drop().table(Users::Table).to_owned())
+            .await?;
+        manager
             .drop_table(Table::drop().table(Links::Table).to_owned())
             .await?;
         manager
@@ -91,6 +129,7 @@ pub enum Links {
     Original,
     Shortened,
     CreatedAt,
+    UserId,
 }
 
 #[derive(DeriveIden)]
@@ -100,4 +139,15 @@ pub enum Clicks {
     LinkId,
     ClickedAt,
     Address,
+}
+
+#[derive(DeriveIden)]
+pub enum Users {
+    Table,
+    Id,
+    Pid,
+    Email,
+    Name,
+    EmailVerifiedAt,
+    Password,
 }
