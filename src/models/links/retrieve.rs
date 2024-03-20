@@ -1,8 +1,9 @@
 use loco_rs::{model::ModelError, prelude::*};
-use sea_orm::{entity::prelude::*, DatabaseConnection};
+use sea_orm::entity::prelude::*;
+
+use crate::models::_entities::{clicks::ActiveModel as ClicksActiveModel, links};
 
 pub use super::super::_entities::prelude::*;
-use crate::models::_entities::{clicks::ActiveModel as ClicksActiveModel, links};
 
 #[derive(thiserror::Error, Debug)]
 pub enum RetrieveError {

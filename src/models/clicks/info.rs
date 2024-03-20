@@ -2,10 +2,11 @@ use loco_rs::{
     model::{ModelError, ModelResult},
     prelude::*,
 };
-use sea_orm::{entity::prelude::*, DatabaseConnection};
+use sea_orm::entity::prelude::*;
+
+use crate::models::_entities::clicks;
 
 pub use super::super::_entities::prelude::*;
-use crate::models::_entities::clicks;
 
 #[derive(thiserror::Error, Debug)]
 pub enum InfoError {
