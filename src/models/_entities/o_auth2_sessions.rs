@@ -4,22 +4,19 @@ use sea_orm::entity::prelude::*;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, DeriveEntityModel, Eq, Serialize, Deserialize)]
-#[sea_orm(table_name = "links")]
+#[sea_orm(table_name = "o_auth2_sessions")]
 pub struct Model {
+    pub created_at: DateTime,
+    pub updated_at: DateTime,
     #[sea_orm(primary_key)]
     pub id: i32,
-    #[sea_orm(unique)]
-    pub original: String,
-    #[sea_orm(unique)]
-    pub shortened: String,
-    pub created_at: DateTime,
+    pub session_id: String,
+    pub expires_at: DateTime,
     pub user_id: i32,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]
 pub enum Relation {
-    #[sea_orm(has_many = "super::clicks::Entity")]
-    Clicks,
     #[sea_orm(
         belongs_to = "super::users::Entity",
         from = "Column::UserId",
@@ -28,12 +25,6 @@ pub enum Relation {
         on_delete = "Cascade"
     )]
     Users,
-}
-
-impl Related<super::clicks::Entity> for Entity {
-    fn to() -> RelationDef {
-        Relation::Clicks.def()
-    }
 }
 
 impl Related<super::users::Entity> for Entity {
