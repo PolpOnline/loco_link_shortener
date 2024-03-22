@@ -1,7 +1,7 @@
 use loco_rs::prelude::*;
 use serde::Serialize;
 
-use crate::models::_entities::links;
+use crate::{controllers::utils::get_user_from_jwt, models::_entities::links};
 
 #[derive(Serialize)]
 pub struct ListResponse {
@@ -32,8 +32,10 @@ impl From<links::Model> for Link {
 }
 
 /// Retrieves all the links and their info
-pub async fn list(State(ctx): State<AppContext>) -> Result<impl IntoResponse> {
-    let link = links::Model::list(&ctx.db).await?;
+pub async fn list(jwt: auth::JWT, State(ctx): State<AppContext>) -> Result<impl IntoResponse> {
+    let user = get_user_from_jwt(&ctx, jwt).await?;
+
+    let link = links::Model::list_where_user_id(&ctx.db, user.id).await?;
 
     let links = link.into_iter().map(Link::from).collect();
 

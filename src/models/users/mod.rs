@@ -8,6 +8,7 @@ use loco_rs::{
 };
 use sea_orm::{ActiveValue, ColumnTrait, DatabaseConnection, QueryFilter, TransactionTrait};
 use serde::{Deserialize, Serialize};
+use uuid::Uuid;
 
 use crate::models::_entities::{o_auth2_sessions, prelude::*, users};
 
@@ -116,5 +117,13 @@ impl users::Model {
             loco_rs::auth::jwt::JWT::new(secret)
                 .generate_token(expiration, self.pid.to_string())?,
         )
+    }
+
+    /// Find by PID
+    pub async fn find_by_pid(db: &DatabaseConnection, pid: Uuid) -> ModelResult<Option<Self>> {
+        Ok(users::Entity::find()
+            .filter(users::Column::Pid.eq(pid))
+            .one(db)
+            .await?)
     }
 }

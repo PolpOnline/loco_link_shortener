@@ -6,5 +6,6 @@
         <language minSize="53" name="Rust" />
       </Languages>
     </inspection_tool>
+    <inspection_tool class="RsExperimentalChecks" enabled="true" level="ERROR" enabled_by_default="true" />
   </profile>
 </component>

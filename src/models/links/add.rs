@@ -18,10 +18,12 @@ impl links::Model {
         db: &DatabaseConnection,
         original: T,
         shortened: T,
+        user_id: i32,
     ) -> std::result::Result<(), AddError> {
         ActiveModel {
             original: Set(original.into()),
             shortened: Set(shortened.into()),
+            user_id: Set(user_id),
             ..Default::default()
         }
         .insert(db)

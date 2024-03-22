@@ -12,9 +12,8 @@ use loco_rs::{
     worker::Processor,
     Result,
 };
-use sea_orm::DatabaseConnection;
-
 use migration::Migrator;
+use sea_orm::DatabaseConnection;
 
 use crate::{controllers, initializers, models::_entities::prelude::*};
 

@@ -5,7 +5,10 @@ use tracing::error;
 
 use crate::{
     common,
-    controllers::api::add::types::{AddRequest, AddResponse},
+    controllers::{
+        api::add::types::{AddRequest, AddResponse},
+        utils::get_user_from_jwt,
+    },
     models::{_entities::links, links::add::AddError},
 };
 
@@ -40,10 +43,14 @@ pub mod types {
     }
 }
 
+/// Adds a new link
 pub async fn add(
+    jwt: auth::JWT,
     State(ctx): State<AppContext>,
     Json(params): Json<AddRequest>,
 ) -> Result<impl IntoResponse> {
+    let user = get_user_from_jwt(&ctx, jwt).await?;
+
     let settings = &ctx.config.settings.unwrap();
     let settings = common::settings::Settings::from_json(settings)?;
 
@@ -51,46 +58,44 @@ pub async fn add(
         if custom.len() > settings.max_custom_length {
             return Err(Error::CustomError(
                 StatusCode::BAD_REQUEST,
-                ErrorDetail {
-                    error: Some("CUSTOM_TOO_LONG".to_string()),
-                    description: Some(format!(
+                ErrorDetail::new(
+                    "CUSTOM_TOO_LONG",
+                    &format!(
                         "Custom shortened link is too long. Max length is {}",
                         settings.max_custom_length
-                    )),
-                },
+                    ),
+                ),
             ));
         }
     }
 
     let shortened = generate_shortened(settings.shortened_length);
 
-    links::Model::add(&ctx.db, params.url.as_str(), &shortened)
+    links::Model::add(&ctx.db, params.url.as_str(), &shortened, user.id)
         .await
         .map_err(|err| {
             let status_code;
             let err_shorthand;
+            let err_desc;
 
             if let AddError::InvalidUrl(ref _e) = err {
                 status_code = StatusCode::BAD_REQUEST;
                 err_shorthand = "INVALID_URL";
+                err_desc = "Invalid URL";
             } else {
                 error!("Error adding: {:?}", err);
                 status_code = StatusCode::INTERNAL_SERVER_ERROR;
                 err_shorthand = "INTERNAL_SERVER_ERROR";
+                err_desc = "Internal server error";
             }
 
-            Error::CustomError(
-                status_code,
-                ErrorDetail {
-                    error: Some(err_shorthand.to_string()),
-                    description: Some(err.to_string()),
-                },
-            )
+            Error::CustomError(status_code, ErrorDetail::new(err_shorthand, err_desc))
         })?;
 
     Ok(Json(AddResponse { shortened }))
 }
 
+/// Generates a random string of a given length
 fn generate_shortened(length: usize) -> String {
     rand::thread_rng()
         .sample_iter(&Alphanumeric)

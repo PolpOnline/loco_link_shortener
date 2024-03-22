@@ -3,8 +3,10 @@ use loco_oauth2::controllers::middleware::OAuth2CookieUser;
 use loco_rs::{
     app::AppContext,
     controller::{format, unauthorized},
+    prelude::*,
 };
 use serde::Serialize;
+use tracing::error;
 
 use crate::models::{
     _entities::{o_auth2_sessions, users},
@@ -33,13 +35,16 @@ pub async fn protected(
     State(ctx): State<AppContext>,
     // Extract the user from the Cookie via middleware
     user: OAuth2CookieUser<OAuth2UserProfile, users::Model, o_auth2_sessions::Model>,
-) -> loco_rs::Result<impl IntoResponse> {
+) -> Result<impl IntoResponse> {
     let user = user.as_ref();
     let jwt_secret = ctx.config.get_jwt_config()?;
 
     let token = user
         .generate_jwt(&jwt_secret.secret, &jwt_secret.expiration)
-        .or_else(|_| unauthorized("unauthorized!"))?;
+        .or_else(|e| {
+            error!("{:?}", e);
+            unauthorized("unauthorized!")
+        })?;
 
     format::json(LoginResponse::new(user.clone(), token))
 }
