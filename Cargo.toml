@@ -32,11 +32,10 @@ uuid = { version = "1.8.0", features = ["v4"] }
 tracing-subscriber = { version = "0.3.17", features = ["env-filter", "json"] }
 
 # view engine i18n
-fluent-templates = { version = "0.9.1", features = ["tera"] }
-unic-langid = "0.9.4"
+#fluent-templates = { version = "0.9.1", features = ["tera"] }
+#unic-langid = "0.9.4"
 color-eyre = "0.6.3"
 rand = "0.8.5"
-lazy_static = "1.4.0"
 thiserror = "1.0.58"
 url = { version = "2.5.0", features = ["serde"] }
 dotenvy = "0.15.7"
