@@ -1,9 +1,9 @@
 use axum::http::HeaderMap;
-use axum_client_ip::SecureClientIp;
+use axum_client_ip::InsecureClientIp;
 
 /// Get the IP address from the request headers (railway.app includes the real
 /// IP in the "x-Envoy-external-Address" or "x-forwarded-for" headers)
-pub fn get_ip(secure_ip: &SecureClientIp, headers: &HeaderMap) -> String {
+pub fn get_ip(ip_address: &InsecureClientIp, headers: &HeaderMap) -> String {
     if let Some(ip) = headers
         .get("x-Envoy-external-Address")
         .and_then(|header| header.to_str().ok())
@@ -19,5 +19,5 @@ pub fn get_ip(secure_ip: &SecureClientIp, headers: &HeaderMap) -> String {
         return ip.to_string();
     }
 
-    secure_ip.0.to_canonical().to_string()
+    ip_address.0.to_canonical().to_string()
 }

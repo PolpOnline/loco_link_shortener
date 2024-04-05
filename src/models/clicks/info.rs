@@ -4,9 +4,8 @@ use loco_rs::{
 };
 use sea_orm::entity::prelude::*;
 
-use crate::models::_entities::clicks;
-
 pub use super::super::_entities::prelude::*;
+use crate::models::_entities::clicks;
 
 #[derive(thiserror::Error, Debug)]
 pub enum InfoError {
