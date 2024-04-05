@@ -16,14 +16,14 @@ pub enum RetrieveError {
 impl links::Model {
     /// Retrieves the original URL from the shortened URL and increases the
     /// click count by adding a new click record
-    pub async fn add_click_and_get_original<T: Into<String> + Send>(
+    pub async fn add_click_and_get_original(
         db: &DatabaseConnection,
-        shortened: T,
+        shortened: String,
         ip_address: String,
         user_agent: Option<String>,
     ) -> std::result::Result<String, RetrieveError> {
         let link = Links::find()
-            .filter(links::Column::Shortened.eq(shortened.into()))
+            .filter(links::Column::Shortened.eq(shortened))
             .one(db)
             .await
             .map_err(ModelError::from)?

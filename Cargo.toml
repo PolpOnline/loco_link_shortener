@@ -57,8 +57,5 @@ rstest = "0.18.2"
 loco-rs = { version = "0.3.2", features = ["testing"] }
 insta = { version = "1.34.0", features = ["redactions", "yaml", "filters"] } 
 
-[profile.dev.package.backtrace]
-opt-level = 3
-
 [profile.release]
 lto = true

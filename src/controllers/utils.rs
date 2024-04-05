@@ -1,10 +1,13 @@
 use std::net::IpAddr;
 
-use axum::http::{HeaderMap, StatusCode};
+use axum::http::StatusCode;
 use loco_rs::{app::AppContext, controller::ErrorDetail, prelude::auth, Error};
 use tracing::error;
 use uuid::Uuid;
 
+use super::custom_headers::{
+    x_envoy_external_address::XEnvoyExternalAddress, x_forwarded_for::XForwardedFor,
+};
 use crate::models::_entities::users;
 
 /// Checks if the user is authenticated and gets the user from the database
@@ -41,19 +44,16 @@ pub async fn get_user_from_jwt(ctx: &AppContext, jwt: auth::JWT) -> loco_rs::Res
 
 /// Get the IP address from the request headers (railway.app includes the real
 /// IP in the "x-Envoy-external-Address" or "x-forwarded-for" headers)
-pub fn get_ip(ip_address: &IpAddr, headers: &HeaderMap) -> String {
-    if let Some(ip) = headers
-        .get("x-Envoy-external-Address")
-        .and_then(|header| header.to_str().ok())
-    {
-        return ip.to_string();
+pub fn get_ip(
+    ip_address: &IpAddr,
+    x_envoy_external_address: Option<XEnvoyExternalAddress>,
+    x_forwarded_for: Option<XForwardedFor>,
+) -> String {
+    if let Some(addr) = x_envoy_external_address {
+        return addr.to_string();
     }
 
-    if let Some(ip) = headers
-        .get("x-forwarded-for")
-        .and_then(|header| header.to_str().ok())
-        .and_then(|header| header.split(',').last())
-    {
+    if let Some(ip) = x_forwarded_for {
         return ip.to_string();
     }
 
