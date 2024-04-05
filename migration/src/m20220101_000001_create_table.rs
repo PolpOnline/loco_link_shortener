@@ -94,6 +94,7 @@ impl MigrationTrait for Migration {
                     .col(ColumnDef::new(Clicks::LinkId).integer().not_null())
                     .col(ColumnDef::new(Clicks::ClickedAt).timestamp().not_null())
                     .col(ColumnDef::new(Clicks::Address).string().not_null())
+                    .col(ColumnDef::new(Clicks::UserAgent).string())
                     .foreign_key(
                         ForeignKey::create()
                             .name("fk-clicks-link-id")
@@ -139,6 +140,7 @@ pub enum Clicks {
     LinkId,
     ClickedAt,
     Address,
+    UserAgent,
 }
 
 #[derive(DeriveIden)]

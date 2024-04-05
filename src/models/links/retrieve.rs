@@ -20,6 +20,7 @@ impl links::Model {
         db: &DatabaseConnection,
         shortened: T,
         ip_address: String,
+        user_agent: Option<String>,
     ) -> std::result::Result<String, RetrieveError> {
         let link = Links::find()
             .filter(links::Column::Shortened.eq(shortened.into()))
@@ -32,6 +33,7 @@ impl links::Model {
             link_id: Set(link.id),
             clicked_at: Set(chrono::Utc::now().naive_local()),
             address: Set(ip_address),
+            user_agent: Set(user_agent),
             ..Default::default()
         }
         .insert(db)

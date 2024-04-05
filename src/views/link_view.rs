@@ -14,6 +14,7 @@ pub struct InfoLinkView {
 pub struct InfoClick {
     pub clicked_at: String,
     pub address: String,
+    pub user_agent: Option<String>,
 }
 
 impl InfoLinkView {
@@ -31,16 +32,21 @@ impl InfoLinkView {
 }
 
 impl InfoClick {
-    pub fn new(clicked_at: String, address: String) -> InfoClick {
+    pub fn new(clicked_at: String, address: String, user_agent: Option<String>) -> InfoClick {
         InfoClick {
             clicked_at,
             address,
+            user_agent,
         }
     }
 }
 
 impl From<clicks::Model> for InfoClick {
     fn from(click: clicks::Model) -> Self {
-        InfoClick::new(click.clicked_at.to_string(), click.address.to_string())
+        InfoClick {
+            clicked_at: click.clicked_at.to_string(),
+            address: click.address,
+            user_agent: click.user_agent,
+        }
     }
 }

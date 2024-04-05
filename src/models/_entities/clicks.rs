@@ -11,6 +11,7 @@ pub struct Model {
     pub link_id: i32,
     pub clicked_at: DateTime,
     pub address: String,
+    pub user_agent: Option<String>,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]
