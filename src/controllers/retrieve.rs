@@ -25,6 +25,7 @@ pub async fn retrieve(
         .map_err(|err| {
             let status_code;
             let err_shorthand;
+            let mut err_desc = err.to_string();
 
             if let RetrieveError::NotFound = err {
                 status_code = StatusCode::NOT_FOUND;
@@ -33,15 +34,10 @@ pub async fn retrieve(
                 error!("Error retrieving: {:?}", err);
                 status_code = StatusCode::INTERNAL_SERVER_ERROR;
                 err_shorthand = "INTERNAL_SERVER_ERROR";
+                err_desc = "Internal server error".to_string();
             }
 
-            Error::CustomError(
-                status_code,
-                ErrorDetail {
-                    error: Some(err_shorthand.to_string()),
-                    description: Some(err.to_string()),
-                },
-            )
+            Error::CustomError(status_code, ErrorDetail::new(err_shorthand, &err_desc))
         })?;
 
     Ok(Redirect::temporary(&original))

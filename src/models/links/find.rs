@@ -6,7 +6,7 @@ use crate::models::_entities::links;
 
 #[derive(thiserror::Error, Debug)]
 pub enum InfoError {
-    #[error("Not found")]
+    #[error("Link not found")]
     NotFound,
 
     #[error(transparent)]

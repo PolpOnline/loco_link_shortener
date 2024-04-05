@@ -76,20 +76,19 @@ pub async fn add(
         .map_err(|err| {
             let status_code;
             let err_shorthand;
-            let err_desc;
+            let mut err_desc = err.to_string();
 
             if let AddError::InvalidUrl(ref _e) = err {
                 status_code = StatusCode::BAD_REQUEST;
                 err_shorthand = "INVALID_URL";
-                err_desc = "Invalid URL";
             } else {
                 error!("Error adding: {:?}", err);
                 status_code = StatusCode::INTERNAL_SERVER_ERROR;
                 err_shorthand = "INTERNAL_SERVER_ERROR";
-                err_desc = "Internal server error";
+                err_desc = "Internal server error".to_string();
             }
 
-            Error::CustomError(status_code, ErrorDetail::new(err_shorthand, err_desc))
+            Error::CustomError(status_code, ErrorDetail::new(err_shorthand, &err_desc))
         })?;
 
     Ok(Json(AddResponse { shortened }))

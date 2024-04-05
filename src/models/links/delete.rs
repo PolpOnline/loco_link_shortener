@@ -6,10 +6,10 @@ use crate::models::{_entities::links, links::find::InfoError};
 
 #[derive(thiserror::Error, Debug)]
 pub enum DeleteError {
-    #[error("Not found")]
+    #[error("Link not found")]
     NotFound,
 
-    #[error("User id not matching with shortened")]
+    #[error("Shortened link does not belong to the user")]
     UserIdNotMatching,
 
     #[error(transparent)]

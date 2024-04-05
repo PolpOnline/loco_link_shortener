@@ -30,20 +30,19 @@ pub async fn info(
         .map_err(|err| {
             let status_code;
             let err_shorthand;
-            let err_desc;
+            let mut err_desc = err.to_string();
 
             if let InfoError::NotFound = err {
                 status_code = StatusCode::NOT_FOUND;
                 err_shorthand = "NOT_FOUND";
-                err_desc = "Link not found";
             } else {
                 error!("Error getting info: {:?}", err);
                 status_code = StatusCode::INTERNAL_SERVER_ERROR;
                 err_shorthand = "INTERNAL_SERVER_ERROR";
-                err_desc = "Internal server error";
+                err_desc = "Internal server error".to_string();
             }
 
-            Error::CustomError(status_code, ErrorDetail::new(err_shorthand, err_desc))
+            Error::CustomError(status_code, ErrorDetail::new(err_shorthand, &err_desc))
         })?;
 
     let clicks = clicks::Model::get_clicks_by_id(&ctx.db, link.id).await?;
