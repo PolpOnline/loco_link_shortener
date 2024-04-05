@@ -5,12 +5,7 @@ use headers::UserAgent;
 use loco_rs::{controller::ErrorDetail, prelude::*};
 use tracing::error;
 
-use super::{
-    custom_headers::{
-        x_envoy_external_address::XEnvoyExternalAddress, x_forwarded_for::XForwardedFor,
-    },
-    utils::get_ip,
-};
+use super::{custom_headers::x_envoy_external_address::XEnvoyExternalAddress, utils::get_ip};
 use crate::models::{_entities::links, links::retrieve::RetrieveError};
 
 /// Retrieves the original URL from the shortened URL and redirects to it
@@ -20,9 +15,8 @@ pub async fn retrieve(
     InsecureClientIp(ip_address): InsecureClientIp,
     user_agent: Option<TypedHeader<UserAgent>>,
     x_envoy_external_address: Option<TypedHeader<XEnvoyExternalAddress>>,
-    x_forwarded_for: Option<TypedHeader<XForwardedFor>>,
 ) -> Result<impl IntoResponse> {
-    let ip_address = get_ip(&ip_address, x_envoy_external_address, x_forwarded_for);
+    let ip_address = get_ip(&ip_address, x_envoy_external_address);
 
     let user_agent = user_agent.map(|ua| ua.to_string());
 
