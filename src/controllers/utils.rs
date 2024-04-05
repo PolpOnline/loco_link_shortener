@@ -1,6 +1,7 @@
 use std::net::IpAddr;
 
 use axum::http::StatusCode;
+use axum_extra::TypedHeader;
 use loco_rs::{app::AppContext, controller::ErrorDetail, prelude::auth, Error};
 use tracing::error;
 use uuid::Uuid;
@@ -46,14 +47,14 @@ pub async fn get_user_from_jwt(ctx: &AppContext, jwt: auth::JWT) -> loco_rs::Res
 /// IP in the "x-Envoy-external-Address" or "x-forwarded-for" headers)
 pub fn get_ip(
     ip_address: &IpAddr,
-    x_envoy_external_address: Option<XEnvoyExternalAddress>,
-    x_forwarded_for: Option<XForwardedFor>,
+    x_envoy_external_address: Option<TypedHeader<XEnvoyExternalAddress>>,
+    x_forwarded_for: Option<TypedHeader<XForwardedFor>>,
 ) -> String {
-    if let Some(addr) = x_envoy_external_address {
+    if let Some(TypedHeader(addr)) = x_envoy_external_address {
         return addr.to_string();
     }
 
-    if let Some(ip) = x_forwarded_for {
+    if let Some(TypedHeader(ip)) = x_forwarded_for {
         return ip.to_string();
     }
 

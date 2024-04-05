@@ -17,15 +17,12 @@ use crate::models::{_entities::links, links::retrieve::RetrieveError};
 pub async fn retrieve(
     State(ctx): State<AppContext>,
     Path(shortened): Path<String>,
-    address: InsecureClientIp,
+    InsecureClientIp(ip_address): InsecureClientIp,
     user_agent: Option<TypedHeader<UserAgent>>,
     x_envoy_external_address: Option<TypedHeader<XEnvoyExternalAddress>>,
     x_forwarded_for: Option<TypedHeader<XForwardedFor>>,
 ) -> Result<impl IntoResponse> {
-    let x_envoy_external_address = x_envoy_external_address.map(|x| x.0);
-    let x_forwarded_for = x_forwarded_for.map(|x| x.0);
-
-    let ip_address = get_ip(&address.0, x_envoy_external_address, x_forwarded_for);
+    let ip_address = get_ip(&ip_address, x_envoy_external_address, x_forwarded_for);
 
     let user_agent = user_agent.map(|ua| ua.to_string());
 
