@@ -1,7 +1,14 @@
-import { purgeCss } from 'vite-plugin-tailwind-purgecss';
-import { sveltekit } from '@sveltejs/kit/vite';
 import { defineConfig } from 'vite';
+import { svelte } from '@sveltejs/vite-plugin-svelte';
+import Icons from 'unplugin-icons/vite';
 
+// https://vitejs.dev/config/
 export default defineConfig({
-	plugins: [sveltekit(), purgeCss()]
+  plugins: [
+    svelte(),
+    Icons({
+      compiler: 'svelte',
+      autoInstall: true
+    })
+  ]
 });
