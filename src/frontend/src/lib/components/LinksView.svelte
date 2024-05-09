@@ -1,5 +1,5 @@
 <script lang="ts">
-	import LinkCard from './LinkCard.svelte';
+	import { LinkCard } from '$components';
 
 	// let cards = [];
 
@@ -23,11 +23,11 @@
 </script>
 
 <div>
-	<h1> Your links </h1>
+	<h1 class="text-body"> Your links </h1>
 
 	<div class="row">
 		{#each mockData as card}
-			<div class="col-md-4 col-12 d-flex align-items-stretch">
+			<div class="col-md-4 col-12 d-flex align-items-stretch g-4">
 				<LinkCard image={card.image}
 									original={card.original}
 									shortened={card.shortened}

@@ -52,7 +52,7 @@
 	{#if shortenedUrl}
 		<div transition:slide>
 			<div class="row mt-2">
-				<div class="col-12">
+				<div class="col-12 text-body">
 					Your shortened url is:
 				</div>
 			</div>

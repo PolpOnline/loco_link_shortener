@@ -1,9 +1,8 @@
 <script lang="ts">
-	import LinkBrief from './LinkBrief.svelte';
-	import DefaultLinkImage from './DefaultLinkImage.svelte';
+	import { DefaultLinkImage, LinkBrief } from '$components';
 
 	export let name: string;
-	export let image: string;
+	export let image: string | undefined;
 	export let original: string;
 	export let shortened: string;
 	export let createdAt: Date;
