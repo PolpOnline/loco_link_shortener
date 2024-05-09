@@ -54,8 +54,8 @@ server:
       # Set the value of the [`Access-Control-Max-Age`][mdn] header in seconds
       # max_age: 3600
     static:
-      enable: true
-      must_exist: true
+      enable: false
+      must_exist: false
       folder:
         uri: "/"
         path: "frontend/dist"
@@ -89,13 +89,7 @@ mailer:
 # Database Configuration
 database:
   # Database connection URI
-  uri:
-    {
-      {
-        get_env(name="DATABASE_URL",
-        default="postgres://loco:loco@localhost:5432/loco_link_shortener_test"),
-      },
-    }
+  uri: {{get_env(name="DATABASE_URL", default="postgres://loco:loco@localhost:5432/loco_link_shortener_test")}}
   # When enabled, the sql query will be logged.
   enable_logging: false
   # Set the timeout duration when acquiring a connection.
@@ -128,4 +122,3 @@ auth:
     secret: mDXfdUkSoW5okuPbhV9O
     # Token expiration time in seconds
     expiration: 604800 # 7 days
-
