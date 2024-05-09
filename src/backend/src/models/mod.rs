@@ -9,5 +9,7 @@ pub mod users;
 impl ActiveModelBehavior for _entities::o_auth2_sessions::ActiveModel {}
 
 impl ActiveModelBehavior for _entities::users::ActiveModel {}
+
 impl ActiveModelBehavior for _entities::links::ActiveModel {}
+
 impl ActiveModelBehavior for _entities::clicks::ActiveModel {}

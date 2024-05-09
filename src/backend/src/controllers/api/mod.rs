@@ -1,9 +1,9 @@
+use loco_rs::prelude::*;
+
 pub mod add;
 pub mod delete;
 pub mod info;
 pub mod list;
-
-use loco_rs::prelude::*;
 
 pub fn routes() -> Routes {
     Routes::new()

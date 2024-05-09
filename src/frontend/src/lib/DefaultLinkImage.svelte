@@ -1,6 +1,4 @@
-<script lang="ts">
-    import HeroiconsLink from '~icons/heroicons/link';
-</script>
+<script lang="ts"></script>
 
 <div class="d-flex
             justify-content-center
@@ -9,5 +7,5 @@
             text-white
             w-100
             h-100">
-    <HeroiconsLink class="fs-1"/>
+	<HeroiconsLink class="fs-1" />
 </div>
