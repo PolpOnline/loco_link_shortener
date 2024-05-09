@@ -33,6 +33,9 @@ importers:
       '@sveltejs/vite-plugin-svelte':
         specifier: ^3.0.0
         version: 3.1.0(svelte@4.2.16)(vite@5.2.11(@types/node@20.12.11)(sass@1.77.0))
+      '@sveltejs/vite-plugin-svelte-inspector':
+        specifier: ^2.1.0
+        version: 2.1.0(@sveltejs/vite-plugin-svelte@3.1.0(svelte@4.2.16)(vite@5.2.11(@types/node@20.12.11)(sass@1.77.0)))(svelte@4.2.16)(vite@5.2.11(@types/node@20.12.11)(sass@1.77.0))
       '@types/bootstrap':
         specifier: ^5.2.10
         version: 5.2.10

@@ -3,6 +3,15 @@ import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
+	vitePlugin: {
+		// set to true for defaults or customize with object
+		inspector: {
+			toggleKeyCombo: 'control-shift',
+			showToggleButton: 'always',
+			toggleButtonPos: 'bottom-right'
+		}
+	},
+
 	preprocess: [vitePreprocess()],
 
 	kit: {
