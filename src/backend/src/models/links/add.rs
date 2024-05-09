@@ -16,11 +16,13 @@ pub enum AddError {
 impl links::Model {
     pub async fn add<T: Into<String> + Send>(
         db: &DatabaseConnection,
+        name: T,
         original: T,
         shortened: T,
         user_id: i32,
     ) -> std::result::Result<(), AddError> {
         ActiveModel {
+            name: Set(name.into()),
             original: Set(original.into()),
             shortened: Set(shortened.into()),
             user_id: Set(user_id),

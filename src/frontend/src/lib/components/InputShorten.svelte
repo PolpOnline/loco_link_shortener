@@ -49,6 +49,7 @@
 	<!--				shortenedUrl = 'a'-->
 	<!--			}-->
 	<!--		}}></button>-->
+	<!--	TODO: Add custom name and custom shortened part -->
 	{#if shortenedUrl}
 		<div transition:slide>
 			<div class="row mt-2">

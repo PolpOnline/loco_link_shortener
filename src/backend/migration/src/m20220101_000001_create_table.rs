@@ -43,6 +43,7 @@ impl MigrationTrait for Migration {
                             .auto_increment()
                             .primary_key(),
                     )
+                    .col(ColumnDef::new(Links::Name).string().not_null().unique_key())
                     .col(
                         ColumnDef::new(Links::Original)
                             .string()
@@ -127,6 +128,7 @@ impl MigrationTrait for Migration {
 pub enum Links {
     Table,
     Id,
+    Name,
     Original,
     Shortened,
     CreatedAt,

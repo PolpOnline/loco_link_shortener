@@ -33,6 +33,7 @@ pub mod types {
 
     #[derive(Deserialize, Validate)]
     pub struct AddRequest {
+        pub name: String,
         pub url: String,
         pub custom: Option<String>,
     }
@@ -71,25 +72,31 @@ pub async fn add(
 
     let shortened = generate_shortened(settings.shortened_length);
 
-    links::Model::add(&ctx.db, params.url.as_str(), &shortened, user.id)
-        .await
-        .map_err(|err| {
-            let status_code;
-            let err_shorthand;
-            let mut err_desc = err.to_string();
+    links::Model::add(
+        &ctx.db,
+        params.name.as_str(),
+        params.url.as_str(),
+        &shortened,
+        user.id,
+    )
+    .await
+    .map_err(|err| {
+        let status_code;
+        let err_shorthand;
+        let mut err_desc = err.to_string();
 
-            if let AddError::InvalidUrl(ref _e) = err {
-                status_code = StatusCode::BAD_REQUEST;
-                err_shorthand = "INVALID_URL";
-            } else {
-                error!("Error adding: {:?}", err);
-                status_code = StatusCode::INTERNAL_SERVER_ERROR;
-                err_shorthand = "INTERNAL_SERVER_ERROR";
-                err_desc = "Internal server error".to_string();
-            }
+        if let AddError::InvalidUrl(ref _e) = err {
+            status_code = StatusCode::BAD_REQUEST;
+            err_shorthand = "INVALID_URL";
+        } else {
+            error!("Error adding: {:?}", err);
+            status_code = StatusCode::INTERNAL_SERVER_ERROR;
+            err_shorthand = "INTERNAL_SERVER_ERROR";
+            err_desc = "Internal server error".to_string();
+        }
 
-            Error::CustomError(status_code, ErrorDetail::new(err_shorthand, &err_desc))
-        })?;
+        Error::CustomError(status_code, ErrorDetail::new(err_shorthand, &err_desc))
+    })?;
 
     Ok(Json(AddResponse { shortened }))
 }
