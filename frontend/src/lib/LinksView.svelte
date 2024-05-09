@@ -13,7 +13,7 @@
 		},
 		{
 			name: 'Bing',
-			image: 'test.jpg',
+			image: undefined,
 			original: 'https://www.bing.com',
 			shortened: 'def456',
 			createdAt: new Date()
@@ -27,7 +27,7 @@
 
 	<div class="row">
 		{#each mockData as card}
-			<div class="col-md-4 col-12">
+			<div class="col-md-4 col-12 d-flex align-items-stretch">
 				<LinkCard image={card.image}
 									original={card.original}
 									shortened={card.shortened}
