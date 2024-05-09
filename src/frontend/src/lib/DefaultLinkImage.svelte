@@ -1,4 +1,6 @@
-<script lang="ts"></script>
+<script lang="ts">
+	import HeroiconsLink from '~icons/heroicons/link';
+</script>
 
 <div class="d-flex
             justify-content-center

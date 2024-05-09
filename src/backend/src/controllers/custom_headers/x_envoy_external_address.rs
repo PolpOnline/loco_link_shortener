@@ -1,3 +1,5 @@
+use std::fmt::Display;
+
 use headers::{Header, HeaderName, HeaderValue};
 
 pub struct XEnvoyExternalAddress(String);
@@ -8,9 +10,9 @@ impl XEnvoyExternalAddress {
     }
 }
 
-impl ToString for XEnvoyExternalAddress {
-    fn to_string(&self) -> String {
-        self.0.clone()
+impl Display for XEnvoyExternalAddress {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{}", self.0.clone())
     }
 }
 
