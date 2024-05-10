@@ -15,6 +15,10 @@ jobs:
     name: Check Style
     runs-on: ubuntu-latest
 
+    defaults:
+      run:
+        working-directory: ./src/backend
+
     permissions:
       contents: read
 
@@ -37,6 +41,10 @@ jobs:
     name: Run Clippy
     runs-on: ubuntu-latest
 
+    defaults:
+      run:
+        working-directory: ./src/backend
+
     permissions:
       contents: read
 
@@ -58,6 +66,11 @@ jobs:
   test:
     name: Run Tests
     runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ./src/backend
+
 
     permissions:
       contents: read
