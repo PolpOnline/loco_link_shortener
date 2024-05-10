@@ -15,10 +15,6 @@ jobs:
     name: Check Style
     runs-on: ubuntu-latest
 
-    defaults:
-      run:
-        working-directory: ./src/backend
-
     permissions:
       contents: read
 
@@ -36,14 +32,12 @@ jobs:
         with:
           command: fmt
           args: --all -- --check
-
+        run: |
+          cd ./src/backend
+          
   clippy:
     name: Run Clippy
     runs-on: ubuntu-latest
-
-    defaults:
-      run:
-        working-directory: ./src/backend
 
     permissions:
       contents: read
@@ -62,19 +56,16 @@ jobs:
         uses: actions-rs/cargo@v1
         with:
           command: clippy
-
+        run: |
+          cd ./src/backend
+          
   test:
     name: Run Tests
     runs-on: ubuntu-latest
 
-    defaults:
-      run:
-        working-directory: ./src/backend
-
-
     permissions:
       contents: read
-    
+
     services:
       redis:
         image: redis
@@ -117,4 +108,5 @@ jobs:
         env:
           REDIS_URL: redis://localhost:${{job.services.redis.ports[6379]}}
           DATABASE_URL: postgres://postgres:postgres@localhost:5432/postgres_test
-          
+        run: |
+          cd ./src/backend
