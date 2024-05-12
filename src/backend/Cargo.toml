@@ -47,7 +47,7 @@ axum-extra = { version = "0.9.3", features = ["typed-header"] }
 # /view engine
 
 [[bin]]
-name = "loco_link_shortener-cli"
+name = "main"
 path = "src/bin/main.rs"
 required-features = []
 

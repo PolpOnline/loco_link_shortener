@@ -1,0 +1,6 @@
+[phases.build]
+cmds = ['mkdir -p bin', 'cargo build --release', 'cp target/release/main bin/', 'cp -r config/ bin/']
+
+
+[start]
+cmd = './bin/main start -e production'
