@@ -6,6 +6,7 @@ pub struct Migration;
 #[async_trait::async_trait]
 impl MigrationTrait for Migration {
     async fn up(&self, manager: &SchemaManager) -> Result<(), DbErr> {
+        // User table
         manager
             .create_table(
                 Table::create()
@@ -32,6 +33,7 @@ impl MigrationTrait for Migration {
             )
             .await?;
 
+        // Links table
         manager
             .create_table(
                 Table::create()
@@ -43,13 +45,8 @@ impl MigrationTrait for Migration {
                             .auto_increment()
                             .primary_key(),
                     )
-                    .col(ColumnDef::new(Links::Name).string().not_null().unique_key())
-                    .col(
-                        ColumnDef::new(Links::Original)
-                            .string()
-                            .not_null()
-                            .unique_key(),
-                    )
+                    .col(ColumnDef::new(Links::Name).string().not_null())
+                    .col(ColumnDef::new(Links::Original).string().not_null())
                     .col(
                         ColumnDef::new(Links::Shortened)
                             .string()
@@ -81,6 +78,7 @@ impl MigrationTrait for Migration {
             )
             .await?;
 
+        // Clicks table
         manager
             .create_table(
                 Table::create()
