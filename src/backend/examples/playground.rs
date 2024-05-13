@@ -17,7 +17,7 @@ async fn main() -> color_eyre::Result<()> {
 
     // let res = articles::Entity::find().all(&ctx.db).await.unwrap();
     // println!("{:?}", res);
-    println!("Welcome to Playground. Edit me at `examples/playground.rs`");
+    println!("Welcome to Playground. You can edit me at `examples/playground.rs`");
 
     Ok(())
 }
