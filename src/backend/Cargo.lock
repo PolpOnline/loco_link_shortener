@@ -1787,6 +1787,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "getopts"
+version = "0.2.21"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "14dbbfd5c71d70241ecf9e6f13737f7b5ce823821063188d7e46c41d371eebd5"
+dependencies = [
+ "unicode-width",
+]
+
+[[package]]
 name = "getrandom"
 version = "0.2.15"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2680,6 +2689,7 @@ dependencies = [
  "url",
  "uuid",
  "validator 0.18.1",
+ "witty-phrase-generator",
 ]
 
 [[package]]
@@ -5914,6 +5924,16 @@ name = "winsplit"
 version = "0.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3ab703352da6a72f35c39a533526393725640575bb211f61987a2748323ad956"
+
+[[package]]
+name = "witty-phrase-generator"
+version = "0.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "775ccf0bffa4cae6de1c534ffda97b032d7144d648bcc07ad56f73ac4b064b6b"
+dependencies = [
+ "getopts",
+ "rand",
+]
 
 [[package]]
 name = "wyz"

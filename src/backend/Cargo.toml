@@ -44,6 +44,7 @@ loco-oauth2 = "0.1.1"
 axum_session = "0.13.0"
 headers = "0.4.0"
 axum-extra = { version = "0.9.3", features = ["typed-header"] }
+witty-phrase-generator = "0.2.0"
 # /view engine
 
 [[bin]]

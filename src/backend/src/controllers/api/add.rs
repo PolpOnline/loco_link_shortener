@@ -2,6 +2,7 @@ use axum::http::StatusCode;
 use loco_rs::{controller::ErrorDetail, prelude::*};
 use rand::{distributions::Alphanumeric, Rng};
 use tracing::error;
+use witty_phrase_generator::WPGen;
 
 use crate::{
     common,
@@ -33,7 +34,7 @@ pub mod types {
 
     #[derive(Deserialize, Validate)]
     pub struct AddRequest {
-        pub name: String,
+        pub name: Option<String>,
         pub url: String,
         pub custom: Option<String>,
     }
@@ -55,6 +56,13 @@ pub async fn add(
     let settings = &ctx.config.settings.unwrap();
     let settings = common::settings::Settings::from_json(settings)?;
 
+    let name = params.name.unwrap_or_else(|| {
+        generate_witty_name().unwrap_or_else(|e| {
+            error!("Could not generate witty name {}", e);
+            "Link".to_string()
+        })
+    });
+
     if let Some(custom) = &params.custom {
         if custom.len() > settings.max_custom_length {
             return Err(Error::CustomError(
@@ -74,7 +82,7 @@ pub async fn add(
 
     links::Model::add(
         &ctx.db,
-        params.name.as_str(),
+        name.as_str(),
         params.url.as_str(),
         &shortened,
         user.id,
@@ -108,4 +116,21 @@ fn generate_shortened(length: usize) -> String {
         .take(length)
         .map(char::from)
         .collect()
+}
+
+fn generate_witty_name() -> Result<String> {
+    let wp_gen = WPGen::new();
+
+    Ok(wp_gen
+        .generic(
+            3,        // words per phrase
+            1,        // phrases
+            None,     // minimum length
+            Some(25), // maximum length
+            None,
+        )
+        .ok_or(Error::Message(
+            "Could not generate a witty phrase".to_string(),
+        ))?[0]
+        .join(" "))
 }

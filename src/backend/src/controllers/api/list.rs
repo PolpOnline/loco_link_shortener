@@ -10,7 +10,7 @@ pub struct ListResponse {
 
 #[derive(Serialize)]
 pub struct Link {
-    // name: String,
+    name: String,
     original: String,
     shortened: String,
     created_at: DateTime,
@@ -25,7 +25,7 @@ impl ListResponse {
 impl From<links::Model> for Link {
     fn from(link: links::Model) -> Self {
         Link {
-            // name: link.name,
+            name: link.name,
             original: link.original,
             shortened: link.shortened,
             created_at: link.created_at,

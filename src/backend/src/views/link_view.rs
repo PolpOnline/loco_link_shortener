@@ -5,6 +5,7 @@ use crate::models::_entities::{clicks, links};
 
 #[derive(Serialize)]
 pub struct InfoLinkView {
+    pub name: String,
     pub original: String,
     pub clicks: Vec<InfoClick>,
     pub created_at: DateTime,
@@ -19,14 +20,11 @@ pub struct InfoClick {
 
 impl InfoLinkView {
     pub fn new(link: links::Model, clicks: Vec<clicks::Model>) -> InfoLinkView {
-        let original = link.original;
-        let created_at = link.created_at;
-        let clicks = clicks.into_iter().map(InfoClick::from).collect();
-
         InfoLinkView {
-            original,
-            clicks,
-            created_at,
+            name: link.name,
+            original: link.original,
+            clicks: clicks.into_iter().map(InfoClick::from).collect(),
+            created_at: link.created_at,
         }
     }
 }
