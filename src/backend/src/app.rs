@@ -57,7 +57,6 @@ impl Hooks for App {
 
     async fn initializers(_ctx: &AppContext) -> Result<Vec<Box<dyn Initializer>>> {
         Ok(vec![
-            // Box::new(initializers::cors_layer::CorsLayerInitializer),
             Box::new(initializers::axum_session::AxumSessionInitializer),
             Box::new(initializers::ip_getter::IPGetterInitializer),
             Box::new(initializers::oauth2::OAuth2StoreInitializer),
