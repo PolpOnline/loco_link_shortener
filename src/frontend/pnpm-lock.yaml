@@ -27,6 +27,12 @@ importers:
       '@iconify-json/heroicons':
         specifier: ^1.1.21
         version: 1.1.21
+      '@iconify-json/iconoir':
+        specifier: ^1.1.44
+        version: 1.1.44
+      '@iconify-json/mdi':
+        specifier: ^1.1.66
+        version: 1.1.66
       '@sveltejs/adapter-auto':
         specifier: ^3.0.0
         version: 3.2.0(@sveltejs/kit@2.5.7(@sveltejs/vite-plugin-svelte@3.1.0(svelte@4.2.16)(vite@5.2.11(@types/node@20.12.11)(sass@1.77.0)))(svelte@4.2.16)(vite@5.2.11(@types/node@20.12.11)(sass@1.77.0)))
@@ -468,6 +474,12 @@ packages:
 
   '@iconify-json/heroicons@1.1.21':
     resolution: {integrity: sha512-A+3L4KN+TjH3V8fQ2N2dkOOnLLxMgMBzO8RDT0P9YL+YzvLMIbe/lkDLSB8NB8x0DKWmkvTimoo1l4DKMwi7Zg==}
+
+  '@iconify-json/iconoir@1.1.44':
+    resolution: {integrity: sha512-XZZ6+nIgS3BUWTmIvZ1Um/TZcUsOEVDGOTZ50hihoTWYjfLLmPlxS/jxrTTpjJO/98wbyiDz4WOXFGqBrXMLPw==}
+
+  '@iconify-json/mdi@1.1.66':
+    resolution: {integrity: sha512-7KPF2RVUUWav/hXCM8Ti/smqu3cmgePJpiX9CSkldiL+80+eBRBeKlc4vPOc9jhAItlqIU1vKsbKoPP0JIfgbg==}
 
   '@iconify/types@2.0.0':
     resolution: {integrity: sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==}
@@ -2022,6 +2034,14 @@ snapshots:
       '@iconify/types': 2.0.0
 
   '@iconify-json/heroicons@1.1.21':
+    dependencies:
+      '@iconify/types': 2.0.0
+
+  '@iconify-json/iconoir@1.1.44':
+    dependencies:
+      '@iconify/types': 2.0.0
+
+  '@iconify-json/mdi@1.1.66':
     dependencies:
       '@iconify/types': 2.0.0
 

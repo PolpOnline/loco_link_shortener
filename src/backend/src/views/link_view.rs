@@ -7,6 +7,7 @@ use crate::models::_entities::{clicks, links};
 pub struct InfoLinkView {
     pub name: String,
     pub original: String,
+    pub shortened: String,
     pub clicks: Vec<InfoClick>,
     pub created_at: DateTime,
 }
@@ -23,6 +24,7 @@ impl InfoLinkView {
         InfoLinkView {
             name: link.name,
             original: link.original,
+            shortened: link.shortened,
             clicks: clicks.into_iter().map(InfoClick::from).collect(),
             created_at: link.created_at,
         }

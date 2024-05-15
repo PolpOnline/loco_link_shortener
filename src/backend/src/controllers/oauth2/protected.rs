@@ -1,4 +1,4 @@
-use axum::{debug_handler, extract::State, response::IntoResponse};
+use axum::{extract::State, response::IntoResponse};
 use loco_oauth2::controllers::middleware::OAuth2CookieUser;
 use loco_rs::{
     app::AppContext,

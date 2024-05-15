@@ -1,11 +1,13 @@
 import { error } from '@sveltejs/kit';
 import { dev } from '$app/environment';
 
-export let base = 'http://localhost:3000/api';
+export let base = 'http://localhost:3000';
 
 if (!dev) {
-	base = 'https://s.polp.online/api';
+	base = 'https://s.polp.online';
 }
+
+let apiBase = base + '/api';
 
 type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
 
@@ -27,7 +29,7 @@ interface SendOptions {
 	token?: string;
 }
 
-async function send({ method, path, data, token }: SendOptions): Promise<Response> {
+async function send({ method, path, data, token }: SendOptions): Promise<any> {
 	const opts: RequestOptions = { method, headers: {} };
 
 	if (data) {
@@ -41,7 +43,7 @@ async function send({ method, path, data, token }: SendOptions): Promise<Respons
 
 	opts.credentials = 'include';
 
-	const res = await fetch(`${base}/${path}`, opts);
+	const res = await fetch(`${apiBase}/${path}`, opts);
 	if (res.ok || res.status === 422) {
 		const text = await res.text();
 
@@ -60,8 +62,8 @@ export function get(path: string, token?: string) {
 	return send({ method: 'GET', path, token });
 }
 
-export function del(path: string, token?: string) {
-	return send({ method: 'DELETE', path, token });
+export function del(path: string, data: any, token?: string) {
+	return send({ method: 'DELETE', path, data, token });
 }
 
 export function post(path: string, data: any, token?: string) {
