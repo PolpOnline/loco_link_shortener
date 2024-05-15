@@ -26,7 +26,7 @@ const config = {
 				exclude: ['<all>']
 			},
 			platformProxy: {
-				persist: './your-custom-path'
+				persist: true
 			}
 		})
 	}

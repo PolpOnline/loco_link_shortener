@@ -10,7 +10,9 @@ impl Initializer for AxumSessionInitializer {
         "axum-session".to_string()
     }
 
-    async fn after_routes(&self, router: AxumRouter, _ctx: &AppContext) -> Result<AxumRouter> {
+    async fn after_routes(&self, router: AxumRouter, ctx: &AppContext) -> Result<AxumRouter> {
+        let db = &ctx.db;
+
         // Create the session store configuration
         let session_config =
             axum_session::SessionConfig::default().with_table_name("sessions_table");
