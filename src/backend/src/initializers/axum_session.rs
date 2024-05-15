@@ -19,7 +19,7 @@ impl Initializer for AxumSessionInitializer {
             .with_secure(false)
             .with_cookie_same_site(SameSite::None)
             .with_cookie_domain("localhost:5173")
-            .with_cookie_domain("/login");
+            .with_cookie_path("/login");
         // Create the session store
         let session_store =
             axum_session::SessionStore::<axum_session::SessionNullPool>::new(None, session_config)
