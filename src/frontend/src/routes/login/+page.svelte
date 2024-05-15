@@ -10,9 +10,9 @@
     // 		.catch(err => console.error(err)));
     // }
     async function redirect() {
-        const res = await fetch(`http://localhost:3000/api/oauth2/google`, {});
-		// get the response header
-		console.log(res.headers.getSetCookie())
+        const res = await fetch("http://localhost:3000/api/oauth2/google", {
+            credentials:"include"
+        })
 
         if (!res.ok) {
             throw Error(res.text());
