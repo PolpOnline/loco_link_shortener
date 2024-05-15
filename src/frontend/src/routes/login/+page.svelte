@@ -12,13 +12,13 @@
 	async function redirect() {
 		const res = await get('oauth2/google');
 
-		console.log(res.text());
+		const text = await res.text();
 
 		if (!res.ok) {
-			throw Error(res.text());
+			throw Error(text);
 		}
 
-		window.location.href = await res.text();
+		window.location.href = text;
 	}
 </script>
 
