@@ -18,7 +18,7 @@
             throw Error(res.text());
         }
 
-        // window.location.href = await res.text();
+        window.location.href = await res.text();
     }
 </script>
 
