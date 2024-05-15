@@ -162,5 +162,5 @@ settings:
             - {{get_env(name="SCOPES_1", default="https://www.googleapis.com/auth/userinfo.email")}} # Scopes for requesting access to user data
             - {{get_env(name="SCOPES_2", default="https://www.googleapis.com/auth/userinfo.profile")}} # Scopes for requesting access to user data
         cookie_config:
-          protected_url: {{get_env(name="PROTECTED_URL", default="https://s.polp.online/api/oauth2/protected")}} # Optional - For redirecting to protect url in cookie to prevent XSS attack
+          protected_url: {{get_env(name="PROTECTED_URL", default="https://short.polp.online/login/callback")}} # Optional - For redirecting to protect url in cookie to prevent XSS attack
         timeout_seconds: 600 # Optional, default 600 seconds

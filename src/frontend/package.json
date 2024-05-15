@@ -12,7 +12,7 @@
 		"format": "prettier --write ."
 	},
 	"devDependencies": {
-      "@iconify-json/flat-color-icons": "^1.1.10",
+		"@iconify-json/flat-color-icons": "^1.1.10",
 		"@iconify-json/heroicons": "^1.1.21",
 		"@sveltejs/adapter-auto": "^3.0.0",
 		"@sveltejs/adapter-cloudflare": "^4.4.0",
@@ -41,6 +41,7 @@
 	"dependencies": {
 		"@popperjs/core": "^2.11.8",
 		"bootstrap": "^5.3.3",
+		"svelte-persisted-store": "^0.9.2",
 		"unplugin-icons": "^0.19.0"
 	}
 }

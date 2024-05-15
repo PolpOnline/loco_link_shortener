@@ -18,8 +18,6 @@ let mockData: InfoLinkView = {
 	created_at: '2021-08-01T00:00:00Z'
 };
 
-export const load = () => {
-	return {
-		mockData
-	};
-};
+export function load() {
+	return mockData;
+}

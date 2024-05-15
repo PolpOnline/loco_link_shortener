@@ -1,4 +1,8 @@
-use axum::{extract::State, response::IntoResponse};
+use axum::{
+    debug_handler,
+    extract::State,
+    response::{IntoResponse, Response},
+};
 use loco_oauth2::controllers::middleware::OAuth2CookieUser;
 use loco_rs::{
     app::AppContext,
@@ -31,8 +35,9 @@ impl LoginResponse {
     }
 }
 
+#[debug_handler]
 pub async fn protected(
-    State(ctx): State<AppContext>,
+    State(_ctx): State<AppContext>,
     // Extract the user from the Cookie via middleware
     user: OAuth2CookieUser<OAuth2UserProfile, users::Model, o_auth2_sessions::Model>,
 ) -> Result<impl IntoResponse> {
@@ -46,5 +51,13 @@ pub async fn protected(
             unauthorized("unauthorized!")
         })?;
 
-    format::json(LoginResponse::new(user.clone(), token))
+    let response = format::json(LoginResponse::new(user.clone(), token));
+
+    let mut response = Response::new(response);
+    // add header to response
+    response
+        .headers_mut()
+        .append("Access-Control-Allow-Credentials", "true".parse().unwrap());
+
+    Ok(response)
 }

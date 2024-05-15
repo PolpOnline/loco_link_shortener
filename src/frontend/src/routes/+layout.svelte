@@ -11,7 +11,7 @@
 </script>
 
 
-<div class="bg-black" data-bs-theme="dark">
+<div class="bg-black text-body" data-bs-theme="dark">
 	<Navbar />
 
 	<ListErrors />
