@@ -37,7 +37,7 @@ impl LoginResponse {
 
 #[debug_handler]
 pub async fn protected(
-    State(_ctx): State<AppContext>,
+    State(ctx): State<AppContext>,
     // Extract the user from the Cookie via middleware
     user: OAuth2CookieUser<OAuth2UserProfile, users::Model, o_auth2_sessions::Model>,
 ) -> Result<impl IntoResponse> {
@@ -51,9 +51,9 @@ pub async fn protected(
             unauthorized("unauthorized!")
         })?;
 
-    let response = format::json(LoginResponse::new(user.clone(), token));
+    let mut response = format::json(LoginResponse::new(user.clone(), token)).into_response();
 
-    let mut response = Response::new(response);
+    // let mut response = Response::new(response);
     // add header to response
     response
         .headers_mut()
