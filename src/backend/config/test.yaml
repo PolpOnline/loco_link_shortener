@@ -45,7 +45,7 @@ server:
       # Set the value of the [`Access-Control-Allow-Origin`][mdn] header
       allow_origins:
       #   - https://loco.rs
-      - {{get_env(name="CORS_ORIGIN", default="https://localhost:3000")}}
+      - {{get_env(name="CORS_ORIGIN", default="https://localhost:5173")}}
       # Set the value of the [`Access-Control-Allow-Headers`][mdn] header
       # allow_headers:
       # - Content-Type

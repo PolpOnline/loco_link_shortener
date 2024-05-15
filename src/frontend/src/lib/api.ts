@@ -34,6 +34,9 @@ async function send({ method, path, data, token }: SendOptions): Promise<Respons
 		opts.headers['Authorization'] = `Bearer ${token}`;
 	}
 
+	opts.credentials = 'include';
+	opts.mode = 'no-cors';
+
 	const res = await fetch(`${base}/${path}`, opts);
 	if (res.ok || res.status === 422) {
 		const text = await res.text();

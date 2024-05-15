@@ -46,11 +46,12 @@ server:
       # Duration time in milliseconds.
       timeout: 5000
     cors:
-      enable: true
+      enable: false
         # Set the value of the [`Access-Control-Allow-Origin`][mdn] header
       allow_origins:
         #   - https://loco.rs
-        - {{get_env(name="CORS_ORIGIN", default="http://localhost:3000")}}
+        - {{get_env(name="CORS_ORIGIN", default="http://localhost:5173")}}
+#        - none
       # Set the value of the [`Access-Control-Allow-Headers`][mdn] header
       # allow_headers:
       # - Content-Type
@@ -59,6 +60,7 @@ server:
       #   - POST
       # Set the value of the [`Access-Control-Max-Age`][mdn] header in seconds
       # max_age: 3600
+      allow_credentials: true
 
     # server-side static assets config
     # for use with the view_engine in initializers/view_engine.rs
