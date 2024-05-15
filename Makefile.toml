@@ -1,0 +1,46 @@
+[config]
+default_to_workspace = false
+
+[tasks.backend-build]
+cwd = "src/backend"
+command = "cargo"
+args = ["build"]
+
+[tasks.backend-dev]
+cwd = "src/backend"
+command = "cargo"
+args = ["run", "--", "start"]
+
+[tasks.backend-watch]
+cwd = "src/backend"
+command = "cargo"
+args = ["watch", "-x", "run", "--", "start"]
+
+[tasks.frontend-install]
+cwd = "src/frontend"
+command = "pnpm"
+args = ["install"]
+
+[tasks.frontend-build]
+cwd = "src/frontend"
+command = "pnpm"
+args = ["build"]
+dependencies = ["frontend-install"]
+
+[tasks.frontend-dev]
+cwd = "src/frontend"
+command = "pnpm"
+args = ["dev"]
+dependencies = ["frontend-install"]
+
+[tasks.dev]
+dependencies = [
+    "frontend-build",
+    "backend-dev"
+]
+
+[tasks.watch]
+dependencies = [
+    "frontend-build",
+    "backend-watch"
+]
