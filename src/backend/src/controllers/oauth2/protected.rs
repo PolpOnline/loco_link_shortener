@@ -53,8 +53,6 @@ pub async fn protected(
 
     let mut response = format::json(LoginResponse::new(user.clone(), token)).into_response();
 
-    // let mut response = Response::new(response);
-    // add header to response
     response
         .headers_mut()
         .append("Access-Control-Allow-Credentials", "true".parse().unwrap());
