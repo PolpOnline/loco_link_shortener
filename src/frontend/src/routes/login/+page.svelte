@@ -13,7 +13,7 @@
         const res = await fetch("http://localhost:3000/api/oauth2/google", {
             credentials:"include"
         })
-
+        console.log(document.cookie)
         if (!res.ok) {
             throw Error(res.text());
         }

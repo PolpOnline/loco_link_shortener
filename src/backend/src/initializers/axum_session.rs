@@ -1,7 +1,6 @@
 use async_trait::async_trait;
 use axum::Router as AxumRouter;
 use axum_extra::extract::cookie::SameSite;
-use axum_session::SessionMode;
 use loco_rs::prelude::*;
 
 pub struct AxumSessionInitializer;
@@ -18,6 +17,7 @@ impl Initializer for AxumSessionInitializer {
             .with_table_name("sessions_table")
             .with_http_only(false)
             .with_cookie_same_site(SameSite::None)
+            .with_secure(true)
             .with_cookie_domain("localhost")
             .with_cookie_path("/");
         // Create the session store
