@@ -48,8 +48,9 @@ server:
     cors:
       enable: true
       # Set the value of the [`Access-Control-Allow-Origin`][mdn] header
-      # allow_origins:
+      allow_origins:
       #   - https://loco.rs
+      - https://s.polp.online
       # Set the value of the [`Access-Control-Allow-Headers`][mdn] header
       # allow_headers:
       # - Content-Type
