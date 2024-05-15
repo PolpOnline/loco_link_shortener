@@ -1,6 +1,6 @@
 <script lang="ts">
     import FlatColorIconsGoogle from '~icons/flat-color-icons/google';
-    import {get} from '$lib/api';
+    import { get } from '$lib/api';
 
     // let href = '';
     // $ : {
@@ -10,15 +10,15 @@
     // 		.catch(err => console.error(err)));
     // }
     async function redirect() {
-        const res = await fetch("http://localhost:3000/api/oauth2/google", {
-            credentials:"include"
-        })
-        console.log(document.cookie)
+        const res = await get('oauth2/google');
+
+        const text = await res.text();
+
         if (!res.ok) {
-            throw Error(res.text());
+            throw Error(text);
         }
 
-        window.location.href = await res.text();
+        window.location.href = text;
     }
 </script>
 

@@ -25,17 +25,16 @@ interface SendOptions {
 async function send({ method, path, data, token }: SendOptions): Promise<Response> {
 	const opts: RequestOptions = { method, headers: {} };
 
-	// if (data) {
-	// 	opts.headers['Content-Type'] = 'application/json';
-	// 	opts.body = JSON.stringify(data);
-	// }
-	//
-	// if (token) {
-	// 	opts.headers['Authorization'] = `Bearer ${token}`;
-	// }
-	//
-	// opts.credentials = 'include';
-	// opts.mode = 'no-cors';
+	if (data) {
+		opts.headers['Content-Type'] = 'application/json';
+		opts.body = JSON.stringify(data);
+	}
+
+	if (token) {
+		opts.headers['Authorization'] = `Bearer ${token}`;
+	}
+
+	opts.credentials = 'include';
 
 	const res = await fetch(`${base}/${path}`, opts);
 	if (res.ok || res.status === 422) {
