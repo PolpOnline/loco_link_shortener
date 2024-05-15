@@ -31,7 +31,6 @@ impl LoginResponse {
     }
 }
 
-#[debug_handler]
 pub async fn protected(
     State(ctx): State<AppContext>,
     // Extract the user from the Cookie via middleware
