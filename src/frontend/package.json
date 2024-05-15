@@ -12,6 +12,7 @@
 		"format": "prettier --write ."
 	},
 	"devDependencies": {
+      "@iconify-json/flat-color-icons": "^1.1.10",
 		"@iconify-json/heroicons": "^1.1.21",
 		"@sveltejs/adapter-auto": "^3.0.0",
 		"@sveltejs/adapter-cloudflare": "^4.4.0",
