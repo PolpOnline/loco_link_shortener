@@ -23,3 +23,10 @@
 .aspect-ratio-1-2 {
   aspect-ratio: 0.5;
 }
+
+.glass {
+  // take the elems background color and make it transparent
+  //background-color: red;
+  backdrop-filter: blur(10px);
+  border-radius: 10px;
+}

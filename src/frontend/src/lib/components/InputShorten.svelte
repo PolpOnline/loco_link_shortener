@@ -2,11 +2,16 @@
 	import { slide } from 'svelte/transition';
 
 	import HeroiconsCheck from '~icons/heroicons/check';
+	import HeroiconsLink from '~icons/heroicons/link';
 	import HeroiconsClipboard from '~icons/heroicons/clipboard';
+	import HeroiconsPencilSquareSolid from '~icons/heroicons/pencil-square-solid';
+	import GgShortcut from '~icons/gg/shortcut';
 	import { post } from '$lib/api';
 	import { jwt } from '$lib/stores/auth';
 	import { get as storeGet } from 'svelte/store';
 	import type { AddRequest, AddResponse } from '$lib/models';
+	import MaterialSymbolsKeyboardArrowDownRounded from '~icons/material-symbols/keyboard-arrow-down-rounded';
+	import MaterialSymbolsKeyboardArrowUpRounded from '~icons/material-symbols/keyboard-arrow-up-rounded';
 
 	const urlRegex = new RegExp('https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\+.~#?&/=]*)');
 	let url = '';
@@ -58,11 +63,14 @@
 </script>
 
 
-<div class="container">
+<div class="container px-0">
 	<!-- input part -->
 	<div class="row">
 		<div class="col-md-10 col-12">
-			<input bind:value={url} class="form-control" placeholder="Insert your link here" type="url" />
+			<div class="d-flex align-items-center text-body">
+				<HeroiconsLink class="me-2" />
+				<input bind:value={url} class="form-control" placeholder="Insert your link here" type="url" />
+			</div>
 		</div>
 		<div class="col-md-2 col-12 mt-2 mt-md-0">
 			<button class="btn btn-primary w-100" disabled={!url} on:click={submitForm}>Shorten</button>
@@ -71,11 +79,13 @@
 	<!--	advanced options part-->
 	<div class="row mt-2">
 		<div class="col-12">
-			<button class="btn btn-primary w-100" on:click={() => isAdvancedOpen = !isAdvancedOpen}>
+			<button class="btn btn-outline-primary w-100" on:click={() => isAdvancedOpen = !isAdvancedOpen}>
 				{#if isAdvancedOpen}
-					Hide advanced options
+					<MaterialSymbolsKeyboardArrowUpRounded />
+					Advanced
 				{:else}
-					Show advanced options
+					<MaterialSymbolsKeyboardArrowDownRounded />
+					Advanced
 				{/if}
 			</button>
 		</div>
@@ -83,10 +93,16 @@
 	{#if isAdvancedOpen}
 		<div class="row" transition:slide>
 			<div class="col-md-6 col-12 mt-2">
-				<input bind:value={customName} class="form-control" placeholder="Custom name" type="text" />
+				<div class="d-flex align-items-center text-body">
+					<HeroiconsPencilSquareSolid class="me-2" />
+					<input bind:value={customName} class="form-control" placeholder="Custom name" type="text" />
+				</div>
 			</div>
 			<div class="col-md-6 col-12 mt-2">
-				<input bind:value={customShortened} class="form-control" placeholder="Custom shortened" type="text" />
+				<div class="d-flex align-items-center text-body">
+					<GgShortcut class="me-2" />
+					<input bind:value={customShortened} class="form-control" placeholder="Custom shortened" type="text" />
+				</div>
 			</div>
 		</div>
 	{/if}

@@ -13,8 +13,10 @@
 	},
 	"devDependencies": {
 		"@iconify-json/flat-color-icons": "^1.1.10",
+		"@iconify-json/gg": "^1.1.9",
 		"@iconify-json/heroicons": "^1.1.21",
 		"@iconify-json/iconoir": "^1.1.44",
+		"@iconify-json/material-symbols": "^1.1.80",
 		"@iconify-json/mdi": "^1.1.66",
 		"@sveltejs/adapter-auto": "^3.0.0",
 		"@sveltejs/adapter-cloudflare": "^4.4.0",

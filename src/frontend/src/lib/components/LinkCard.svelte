@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { DefaultLinkImage, LinkBrief } from '$components';
+	import { DefaultLinkSVG, LinkBrief } from '$components';
+	import HeroiconsLink from '~icons/heroicons/link';
 
 	export let name: string;
 	export let image: string | undefined;
@@ -11,12 +12,22 @@
 	let imageAlt = `Image for ${name}`;
 </script>
 
-<div class="card">
+<div class="card glass w-100">
 	{#if image}
 		<img alt={imageAlt} class="card-img-top" src={image} />
 	{:else}
-		<div class="w-100">
-			<DefaultLinkImage />
+		<div class="card-img-top">
+			<div class="
+						aspect-ratio-16-9
+						position-relative
+						w-100
+						d-flex
+						align-items-center
+						justify-content-center
+            bg-body
+            text-white">
+				<HeroiconsLink class="fs-1" />
+			</div>
 		</div>
 	{/if}
 	<div class="card-body d-flex flex-column align-items-baseline">
@@ -27,3 +38,10 @@
 		<a class="btn btn-primary mt-auto w-100" href={detailsPage}>Info</a>
 	</div>
 </div>
+
+
+<style lang="scss">
+  .aspect-ratio-16-9 {
+    aspect-ratio: 16 / 9; // This gives the div a 16:9 aspect ratio. Adjust as needed
+  }
+</style>
