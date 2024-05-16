@@ -5,6 +5,7 @@ use serde::{Deserialize, Serialize};
 pub struct Settings {
     pub shortened_length: usize,
     pub max_custom_length: usize,
+    pub frontend_url: String,
 }
 
 impl Settings {

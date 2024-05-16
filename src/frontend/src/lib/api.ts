@@ -27,9 +27,17 @@ interface SendOptions {
 	path: string;
 	data?: any; // Consider replacing 'any' with a more specific type
 	token?: string;
+	// Whether to include cookies in the request
+	credentialsRequired?: boolean;
 }
 
-async function send({ method, path, data, token }: SendOptions): Promise<any> {
+async function send({
+	method,
+	path,
+	data,
+	token,
+	credentialsRequired = false
+}: SendOptions): Promise<any> {
 	const opts: RequestOptions = { method, headers: {} };
 
 	if (data) {
@@ -41,21 +49,27 @@ async function send({ method, path, data, token }: SendOptions): Promise<any> {
 		opts.headers['Authorization'] = `Bearer ${token}`;
 	}
 
-	opts.credentials = 'include';
+	if (credentialsRequired) {
+		opts.credentials = 'include';
+	}
 
 	const res = await fetch(`${apiBase}/${path}`, opts);
 	if (res.ok || res.status === 422) {
+		// if the response is not a json, return the response object
 		const text = await res.text();
 
-		// if the response is not a json, return the response object
 		try {
 			return JSON.parse(text);
 		} catch (e) {
-			return res;
+			return text;
 		}
 	}
 
 	throw error(res.status);
+}
+
+export function getWithCredentials(path: string, token?: string) {
+	return send({ method: 'GET', path, token, credentialsRequired: true });
 }
 
 export function get(path: string, token?: string) {
