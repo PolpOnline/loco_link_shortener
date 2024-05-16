@@ -10,7 +10,7 @@ use witty_phrase_generator::WPGen;
 
 use crate::{common, controllers::utils::get_user_from_jwt, models::_entities::links};
 
-pub fn is_custom_valid(custom: &String, max_length: usize) -> StdResult<(), AddError> {
+pub fn is_custom_valid(custom: &str, max_length: usize) -> StdResult<(), AddError> {
     if custom.chars().any(|c| !c.is_alphanumeric()) {
         return Err(AddError::InvalidCustom(
             "Custom shortened link contains invalid characters".to_string(),
