@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { DefaultLinkSVG, LinkBrief } from '$components';
+	import { LinkBrief } from '$components';
 	import HeroiconsLink from '~icons/heroicons/link';
 
 	export let name: string;
