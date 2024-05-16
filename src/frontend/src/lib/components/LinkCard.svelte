@@ -35,7 +35,7 @@
 		<div class="card-text">
 			<LinkBrief createdAt={created_at} original={original} />
 		</div>
-		<a class="btn btn-primary mt-auto w-100" href={detailsPage}>Info</a>
+		<a class="btn btn-primary mt-5 w-100" href={detailsPage}>Info</a>
 	</div>
 </div>
 
