@@ -41,8 +41,10 @@
 <main>
 	<div class="w-90 mx-auto">
 		<button class="btn btn-primary" on:click={() => window.location.href = '/'}>
-			<HeroiconsArrowLeft class="w-6 h-6" />
-			Go back
+			<span class="d-flex align-items-center">
+				<HeroiconsArrowLeft class="w-6 h-6 me-2" />
+				Go back
+			</span>
 		</button>
 
 		<h1 class="mt-3">{info.name}</h1>
@@ -54,16 +56,21 @@
 
 		<p>
 			<HeroiconsClock />
-			{info.created_at.toLocaleString()}
+			{new Date(info.created_at).toLocaleString()}
 		</p>
-
-		<p>Displaying {info.clicks.length} clicks</p>
 
 		<!--{#each data.clicks as click}-->
 		<!--	<p>{click.clicked_at} - {click.address} - {click.user_agent}</p>-->
 		<!--{/each}-->
 		<div class="table-responsive">
-			<table class="table">
+			<table class="table caption-top">
+				<caption>
+					{#if info.clicks.length !== 0}
+						Displaying {info.clicks.length} clicks
+					{:else}
+						No clicks yet
+					{/if}
+				</caption>
 				<thead>
 					<tr>
 						<th scope="col">
@@ -87,9 +94,15 @@
 					</tr>
 				</thead>
 				<tbody>
+					{#if info.clicks.length === 0}
+						<tr>
+							<td colspan="3" class="text-center">Clicks will appear here!</td>
+						</tr>
+					{/if}
+
 					{#each info.clicks as click}
 						<tr>
-							<td>{click.clicked_at.toLocaleString()}</td>
+							<td>{new Date(click.clicked_at).toLocaleString()}</td>
 							<td>{click.address}</td>
 							<td>
 								{#if click.user_agent}
@@ -105,8 +118,10 @@
 		</div>
 
 		<button class="btn btn-danger" on:click={deleteUrl}>
-			<HeroiconsTrash class="w-6 h-6" />
-			Delete this URL
+			<span class="d-flex align-items-center">
+				<HeroiconsTrash class="w-6 h-6 me-2" />
+				Delete this URL
+			</span>
 		</button>
 	</div>
 </main>
