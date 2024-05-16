@@ -6,7 +6,9 @@
 </script>
 
 <div>
-	<h1 class="text-body"> Your links </h1>
+	{#if links.length !== 0}
+		<h1> Your links </h1>
+	{/if}
 
 	<div class="row">
 		{#each links as link}

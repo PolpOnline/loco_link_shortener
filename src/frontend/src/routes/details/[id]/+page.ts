@@ -40,6 +40,7 @@ const loadInfo = async (fetch: customFetchType, shortened: string) => {
 };
 
 export const load: PageLoad = async ({ fetch, params }) => {
+	// @ts-ignore
 	const shortened = params.id;
 
 	const info = await loadInfo(fetch, shortened);
