@@ -32,9 +32,9 @@
 	{/if}
 	<div class="card-body d-flex flex-column align-items-baseline">
 		<h5 class="card-title">{name}</h5>
-		<p class="card-text">
+		<div class="card-text">
 			<LinkBrief createdAt={createdAt} original={original} />
-		</p>
+		</div>
 		<a class="btn btn-primary mt-auto w-100" href={detailsPage}>Info</a>
 	</div>
 </div>

@@ -31,6 +31,20 @@
 			original: 'https://www.yahoo.com',
 			shortened: 'jkl012',
 			createdAt: new Date()
+		},
+		{
+			name: 'Yandex',
+			image: 'https://picsum.photos/1920/1080?4',
+			original: 'https://www.yandex.com',
+			shortened: 'mno345',
+			createdAt: new Date()
+		},
+		{
+			name: 'Baidu',
+			image: 'https://picsum.photos/1920/1080?5',
+			original: 'https://www.baidu.com',
+			shortened: 'pqr678',
+			createdAt: new Date()
 		}
 	];
 
@@ -41,7 +55,7 @@
 
 	<div class="row">
 		{#each mockData as card}
-			<div class="col-md-4 col-12 g-4 d-flex align-items-stretch justify-content-center">
+			<div class="col-md-3 col-12 g-4 d-flex align-items-stretch justify-content-center">
 				<LinkCard image={card.image}
 									original={card.original}
 									shortened={card.shortened}

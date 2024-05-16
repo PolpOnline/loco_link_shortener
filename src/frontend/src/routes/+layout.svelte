@@ -1,6 +1,6 @@
 <script lang="ts">
 	import '../scss/app.scss';
-	import { Navbar, ListErrors } from '$components/index';
+	import { ListErrors, Navbar } from '$components/index';
 
 	import { onMount } from 'svelte';
 
@@ -10,7 +10,7 @@
 </script>
 
 
-<div class="bg-black text-body vh-100 vw-100" data-bs-theme="dark">
+<div class="text-body">
 	<Navbar />
 
 	<ListErrors />
