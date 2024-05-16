@@ -47,11 +47,11 @@ async function send({ method, path, data, token }: SendOptions): Promise<any> {
 	if (res.ok || res.status === 422) {
 		const text = await res.text();
 
-		// if the response is not a json, return a custom Response object
+		// if the response is not a json, return the response object
 		try {
 			return JSON.parse(text);
 		} catch (e) {
-			return new Response(text);
+			return res;
 		}
 	}
 
