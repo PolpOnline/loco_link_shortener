@@ -12,6 +12,7 @@
 	import MaterialSymbolsKeyboardArrowUpRounded from '~icons/material-symbols/keyboard-arrow-up-rounded';
 	import { jwt } from '$lib/stores/auth';
 	import { get as storeGet } from 'svelte/store';
+	import { invalidateAll } from '$app/navigation';
 
 	const urlRegex = new RegExp('https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\+.~#?&/=]*)');
 	let url = '';
@@ -20,7 +21,7 @@
 	let invalidForm = false;
 	let invalidFeedback = '';
 	let shortenedUrl = '';
-	let isAdvancedOpen = true;
+	let isAdvancedOpen = false;
 
 	function checkIsValid() {
 		invalidForm = !urlRegex.test(url);
@@ -61,6 +62,11 @@
 		let response: AddResponse = await send({ method: 'POST', path: 'add', data: payload, token: storeGet(jwt) });
 
 		shortenedUrl = response.shortened;
+
+		setTimeout(async () => {
+			await invalidateAll();
+		}, 2000);
+
 	}
 </script>
 
