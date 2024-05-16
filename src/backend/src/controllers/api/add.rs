@@ -1,48 +1,56 @@
+use std::result::Result as StdResult;
+
 use axum::http::StatusCode;
-use loco_rs::{controller::ErrorDetail, prelude::*};
+use loco_rs::{controller::ErrorDetail, model::ModelError, prelude::*};
 use rand::{distributions::Alphanumeric, Rng};
+use serde::{Deserialize, Serialize};
+use thiserror::Error;
 use tracing::error;
 use witty_phrase_generator::WPGen;
 
-use crate::{
-    common,
-    controllers::{
-        api::add::types::{AddRequest, AddResponse},
-        utils::get_user_from_jwt,
-    },
-    models::{_entities::links, links::add::AddError},
-};
+use crate::{common, controllers::utils::get_user_from_jwt, models::_entities::links};
 
-mod validate_params {
-    use validator::ValidationError;
-
-    #[allow(dead_code)]
-    pub fn validate_custom(custom: &Option<String>) -> Result<(), ValidationError> {
-        if let Some(custom) = custom {
-            if custom.chars().any(|c| !c.is_alphanumeric()) {
-                return Err(ValidationError::new("CUSTOM_INVALID"));
-            }
-        }
-
-        Ok(())
+pub fn is_custom_valid(custom: &String, max_length: usize) -> StdResult<(), AddError> {
+    if custom.chars().any(|c| !c.is_alphanumeric()) {
+        return Err(AddError::InvalidCustom(
+            "Custom shortened link contains invalid characters".to_string(),
+        ));
     }
+
+    if custom.len() > max_length {
+        return Err(AddError::InvalidCustom(
+            "Custom shortened link is too long".to_string(),
+        ));
+    }
+
+    Ok(())
 }
 
-pub mod types {
-    use serde::{Deserialize, Serialize};
-    use validator::Validate;
+#[derive(Deserialize)]
+pub struct AddRequest {
+    pub name: Option<String>,
+    pub url: String,
+    pub custom: Option<String>,
+}
 
-    #[derive(Deserialize, Validate)]
-    pub struct AddRequest {
-        pub name: Option<String>,
-        pub url: String,
-        pub custom: Option<String>,
-    }
+#[derive(Serialize)]
+pub struct AddResponse {
+    pub shortened: String,
+}
 
-    #[derive(Serialize)]
-    pub struct AddResponse {
-        pub shortened: String,
-    }
+#[derive(Error, Debug)]
+pub enum AddError {
+    #[error("Invalid URL: {0}")]
+    InvalidUrl(String),
+
+    #[error("Invalid custom shortened link: {0}")]
+    InvalidCustom(String),
+
+    #[error(transparent)]
+    InternalServerError(#[from] loco_rs::Error),
+
+    #[error(transparent)]
+    ModelError(#[from] ModelError),
 }
 
 /// Adds a new link
@@ -56,29 +64,26 @@ pub async fn add(
     let settings = &ctx.config.settings.unwrap();
     let settings = common::settings::Settings::from_json(settings)?;
 
-    let name = params.name.unwrap_or_else(|| {
-        generate_witty_name().unwrap_or_else(|e| {
+    let name = match &params.name {
+        Some(name) => name.clone(),
+        None => generate_witty_name().unwrap_or_else(|e| {
             error!("Could not generate witty name {}", e);
             "Link".to_string()
-        })
-    });
+        }),
+    };
 
-    if let Some(custom) = &params.custom {
-        if custom.len() > settings.max_custom_length {
-            return Err(Error::CustomError(
-                StatusCode::BAD_REQUEST,
-                ErrorDetail::new(
-                    "CUSTOM_TOO_LONG",
-                    &format!(
-                        "Custom shortened link is too long. Max length is {}",
-                        settings.max_custom_length
-                    ),
-                ),
-            ));
+    let shortened = match &params.custom {
+        Some(custom) => {
+            is_custom_valid(custom, settings.max_custom_length).map_err(|e| {
+                Error::CustomError(
+                    StatusCode::BAD_REQUEST,
+                    ErrorDetail::new("INVALID_CUSTOM", &e.to_string()),
+                )
+            })?;
+            custom.clone()
         }
-    }
-
-    let shortened = generate_shortened(settings.shortened_length);
+        None => generate_shortened(settings.shortened_length),
+    };
 
     links::Model::add(
         &ctx.db,

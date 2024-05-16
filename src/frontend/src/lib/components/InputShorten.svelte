@@ -58,7 +58,6 @@
 			payload.custom = customShortened;
 		}
 
-		//await post('add', payload, storeGet(jwt));
 		let response: AddResponse = await send({ method: 'POST', path: 'add', data: payload, token: storeGet(jwt) });
 
 		shortenedUrl = response.shortened;

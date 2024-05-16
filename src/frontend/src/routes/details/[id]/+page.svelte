@@ -15,7 +15,7 @@
 
 	const info: InfoLinkView = data.info;
 
-	let fullShortened = `${base}/${info.shortened}`;
+	let fullShortened = `${base}/x/${info.shortened}`;
 
 	async function deleteUrl() {
 		try {

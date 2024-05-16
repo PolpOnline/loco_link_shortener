@@ -2,16 +2,10 @@ use loco_rs::{model::ModelError, prelude::*};
 use sea_orm::DatabaseConnection;
 
 pub use super::super::_entities::prelude::*;
-use crate::models::_entities::{links, links::ActiveModel};
-
-#[derive(thiserror::Error, Debug)]
-pub enum AddError {
-    #[error("Invalid URL: {0}")]
-    InvalidUrl(#[from] validator::ValidationErrors),
-
-    #[error(transparent)]
-    ModelError(#[from] ModelError),
-}
+use crate::{
+    controllers::api::add::AddError,
+    models::_entities::{links, links::ActiveModel},
+};
 
 impl links::Model {
     pub async fn add<T: Into<String> + Send>(
