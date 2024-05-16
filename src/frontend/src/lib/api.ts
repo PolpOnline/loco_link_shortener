@@ -22,6 +22,11 @@ interface RequestOptions extends RequestInit {
 	body?: string;
 }
 
+export type customFetchType = (
+	input: string | URL | globalThis.Request,
+	init?: RequestInit
+) => Promise<Response>;
+
 interface SendOptions {
 	method: HttpMethod;
 	path: string;
@@ -29,14 +34,17 @@ interface SendOptions {
 	token?: string;
 	// Whether to include cookies in the request
 	credentialsRequired?: boolean;
+	// A function to use a custom fetch implementation
+	customFetch?: customFetchType;
 }
 
-async function send({
+export async function send({
 	method,
 	path,
 	data,
 	token,
-	credentialsRequired = false
+	credentialsRequired = false,
+	customFetch = fetch
 }: SendOptions): Promise<any> {
 	const opts: RequestOptions = { method, headers: {} };
 
@@ -53,7 +61,7 @@ async function send({
 		opts.credentials = 'include';
 	}
 
-	const res = await fetch(`${apiBase}/${path}`, opts);
+	const res = await customFetch(`${apiBase}/${path}`, opts);
 	if (res.ok || res.status === 422) {
 		// if the response is not a json, return the response object
 		const text = await res.text();
@@ -66,24 +74,4 @@ async function send({
 	}
 
 	throw error(res.status);
-}
-
-export function getWithCredentials(path: string, token?: string) {
-	return send({ method: 'GET', path, token, credentialsRequired: true });
-}
-
-export function get(path: string, token?: string) {
-	return send({ method: 'GET', path, token });
-}
-
-export function del(path: string, data: any, token?: string) {
-	return send({ method: 'DELETE', path, data, token });
-}
-
-export function post(path: string, data: any, token?: string) {
-	return send({ method: 'POST', path, data, token });
-}
-
-export function put(path: string, data: any, token?: string) {
-	return send({ method: 'PUT', path, data, token });
 }

@@ -6,7 +6,7 @@
 	export let image: string | undefined;
 	export let original: string;
 	export let shortened: string;
-	export let createdAt: Date;
+	export let created_at: Date;
 
 	let detailsPage = `details/${shortened}`;
 	let imageAlt = `Image for ${name}`;
@@ -33,7 +33,7 @@
 	<div class="card-body d-flex flex-column align-items-baseline">
 		<h5 class="card-title">{name}</h5>
 		<div class="card-text">
-			<LinkBrief createdAt={createdAt} original={original} />
+			<LinkBrief createdAt={created_at} original={original} />
 		</div>
 		<a class="btn btn-primary mt-auto w-100" href={detailsPage}>Info</a>
 	</div>

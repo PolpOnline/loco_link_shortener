@@ -10,6 +10,6 @@ pub fn routes() -> Routes {
         .prefix("/api/")
         .add("/add", post(add::add))
         .add("/delete", delete(delete::delete))
-        .add("/info", get(info::info))
+        .add("/info/:shortened", get(info::info))
         .add("/list", get(list::list))
 }

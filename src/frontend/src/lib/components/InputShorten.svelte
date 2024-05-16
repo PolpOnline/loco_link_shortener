@@ -6,12 +6,12 @@
 	import HeroiconsClipboard from '~icons/heroicons/clipboard';
 	import HeroiconsPencilSquareSolid from '~icons/heroicons/pencil-square-solid';
 	import GgShortcut from '~icons/gg/shortcut';
-	import { post } from '$lib/api';
-	import { jwt } from '$lib/stores/auth';
-	import { get as storeGet } from 'svelte/store';
+	import { base, send } from '$lib/api';
 	import type { AddRequest, AddResponse } from '$lib/models';
 	import MaterialSymbolsKeyboardArrowDownRounded from '~icons/material-symbols/keyboard-arrow-down-rounded';
 	import MaterialSymbolsKeyboardArrowUpRounded from '~icons/material-symbols/keyboard-arrow-up-rounded';
+	import { jwt } from '$lib/stores/auth';
+	import { get as storeGet } from 'svelte/store';
 
 	const urlRegex = new RegExp('https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\+.~#?&/=]*)');
 	let url = '';
@@ -27,10 +27,12 @@
 		invalidFeedback = invalidForm ? 'Please insert a valid url' : '';
 	}
 
+	$: fullShortened = `${base}/x/${shortenedUrl}`;
+
 	let isCheckMarkDisplayed = false;
 
 	function copyShortened() {
-		navigator.clipboard.writeText(shortenedUrl);
+		navigator.clipboard.writeText(fullShortened);
 		isCheckMarkDisplayed = true;
 		setTimeout(() => {
 			isCheckMarkDisplayed = false;
@@ -56,7 +58,8 @@
 			payload.custom = customShortened;
 		}
 
-		let response: AddResponse = await post('add', payload, storeGet(jwt));
+		//await post('add', payload, storeGet(jwt));
+		let response: AddResponse = await send({ method: 'POST', path: 'add', data: payload, token: storeGet(jwt) });
 
 		shortenedUrl = response.shortened;
 	}
@@ -117,7 +120,7 @@
 			</div>
 			<div class="row mt-2">
 				<div class="col-md-10 col-12">
-					<input disabled={true} type="text" class="form-control" value={shortenedUrl} />
+					<input disabled={true} type="text" class="form-control" value={fullShortened} />
 				</div>
 				<div class="col-md-2 col-12 mt-2 mt-md-0">
 					<button class="btn btn-primary w-100" on:click={copyShortened}>

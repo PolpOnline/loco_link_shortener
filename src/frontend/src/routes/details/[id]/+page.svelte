@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { base, del } from '$lib/api';
+	import { base, send } from '$lib/api';
 	import type { DeleteRequest, InfoLinkView } from '$lib/models';
 	import { get as storeGet } from 'svelte/store';
 	import { jwt } from '$lib/stores/auth';
@@ -9,38 +9,28 @@
 	import HeroiconsArrowLeft from '~icons/heroicons/arrow-left';
 	import IconoirIpAddressTag from '~icons/iconoir/ip-address-tag';
 	import MdiAnonymous from '~icons/mdi/anonymous';
+	import type { PageData } from './$types';
 
-	let mockData: InfoLinkView = {
-		name: 'hello-world',
-		original: 'https://example.com',
-		shortened: 'aFDSfe',
-		clicks: [
-			{
-				clicked_at: new Date('2021-08-01T00:00:00Z'),
-				address: '192.168.1.1',
-				user_agent:
-					'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
-			},
-			{
-				clicked_at: new Date('2021-08-01T00:00:00Z'),
-				address: '192.168.1.1'
-			}
-		],
-		created_at: new Date('2021-08-01T00:00:00Z')
-	};
+	export let data: PageData;
 
-	let data: InfoLinkView = mockData;
+	const info: InfoLinkView = data.info;
 
-	let fullShortened = `${base}/${data.shortened}`;
+	let fullShortened = `${base}/${info.shortened}`;
 
 	async function deleteUrl() {
-		let payload: DeleteRequest = {
-			shortened: data.shortened
-		};
+		try {
+			let payload: DeleteRequest = {
+				shortened: info.shortened
+			};
 
-		let response = await del('delete', payload, storeGet(jwt));
-
-		if (!response.success) {
+			await send({
+				method: 'DELETE',
+				path: `delete`,
+				data: payload,
+				token: storeGet(jwt)
+			});
+		} catch (error) {
+			console.error(error);
 			throw Error('Failed to delete url');
 		}
 
@@ -55,19 +45,19 @@
 			Go back
 		</button>
 
-		<h1 class="mt-3">{data.name}</h1>
+		<h1 class="mt-3">{info.name}</h1>
 
 		<p>
 			<a href={fullShortened}>{fullShortened}</a>
 			<HeroiconsArrowRightCircle />
-			<a href={data.original}> {data.original} </a></p>
+			<a href={info.original}> {info.original} </a></p>
 
 		<p>
 			<HeroiconsClock />
-			{data.created_at.toLocaleString()}
+			{info.created_at.toLocaleString()}
 		</p>
 
-		<p>Displaying {data.clicks.length} clicks</p>
+		<p>Displaying {info.clicks.length} clicks</p>
 
 		<!--{#each data.clicks as click}-->
 		<!--	<p>{click.clicked_at} - {click.address} - {click.user_agent}</p>-->
@@ -97,7 +87,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					{#each data.clicks as click}
+					{#each info.clicks as click}
 						<tr>
 							<td>{click.clicked_at.toLocaleString()}</td>
 							<td>{click.address}</td>

@@ -101,5 +101,5 @@ export interface Link {
 	name: string;
 	original: string;
 	shortened: string;
-	created_at: string;
+	created_at: Date;
 }

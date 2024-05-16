@@ -1,9 +1,9 @@
 <script lang="ts">
 	import FlatColorIconsGoogle from '~icons/flat-color-icons/google';
-	import { getWithCredentials } from '$lib/api';
+	import { send } from '$lib/api';
 
 	async function redirect() {
-		window.location.href = await getWithCredentials('oauth2/google');
+		window.location.href = await send({ method: 'GET', path: 'oauth2/google', credentialsRequired: true });
 	}
 </script>
 

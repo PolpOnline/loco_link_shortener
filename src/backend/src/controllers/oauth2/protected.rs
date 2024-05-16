@@ -4,7 +4,6 @@ use axum::{
 };
 use loco_oauth2::controllers::middleware::OAuth2CookieUser;
 use loco_rs::{app::AppContext, controller::unauthorized, prelude::*};
-use serde::Serialize;
 use tracing::error;
 
 use crate::{
