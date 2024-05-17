@@ -17,7 +17,11 @@ impl Initializer for AxumSessionInitializer {
         let settings = &ctx.clone().config.settings.unwrap();
         let settings = common::settings::Settings::from_json(settings)?;
 
-        let frontend_url = settings.frontend_url.clone().replace("https://", "");
+        let frontend_url = settings
+            .frontend_url
+            .clone()
+            .replace("https://", "")
+            .replace("http://", "");
 
         // Create the session store configuration
         let session_config = axum_session::SessionConfig::default()
