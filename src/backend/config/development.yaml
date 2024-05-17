@@ -149,6 +149,7 @@ settings:
   shortened_length: 6
   max_custom_length: 40
   frontend_url: {{get_env(name="FRONTEND_URL", default="http://localhost:5173")}}
+  backend_url: {{get_env(name="BACKEND_URL", default="http://localhost:3000")}}
   # OAuth2 Configuration
   oauth2:
     secret_key: {{get_env(name="OAUTH_PRIVATE_KEY")}} # Optional, key for Private Cookie Jar, must be more than 64 bytes. Generate using `openssl rand -base64 64`

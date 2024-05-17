@@ -6,6 +6,7 @@ pub struct Settings {
     pub shortened_length: usize,
     pub max_custom_length: usize,
     pub frontend_url: String,
+    pub backend_url: String,
 }
 
 impl Settings {
