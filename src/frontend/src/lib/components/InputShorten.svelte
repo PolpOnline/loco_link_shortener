@@ -1,9 +1,6 @@
 <script lang="ts">
 	import { slide } from 'svelte/transition';
-
-	import HeroiconsCheck from '~icons/heroicons/check';
 	import HeroiconsLink from '~icons/heroicons/link';
-	import HeroiconsClipboard from '~icons/heroicons/clipboard';
 	import HeroiconsPencilSquareSolid from '~icons/heroicons/pencil-square-solid';
 	import GgShortcut from '~icons/gg/shortcut';
 	import { base, send } from '$lib/api';
@@ -13,6 +10,8 @@
 	import { jwt } from '$lib/stores/auth';
 	import { get as storeGet } from 'svelte/store';
 	import { invalidateAll } from '$app/navigation';
+	import LineMdClipboardArrow from '~icons/line-md/clipboard-arrow';
+	import LineMdConfirm from '~icons/line-md/confirm';
 
 	const urlRegex = new RegExp('https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\+.~#?&/=]*)');
 	let url = '';
@@ -132,9 +131,9 @@
 				<div class="col-md-2 col-12 mt-2 mt-md-0">
 					<button class="btn btn-primary w-100" on:click={copyShortened}>
 						{#if isCheckMarkDisplayed}
-							<HeroiconsCheck />
+							<LineMdConfirm />
 						{:else}
-							<HeroiconsClipboard />
+							<LineMdClipboardArrow />
 						{/if}
 					</button>
 				</div>
