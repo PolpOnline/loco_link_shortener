@@ -17,7 +17,7 @@
 				<LinkCard image={undefined}
 									original={link.original}
 									shortened={link.shortened}
-									created_at={link.created_at}
+									created_at={new Date(link.created_at)}
 									name={link.name}
 				/>
 			</div>

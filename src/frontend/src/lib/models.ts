@@ -44,14 +44,6 @@ export interface DeleteRequest {
 	shortened: string;
 }
 
-// pub struct InfoRequest {
-// 	pub shortened: String,
-// }
-
-export interface InfoRequest {
-	shortened: string;
-}
-
 // Inforesponse is just InfoLinkView
 // #[derive(Serialize)]
 // pub struct InfoLinkView {
@@ -73,7 +65,7 @@ export interface InfoLinkView {
 	original: string;
 	shortened: string;
 	clicks: InfoClick[];
-	created_at: Date;
+	created_at: string;
 }
 
 export interface InfoClick {
@@ -101,5 +93,5 @@ export interface Link {
 	name: string;
 	original: string;
 	shortened: string;
-	created_at: Date;
+	created_at: string;
 }
