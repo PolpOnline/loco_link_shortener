@@ -20,11 +20,11 @@ pub struct OAuth2UserProfile {
     // https://www.googleapis.com/auth/userinfo.profile See your personal info, including any personal info you've made publicly available
     pub name: String,
     pub sub: String,
-    pub given_name: String,
-    pub family_name: String,
-    pub picture: String,
+    pub given_name: Option<String>,
+    pub family_name: Option<String>,
+    pub picture: Option<String>,
     pub email_verified: bool,
-    pub locale: String,
+    pub locale: Option<String>,
 }
 
 #[async_trait]

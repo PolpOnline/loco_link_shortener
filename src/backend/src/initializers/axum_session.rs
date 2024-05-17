@@ -21,7 +21,8 @@ impl Initializer for AxumSessionInitializer {
             .backend_url
             .clone()
             .replace("https://", "")
-            .replace("http://", "");
+            .replace("http://", "")
+            .replace(":3000", "");
 
         // Create the session store configuration
         let session_config = axum_session::SessionConfig::default()
