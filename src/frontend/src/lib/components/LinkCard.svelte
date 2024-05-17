@@ -16,8 +16,8 @@
 	{#if image}
 		<img alt={imageAlt} class="card-img-top" src={image} />
 	{:else}
-		<div class="card-img-top">
-			<div class="
+		<div class="
+						card-img-top
 						aspect-ratio-16-9
 						position-relative
 						w-100
@@ -25,9 +25,9 @@
 						align-items-center
 						justify-content-center
             bg-body
-            text-white">
-				<HeroiconsLink class="fs-1" />
-			</div>
+            text-white
+						rounded-">
+			<HeroiconsLink class="fs-1" />
 		</div>
 	{/if}
 	<div class="card-body d-flex flex-column align-items-baseline">
