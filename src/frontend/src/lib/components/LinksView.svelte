@@ -11,7 +11,7 @@
 	{/if}
 
 	<div class="row">
-		{#each links as link}
+		{#each links as link (link.shortened)}
 			<div class="col-md-3 col-12 g-4 d-flex align-items-stretch justify-content-center">
 				<!--	TODO: image -->
 				<LinkCard image={undefined}

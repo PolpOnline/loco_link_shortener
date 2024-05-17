@@ -44,7 +44,7 @@
 		checkIsValid();
 
 		if (invalidForm) {
-			return;
+			return Error(invalidFeedback);
 		}
 
 		let payload: AddRequest = {
@@ -59,14 +59,16 @@
 			payload.custom = customShortened;
 		}
 
-		let response: AddResponse = await send({ method: 'POST', path: 'add', data: payload, token: storeGet(jwt) });
+		let response: AddResponse = await send({
+			method: 'POST',
+			path: 'add',
+			data: payload,
+			token: storeGet(jwt)
+		});
 
 		shortenedUrl = response.shortened;
 
-		setTimeout(async () => {
-			await invalidateAll();
-		}, 2000);
-
+		await invalidateAll();
 	}
 </script>
 

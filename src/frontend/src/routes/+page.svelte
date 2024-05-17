@@ -5,6 +5,7 @@
 
 	export let data: PageData;
 
+	// @ts-ignore
 	const listResponse: ListResponse = data.listResponse;
 </script>
 

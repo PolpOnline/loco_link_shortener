@@ -16,11 +16,9 @@
 
 
 <style lang="scss">
-  @media not (hover: hover) {
-    .btn {
-      &:hover, &:focus, &:active {
-        background-color: transparent;
-      }
+  .btn {
+    &:hover, &:focus, &:active {
+      background-color: transparent;
     }
   }
 </style>

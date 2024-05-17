@@ -115,7 +115,7 @@
 						</tr>
 					{/if}
 
-					{#each info.clicks as click}
+					{#each info.clicks as click (click.clicked_at)}
 						<tr>
 							<td>{new Date(click.clicked_at).toLocaleString()}</td>
 							<td>{click.address}</td>
