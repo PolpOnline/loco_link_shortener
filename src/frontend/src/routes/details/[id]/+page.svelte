@@ -10,6 +10,7 @@
 	import LucideExpand from '~icons/lucide/expand';
 	import LucideShrink from '~icons/lucide/shrink';
 	import MdiAnonymous from '~icons/mdi/anonymous';
+	import HeroiconsCalendar from '~icons/heroicons/calendar';
 	import type { PageData } from './$types';
 	import { goto } from '$app/navigation';
 
@@ -73,7 +74,7 @@
 		</div>
 
 		<div class="d-flex align-items-center mt-3">
-			<HeroiconsClock class="me-2" />
+			<HeroiconsCalendar class="me-2" />
 			<span class="fw-bold me-1">
 				Created:
 			</span>
