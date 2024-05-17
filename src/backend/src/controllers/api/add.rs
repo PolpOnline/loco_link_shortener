@@ -8,7 +8,12 @@ use thiserror::Error;
 use tracing::error;
 use witty_phrase_generator::WPGen;
 
-use crate::{common, controllers::utils::get_user_from_jwt, models::_entities::links};
+use crate::{
+    common,
+    controllers::utils::get_user_from_jwt,
+    models::_entities::links,
+    workers::image_getter::{LinkGetterWorker, LinkGetterWorkerArgs},
+};
 
 pub fn is_custom_valid(custom: &str, max_length: usize) -> StdResult<(), AddError> {
     if custom.chars().any(|c| !c.is_alphanumeric()) {
@@ -61,7 +66,7 @@ pub async fn add(
 ) -> Result<impl IntoResponse> {
     let user = get_user_from_jwt(&ctx, jwt).await?;
 
-    let settings = &ctx.config.settings.unwrap();
+    let settings = &ctx.clone().config.settings.unwrap();
     let settings = common::settings::Settings::from_json(settings)?;
 
     let name = match &params.name {
@@ -85,7 +90,7 @@ pub async fn add(
         None => generate_shortened(settings.shortened_length),
     };
 
-    links::Model::add(
+    let id = links::Model::add(
         &ctx.db,
         name.as_str(),
         params.url.as_str(),
@@ -110,6 +115,18 @@ pub async fn add(
 
         Error::CustomError(status_code, ErrorDetail::new(err_shorthand, &err_desc))
     })?;
+
+    LinkGetterWorker::perform_later(
+        &ctx,
+        LinkGetterWorkerArgs {
+            id,
+            url: params.url,
+        },
+    )
+    .await
+    .unwrap_or_else(|e| {
+        error!("Error scheduling image getter worker: {}", e);
+    });
 
     Ok(Json(AddResponse { shortened }))
 }

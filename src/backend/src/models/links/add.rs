@@ -14,18 +14,31 @@ impl links::Model {
         original: T,
         shortened: T,
         user_id: i32,
-    ) -> std::result::Result<(), AddError> {
-        ActiveModel {
+    ) -> std::result::Result<i32, AddError> {
+        // ActiveModel {
+        //     name: Set(name.into()),
+        //     original: Set(original.into()),
+        //     shortened: Set(shortened.into()),
+        //     user_id: Set(user_id),
+        //     ..Default::default()
+        // }
+        // .insert(db)
+        // .await
+        // .map_err(ModelError::from)?;
+
+        let link = ActiveModel {
             name: Set(name.into()),
             original: Set(original.into()),
             shortened: Set(shortened.into()),
             user_id: Set(user_id),
             ..Default::default()
-        }
-        .insert(db)
-        .await
-        .map_err(ModelError::from)?;
+        };
 
-        Ok(())
+        let res = Links::insert(link)
+            .exec(db)
+            .await
+            .map_err(ModelError::from)?;
+
+        Ok(res.last_insert_id)
     }
 }

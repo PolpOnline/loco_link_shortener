@@ -2,7 +2,7 @@ use loco_rs::{model::ModelError, prelude::*};
 use sea_orm::entity::prelude::*;
 
 pub use super::super::_entities::prelude::*;
-use crate::models::{_entities::links, links::find::InfoError};
+use crate::models::{_entities::links, links::find::FindError};
 
 #[derive(thiserror::Error, Debug)]
 pub enum DeleteError {
@@ -16,11 +16,11 @@ pub enum DeleteError {
     ModelError(#[from] ModelError),
 }
 
-impl From<InfoError> for DeleteError {
-    fn from(err: InfoError) -> Self {
+impl From<FindError> for DeleteError {
+    fn from(err: FindError) -> Self {
         match err {
-            InfoError::NotFound => DeleteError::NotFound,
-            InfoError::ModelError(err) => DeleteError::ModelError(err),
+            FindError::NotFound => DeleteError::NotFound,
+            FindError::ModelError(err) => DeleteError::ModelError(err),
         }
     }
 }

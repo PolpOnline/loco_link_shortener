@@ -13,8 +13,7 @@
 	<div class="row">
 		{#each links as link (link.shortened)}
 			<div class="col-md-3 col-12 g-4 d-flex align-items-stretch justify-content-center">
-				<!--	TODO: image -->
-				<LinkCard image={undefined}
+				<LinkCard image={link.image}
 									original={link.original}
 									shortened={link.shortened}
 									created_at={new Date(link.created_at)}

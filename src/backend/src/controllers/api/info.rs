@@ -6,7 +6,7 @@ use crate::{
     controllers::utils::get_user_from_jwt,
     models::{
         _entities::{clicks, links},
-        links::find::InfoError,
+        links::find::FindError,
     },
     views::link_view::InfoLinkView,
 };
@@ -26,7 +26,7 @@ pub async fn info(
             let err_shorthand;
             let mut err_desc = err.to_string();
 
-            if let InfoError::NotFound = err {
+            if let FindError::NotFound = err {
                 status_code = StatusCode::NOT_FOUND;
                 err_shorthand = "NOT_FOUND";
             } else {

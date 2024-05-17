@@ -91,6 +91,7 @@ export interface ListResponse {
 
 export interface Link {
 	name: string;
+	image?: string;
 	original: string;
 	shortened: string;
 	created_at: string;

@@ -46,6 +46,7 @@ impl MigrationTrait for Migration {
                             .primary_key(),
                     )
                     .col(ColumnDef::new(Links::Name).string().not_null())
+                    .col(ColumnDef::new(Links::Image).string())
                     .col(ColumnDef::new(Links::Original).string().not_null())
                     .col(
                         ColumnDef::new(Links::Shortened)
@@ -127,6 +128,7 @@ pub enum Links {
     Table,
     Id,
     Name,
+    Image,
     Original,
     Shortened,
     CreatedAt,

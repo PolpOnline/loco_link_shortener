@@ -9,6 +9,7 @@ pub struct Model {
     #[sea_orm(primary_key)]
     pub id: i32,
     pub name: String,
+    pub image: Option<String>,
     pub original: String,
     #[sea_orm(unique)]
     pub shortened: String,
