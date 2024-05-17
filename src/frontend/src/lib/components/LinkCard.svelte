@@ -32,10 +32,10 @@
 	{/if}
 	<div class="card-body d-flex flex-column align-items-baseline">
 		<h5 class="card-title">{name}</h5>
-		<div class="card-text">
+		<div class="card-text mb-3">
 			<LinkBrief createdAt={created_at} original={original} />
 		</div>
-		<a class="btn btn-primary mt-5 w-100" data-sveltekit-preload-data href={detailsPage}>Info</a>
+		<a class="btn btn-primary mt-auto w-100" data-sveltekit-preload-data href={detailsPage}>Info</a>
 	</div>
 </div>
 
