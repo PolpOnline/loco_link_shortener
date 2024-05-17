@@ -11,9 +11,11 @@
 	import MaterialSymbolsContentCopyOutline from '~icons/material-symbols/content-copy-outline';
 	import MdiAnonymous from '~icons/mdi/anonymous';
 	import type { PageData } from './$types';
+	import { goto } from '$app/navigation';
 
 	export let data: PageData;
 
+	// @ts-ignore
 	const info: InfoLinkView = data.info;
 
 	let fullShortened = `${base}/x/${info.shortened}`;
@@ -35,14 +37,14 @@
 			throw Error('Failed to delete url');
 		}
 
-		window.location.href = '/';
+		await goto('/');
 	}
 </script>
 
 <main>
 	<div class="w-90 mx-auto">
 		<div class="d-flex align-items-center link-header">
-			<button class="btn btn-outline-secondary me-auto" on:click={() => window.location.href = '/'}>
+			<button class="btn btn-outline-secondary me-auto" on:click={async () => await goto('/')}>
 				<HeroiconsArrowLeft />
 			</button>
 

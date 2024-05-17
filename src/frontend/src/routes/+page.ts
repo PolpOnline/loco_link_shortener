@@ -7,7 +7,7 @@ import type { PageLoad } from './$types';
 export const ssr = false;
 export const prerender = false;
 
-const loadList = async (p: { fetch: customFetchType }) => {
+const loadList = async ({ fetch }: { fetch: customFetchType }) => {
 	const token = storeGet(jwt);
 
 	const listResponse: ListResponse = await send({
@@ -20,7 +20,7 @@ const loadList = async (p: { fetch: customFetchType }) => {
 	return listResponse;
 };
 
-export const load: PageLoad = async ({ fetch }) => {
+export const load: PageLoad = async ({ fetch }: { fetch: customFetchType }) => {
 	const listResponse = await loadList({ fetch });
 
 	return {

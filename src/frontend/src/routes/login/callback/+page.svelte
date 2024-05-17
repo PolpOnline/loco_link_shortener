@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { jwt } from '$lib/stores/auth';
 	import { page } from '$app/stores';
+	import { goto } from '$app/navigation';
 
 	const token = $page.data.t;
 
@@ -12,7 +13,7 @@
 
 		jwt.set(token);
 
-		window.location.href = '/';
+		await goto('/');
 	}
 
 	getJWT();
