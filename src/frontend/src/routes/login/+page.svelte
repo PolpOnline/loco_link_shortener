@@ -8,8 +8,19 @@
 </script>
 
 <div class="d-flex flex-column justify-content-center align-items-center vh-100">
-	<button class="btn btn-primary d-flex align-items-center" on:click={goToLogin}>
+	<button class="btn btn-outline-primary d-flex align-items-center" on:click={goToLogin}>
 		<FlatColorIconsGoogle />
 		<span class="ms-2">Login with Google</span>
 	</button>
 </div>
+
+
+<style lang="scss">
+  @media not (hover: hover) {
+    .btn {
+      &:hover, &:focus, &:active {
+        background-color: transparent;
+      }
+    }
+  }
+</style>
