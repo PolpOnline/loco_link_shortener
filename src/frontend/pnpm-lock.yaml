@@ -36,6 +36,9 @@ importers:
       '@iconify-json/line-md':
         specifier: ^1.1.37
         version: 1.1.37
+      '@iconify-json/lucide':
+        specifier: ^1.1.187
+        version: 1.1.187
       '@iconify-json/material-symbols':
         specifier: ^1.1.80
         version: 1.1.80
@@ -492,6 +495,9 @@ packages:
 
   '@iconify-json/line-md@1.1.37':
     resolution: {integrity: sha512-qGezTafsQOX4N2STOV0gsSw/vr0u7DPXtg0jpVQTIa9ht1IXN68O+Qy7Ia2dHbuW4w5nz3UyhJzNrh7NB5T7BA==}
+
+  '@iconify-json/lucide@1.1.187':
+    resolution: {integrity: sha512-ToklgtHDm2Tb6WrXZOEubXx0bH3D2Tpp3LayIbmzF1c8IS0Fb/qLnISYiZ5UbQZMODwTB1Hj9RnGPl1O9W061A==}
 
   '@iconify-json/material-symbols@1.1.80':
     resolution: {integrity: sha512-JrDMmWeHxFFMp3BBSsjvDvSiYzJ0qdYmHAQYWY/L5fxVZcIoeoQvtQR0wM1iJN4UDIsnHwbpJQ/sqZ/cvph6sw==}
@@ -2064,6 +2070,10 @@ snapshots:
       '@iconify/types': 2.0.0
 
   '@iconify-json/line-md@1.1.37':
+    dependencies:
+      '@iconify/types': 2.0.0
+
+  '@iconify-json/lucide@1.1.187':
     dependencies:
       '@iconify/types': 2.0.0
 

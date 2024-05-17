@@ -4,11 +4,11 @@
 	import { get as storeGet } from 'svelte/store';
 	import { jwt } from '$lib/stores/auth';
 	import HeroiconsTrash from '~icons/heroicons/trash';
-	import HeroiconsArrowRightCircle from '~icons/heroicons/arrow-right-circle';
 	import HeroiconsClock from '~icons/heroicons/clock';
 	import HeroiconsArrowLeft from '~icons/heroicons/arrow-left';
 	import IconoirIpAddressTag from '~icons/iconoir/ip-address-tag';
-	import MaterialSymbolsContentCopyOutline from '~icons/material-symbols/content-copy-outline';
+	import LucideExpand from '~icons/lucide/expand';
+	import LucideShrink from '~icons/lucide/shrink';
 	import MdiAnonymous from '~icons/mdi/anonymous';
 	import type { PageData } from './$types';
 	import { goto } from '$app/navigation';
@@ -18,7 +18,8 @@
 	// @ts-ignore
 	const info: InfoLinkView = data.info;
 
-	let fullShortened = `${base}/x/${info.shortened}`;
+	let fullShortened = `${base}/x/${info.shortened}`.replace(/^(?:https?:\/\/)?(?:www\.)?/i, '');
+	let fullOriginal = info.original.replace(/^(?:https?:\/\/)?(?:www\.)?/i, '');
 
 	async function deleteUrl() {
 		try {
@@ -55,16 +56,20 @@
 
 		<hr class="my-3" />
 
-		<div class="mt-3">
-			<div class="d-inline-flex align-items-center">
-				<MaterialSymbolsContentCopyOutline class="me-1" />
-				<a href={fullShortened}>{fullShortened}</a>
-			</div>
-			<div class="d-inline-flex align-items-center">
-				<HeroiconsArrowRightCircle class="me-1" />
-				<MaterialSymbolsContentCopyOutline class="me-1" />
-				<a href={info.original}> {info.original} </a>
-			</div>
+		<div class="d-flex align-items-center mt-3">
+			<LucideExpand class="me-2" />
+			<span class="fw-bold me-1">
+				Original:
+			</span>
+			<a href={info.original}>{fullOriginal}</a>
+		</div>
+
+		<div class="d-flex align-items-center mt-3">
+			<LucideShrink class="me-2" />
+			<span class="fw-bold me-1">
+				Shortened:
+			</span>
+			<a href={fullShortened}>{fullShortened}</a>
 		</div>
 
 		<div class="d-flex align-items-center mt-3">
