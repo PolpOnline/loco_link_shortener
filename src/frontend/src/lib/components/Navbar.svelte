@@ -1,6 +1,13 @@
+<script lang="ts">
+	import HeroiconsLink from '~icons/heroicons/link';
+</script>
+
 <nav class="navbar navbar-expand-lg bg-transparent">
 	<div class="container-fluid">
-		<a class="navbar-brand" href="/">Loco Link Shortener</a>
+		<a class="navbar-brand" href="/">
+			<HeroiconsLink class="me-2" />
+			Link Shortener
+		</a>
 		<button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
 						class="navbar-toggler"
 						data-bs-target="#navbarSupportedContent" data-bs-toggle="collapse" type="button">
