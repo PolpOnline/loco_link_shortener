@@ -5,23 +5,22 @@
 	export let createdAt: Date;
 	export let original: string;
 
+	let domainOriginal = new URL(original).hostname;
+
 	let createdAtString = createdAt.toLocaleString();
 </script>
 
-<div class="container-fluid">
-	<div class="row">
-		<div class="col-2">
-			<HeroiconsLink class="me-2" />
-		</div>
-		<div class="col-10">
-			{original}
+<div class="w-100">
+	<div class="d-flex align-items-center">
+		<HeroiconsLink class="me-2" />
+		<div>
+			{domainOriginal}
 		</div>
 	</div>
-	<div class="row">
-		<div class="col-2">
-			<HeroiconsClock class="me-2" />
-		</div>
-		<div class="col-10">
+
+	<div class="d-flex align-items-center">
+		<HeroiconsClock class="me-2" />
+		<div>
 			{createdAtString}
 		</div>
 	</div>
