@@ -143,7 +143,7 @@ auth:
     # Secret key for token generation and verification
     secret: {{get_env(name="JWT_SECRET")}}
     # Token expiration time in seconds
-    expiration: 3600 # 1 hour
+    expiration: 15638400 # Default is 1 hour, set to 6 months
 
 settings:
   shortened_length: 6
@@ -168,4 +168,4 @@ settings:
             - {{get_env(name="SCOPES_2", default="https://www.googleapis.com/auth/userinfo.profile")}} # Scopes for requesting access to user data
         cookie_config:
           protected_url: {{get_env(name="PROTECTED_URL", default="http://localhost:3000/api/oauth2/protected")}} # Optional - For redirecting to protect url in cookie to prevent XSS attacks
-        timeout_seconds: 15638400 # Optional, default 600 seconds, set to 6 months
+        timeout_seconds: 600 # Optional, default 600 seconds
