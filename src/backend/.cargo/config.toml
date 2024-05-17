@@ -1,3 +1,6 @@
 [alias]
 loco = "run --"
 playground = "run --example playground"
+
+[build]
+rustflags = ["-Ctarget-cpu=native"]
