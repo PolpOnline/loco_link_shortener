@@ -18,6 +18,8 @@
 		}
 	}
 
+	loginCheck();
+
 	export let data;
 
 	const duration = 300;

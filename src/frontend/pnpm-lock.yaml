@@ -33,6 +33,9 @@ importers:
       '@iconify-json/iconoir':
         specifier: ^1.1.44
         version: 1.1.44
+      '@iconify-json/line-md':
+        specifier: ^1.1.37
+        version: 1.1.37
       '@iconify-json/material-symbols':
         specifier: ^1.1.80
         version: 1.1.80
@@ -486,6 +489,9 @@ packages:
 
   '@iconify-json/iconoir@1.1.44':
     resolution: {integrity: sha512-XZZ6+nIgS3BUWTmIvZ1Um/TZcUsOEVDGOTZ50hihoTWYjfLLmPlxS/jxrTTpjJO/98wbyiDz4WOXFGqBrXMLPw==}
+
+  '@iconify-json/line-md@1.1.37':
+    resolution: {integrity: sha512-qGezTafsQOX4N2STOV0gsSw/vr0u7DPXtg0jpVQTIa9ht1IXN68O+Qy7Ia2dHbuW4w5nz3UyhJzNrh7NB5T7BA==}
 
   '@iconify-json/material-symbols@1.1.80':
     resolution: {integrity: sha512-JrDMmWeHxFFMp3BBSsjvDvSiYzJ0qdYmHAQYWY/L5fxVZcIoeoQvtQR0wM1iJN4UDIsnHwbpJQ/sqZ/cvph6sw==}
@@ -2054,6 +2060,10 @@ snapshots:
       '@iconify/types': 2.0.0
 
   '@iconify-json/iconoir@1.1.44':
+    dependencies:
+      '@iconify/types': 2.0.0
+
+  '@iconify-json/line-md@1.1.37':
     dependencies:
       '@iconify/types': 2.0.0
 
