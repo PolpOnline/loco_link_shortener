@@ -1,7 +1,3 @@
-<script lang="ts">
-	// import 'bootstrap';
-</script>
-
 <nav class="navbar navbar-expand-lg bg-transparent">
 	<div class="container-fluid">
 		<a class="navbar-brand" href="/">Loco Link Shortener</a>
