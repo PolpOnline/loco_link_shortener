@@ -8,7 +8,7 @@
 	let createdAtString = createdAt.toLocaleString();
 </script>
 
-<div class="container">
+<div class="container-fluid">
 	<div class="row">
 		<div class="col-2">
 			<HeroiconsLink class="me-2" />
