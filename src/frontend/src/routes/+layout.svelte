@@ -38,7 +38,7 @@
 </script>
 
 
-<div class="text-body">
+<div class="text-body poppins">
 	<Navbar />
 
 	{#if isLoading}
@@ -48,8 +48,14 @@
 	<ListErrors />
 
 	{#key data.pathname}
-		<div in:fly={transitionIn} out:fly={transitionOut}>
+		<div in:fly={transitionIn} out:fly={transitionOut} class="bg-black">
 			<slot />
 		</div>
 	{/key}
 </div>
+
+<style>
+    .poppins {
+        font-family: 'Poppins', sans-serif;
+    }
+</style>

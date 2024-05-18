@@ -69,6 +69,12 @@
 
 		await invalidateAll();
 	}
+
+	function handleKeyDown(event: KeyboardEvent) {
+		if (event.key === 'Enter') {
+			submitForm();
+		}
+	}
 </script>
 
 
@@ -78,11 +84,13 @@
 		<div class="col-md-10 col-12">
 			<div class="d-flex align-items-center text-body">
 				<HeroiconsLink class="me-2" />
-				<input bind:value={url} class="form-control" placeholder="Insert your link here" type="url" />
+				<input bind:value={url} class="form-control" on:keydown={handleKeyDown} placeholder="Insert your link here"
+							 type="url" />
 			</div>
 		</div>
 		<div class="col-md-2 col-12 mt-2 mt-md-0">
-			<button class="btn btn-primary w-100" disabled={!url} on:click={submitForm}>Shorten</button>
+			<button class="btn btn-primary w-100" disabled={!url} on:click={submitForm} on:keydown={handleKeyDown}>Shorten
+			</button>
 		</div>
 	</div>
 	<!--	advanced options part-->

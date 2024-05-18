@@ -16,7 +16,9 @@ const config = {
 
 	kit: {
 		alias: {
-			$components: './src/lib/components'
+			$components: './src/lib/components',
+			$static: './static',
+			$images: './src/lib/images'
 		},
 		// @ ts-ignore
 		adapter: adapter({

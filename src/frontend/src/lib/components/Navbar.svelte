@@ -1,5 +1,6 @@
 <script lang="ts">
 	import HeroiconsLink from '~icons/heroicons/link';
+	import { NavbarItem } from '$components/index';
 </script>
 
 <nav class="navbar navbar-expand-lg bg-transparent">
@@ -15,9 +16,8 @@
 		</button>
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-				<li class="nav-item">
-					<a aria-current="page" class="nav-link active" href="/">Home</a>
-				</li>
+				<NavbarItem href="/" text="Home" />
+				<NavbarItem href="/about" text="About" />
 			</ul>
 		</div>
 	</div>
