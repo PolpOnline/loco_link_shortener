@@ -1,6 +1,6 @@
 <script lang="ts">
 	import '../scss/app.scss';
-	import { ListErrors, Loader, Navbar } from '$components/index';
+	import { Footer, ListErrors, Loader, Navbar } from '$components/index';
 	import { onMount } from 'svelte';
 	import { get as getStore } from 'svelte/store';
 	import { jwt } from '$lib/stores/auth';
@@ -38,7 +38,7 @@
 </script>
 
 
-<div class="text-body poppins">
+<div class="text-body poppins bg-black actual-body">
 	<Navbar />
 
 	{#if isLoading}
@@ -48,13 +48,21 @@
 	<ListErrors />
 
 	{#key data.pathname}
-		<div in:fly={transitionIn} out:fly={transitionOut} class="bg-black">
+		<div in:fly={transitionIn} out:fly={transitionOut}>
 			<slot />
 		</div>
 	{/key}
+
+	<Footer />
 </div>
 
 <style>
+    .actual-body {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+
     .poppins {
         font-family: 'Poppins', sans-serif;
     }

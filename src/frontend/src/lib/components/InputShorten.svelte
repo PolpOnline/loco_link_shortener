@@ -77,6 +77,11 @@
 		shortenedUrl = response.shortened;
 
 		await invalidateAll();
+
+		// Re-invalidate the cache again after 1 second (to load images)
+		setTimeout(() => {
+			invalidateAll();
+		}, 1000);
 	}
 
 	function handleKeyDown(event: KeyboardEvent) {

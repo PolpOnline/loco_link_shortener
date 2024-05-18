@@ -20,6 +20,7 @@
       "@iconify-json/lucide": "^1.1.187",
 		"@iconify-json/material-symbols": "^1.1.80",
 		"@iconify-json/mdi": "^1.1.66",
+      "@iconify-json/skill-icons": "^1.1.8",
 		"@sveltejs/adapter-auto": "^3.0.0",
 		"@sveltejs/adapter-cloudflare": "^4.4.0",
       "@sveltejs/enhanced-img": "^0.2.0",
