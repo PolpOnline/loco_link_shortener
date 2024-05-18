@@ -2,7 +2,7 @@ use loco_rs::{
     model::{ModelError, ModelResult},
     prelude::*,
 };
-use sea_orm::entity::prelude::*;
+use sea_orm::{entity::prelude::*, QueryOrder};
 
 pub use super::super::_entities::prelude::*;
 use crate::models::_entities::clicks;
@@ -23,6 +23,7 @@ impl clicks::Model {
     ) -> ModelResult<Vec<clicks::Model>> {
         Ok(Clicks::find()
             .filter(clicks::Column::LinkId.eq(id))
+            .order_by_desc(clicks::Column::ClickedAt)
             .all(db)
             .await?)
     }

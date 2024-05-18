@@ -22,6 +22,7 @@
 		"@iconify-json/mdi": "^1.1.66",
 		"@iconify-json/skill-icons": "^1.1.8",
 		"@iconify-json/svg-spinners": "^1.1.2",
+		"@iconify-json/tabler": "^1.1.112",
 		"@sveltejs/adapter-auto": "^3.2.0",
 		"@sveltejs/adapter-cloudflare": "^4.4.0",
 		"@sveltejs/enhanced-img": "^0.2.0",

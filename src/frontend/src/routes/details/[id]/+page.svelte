@@ -1,10 +1,10 @@
 <svelte:head>
-	<title>Details for {info.name}</title>
+	<title>Details for {data.info.name}</title>
 </svelte:head>
 
 <script lang="ts">
 	import { base, send } from '$lib/api';
-	import type { DeleteRequest, InfoLinkView } from '$lib/models';
+	import type { DeleteRequest } from '$lib/models';
 	import { get as storeGet } from 'svelte/store';
 	import { jwt } from '$lib/stores/auth';
 	import HeroiconsTrash from '~icons/heroicons/trash';
@@ -16,22 +16,24 @@
 	import MdiAnonymous from '~icons/mdi/anonymous';
 	import HeroiconsCalendar from '~icons/heroicons/calendar';
 	import type { PageData } from './$types';
-	import { goto } from '$app/navigation';
+	import { goto, invalidateAll } from '$app/navigation';
 	import LineMdAlert from '~icons/line-md/alert';
+	import TablerRefresh from '~icons/tabler/refresh';
+	import { type FlyParams, slide } from 'svelte/transition';
+	import { cubicIn } from 'svelte/easing';
+	import { flip, type FlipParams } from 'svelte/animate';
+
 
 	export let data: PageData;
 
-	// @ts-ignore
-	const info: InfoLinkView = data.info;
-
-	let fullShortened = `${base}/x/${info.shortened}`;
+	let fullShortened = `${base}/x/${data.info.shortened}`;
 	let fullShortenedView = fullShortened.replace(/^(?:https?:\/\/)?(?:www\.)?/i, '');
-	let fullOriginal = info.original.replace(/^(?:https?:\/\/)?(?:www\.)?/i, '');
+	let fullOriginal = data.info.original.replace(/^(?:https?:\/\/)?(?:www\.)?/i, '');
 
 	async function deleteUrl() {
 		try {
 			let payload: DeleteRequest = {
-				shortened: info.shortened
+				shortened: data.info.shortened
 			};
 
 			await send({
@@ -42,14 +44,32 @@
 			});
 		} catch (error) {
 			console.error(error);
-			throw Error('Failed to delete url');
 		}
 
 		await goto('/');
 	}
+
+	let isRefreshing = false;
+
+	async function refresh() {
+		if (isRefreshing) return;
+		isRefreshing = true;
+		await invalidateAll();
+		isRefreshing = false;
+	}
+
+	const slideInOptions: FlyParams = {
+		y: '-50%',
+		duration: 300,
+		easing: cubicIn
+	};
+
+	const flipOptions: FlipParams = {
+		duration: 300
+	};
 </script>
 
-<main>
+<main class="mt-3">
 	<div class="w-90 mx-auto">
 		<div class="d-flex align-items-center link-header">
 			<button class="btn btn-outline-secondary me-auto" on:click={async () => await goto('/')}>
@@ -57,8 +77,14 @@
 			</button>
 
 			<h1 class="mb-0 d-flex info-name flex-1 justify-content-center">
-				{info.name}
+				{data.info.name}
 			</h1>
+
+			<button class="btn btn-outline-primary ms-auto" on:click={refresh}>
+				<span class="d-inline-block" class:rotating={isRefreshing}>
+					<TablerRefresh />
+				</span>
+			</button>
 		</div>
 
 		<hr class="my-3" />
@@ -68,7 +94,7 @@
 			<span class="fw-bold me-1">
 				Original:
 			</span>
-			<a href={info.original} target="_blank">{fullOriginal}</a>
+			<a href={data.info.original} target="_blank">{fullOriginal}</a>
 		</div>
 
 		<div class="d-flex align-items-center mt-3">
@@ -84,16 +110,16 @@
 			<span class="fw-bold me-1">
 				Created:
 			</span>
-			{new Date(info.created_at).toLocaleString()}
+			{new Date(data.info.created_at).toLocaleString()}
 		</div>
 
 		<div class="table-responsive mt-3">
 			<table class="table caption-top rounded">
 				<caption>
-					{#if info.clicks.length === 1}
-						Displaying {info.clicks.length} click
-					{:else if info.clicks.length > 1}
-						Displaying {info.clicks.length} clicks
+					{#if data.info.clicks.length === 1}
+						Displaying {data.info.clicks.length} click
+					{:else if data.info.clicks.length > 1}
+						Displaying {data.info.clicks.length} clicks
 					{:else}
 						No clicks yet
 					{/if}
@@ -121,14 +147,14 @@
 					</tr>
 				</thead>
 				<tbody>
-					{#if info.clicks.length === 0}
+					{#if data.info.clicks.length === 0}
 						<tr>
 							<td colspan="3" class="text-center">Clicks will appear here!</td>
 						</tr>
 					{/if}
 
-					{#each info.clicks as click (click.clicked_at)}
-						<tr>
+					{#each data.info.clicks as click (click.clicked_at)}
+						<tr in:slide={slideInOptions} animate:flip={flipOptions}>
 							<td>{new Date(click.clicked_at).toLocaleString()}</td>
 							<td>{click.address}</td>
 							<td>
@@ -164,5 +190,18 @@
 <style lang="scss">
   .flex-1 {
     flex: 1;
+  }
+
+  @keyframes rotating {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .rotating {
+    animation: rotating 2s linear infinite;
   }
 </style>
