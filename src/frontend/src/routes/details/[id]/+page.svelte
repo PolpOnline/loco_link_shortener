@@ -24,6 +24,7 @@
 	import { flip, type FlipParams } from 'svelte/animate';
 	import LineMdClipboardArrow from '~icons/line-md/clipboard-arrow';
 	import LineMdConfirm from '~icons/line-md/confirm';
+	import LineMdLoadingLoop from '~icons/line-md/loading-loop';
 
 
 	export let data: PageData;
@@ -32,7 +33,10 @@
 	let fullShortenedView = fullShortened.replace(/^(?:https?:\/\/)?(?:www\.)?/i, '');
 	let fullOriginal = data.info.original.replace(/^(?:https?:\/\/)?(?:www\.)?/i, '');
 
+	let isDeleting = false;
+
 	async function deleteUrl() {
+		isDeleting = true;
 		try {
 			let payload: DeleteRequest = {
 				shortened: data.info.shortened
@@ -204,10 +208,17 @@
 			</p>
 
 			<button class="btn btn-outline-danger" on:click={deleteUrl}>
-				<span class="d-flex align-items-center">
-					<HeroiconsTrash class="me-2" />
-					Delete this URL
-				</span>
+				{#if isDeleting}
+					<span class="d-flex align-items-center">
+						<LineMdLoadingLoop class="me-2" />
+						Deleting...
+					</span>
+				{:else}
+					<span class="d-flex align-items-center">
+						<HeroiconsTrash class="me-2" />
+						Delete this URL
+					</span>
+				{/if}
 			</button>
 		</div>
 	</div>
