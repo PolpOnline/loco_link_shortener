@@ -19,7 +19,7 @@
 	import { goto, invalidateAll } from '$app/navigation';
 	import LineMdAlert from '~icons/line-md/alert';
 	import TablerRefresh from '~icons/tabler/refresh';
-	import { type FlyParams, slide } from 'svelte/transition';
+	import { slide, type SlideParams } from 'svelte/transition';
 	import { cubicIn } from 'svelte/easing';
 	import { flip, type FlipParams } from 'svelte/animate';
 	import LineMdClipboardArrow from '~icons/line-md/clipboard-arrow';
@@ -64,8 +64,8 @@
 		isRefreshing = false;
 	}
 
-	const slideInOptions: FlyParams = {
-		y: '-50%',
+	const slideInOptions: SlideParams = {
+		axis: 'x',
 		duration: 300,
 		easing: cubicIn
 	};
