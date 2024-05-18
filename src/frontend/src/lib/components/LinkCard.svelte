@@ -38,10 +38,3 @@
 		<a class="btn btn-primary mt-auto w-100" data-sveltekit-preload-data href={detailsPage}>Info</a>
 	</div>
 </div>
-
-
-<style lang="scss">
-  .aspect-ratio-16-9 {
-    aspect-ratio: 16 / 9; // This gives the div a 16:9 aspect ratio. Adjust as needed
-  }
-</style>

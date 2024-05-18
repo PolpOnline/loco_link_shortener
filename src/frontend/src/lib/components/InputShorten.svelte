@@ -57,13 +57,14 @@
 
 		addProtocolIfNeeded();
 
-		// checkIsValid();
-		//
-		// if (invalidForm) {
-		// 	isShortening = false;
-		// 	invalidForm = true;
-		// 	invalidFeedback = 'Please insert a valid url';
-		// }
+		checkIsValid();
+
+		if (invalidForm) {
+			isShortening = false;
+			invalidForm = true;
+			invalidFeedback = 'Please insert a valid url';
+			return;
+		}
 
 		let payload: AddRequest = {
 			url

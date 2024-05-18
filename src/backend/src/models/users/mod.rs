@@ -84,7 +84,7 @@ impl OAuth2UserTrait<OAuth2UserProfile> for users::Model {
                     hash::hash_password(&profile.sub).map_err(|e| ModelError::Any(e.into()))?;
                 // Create the user into the database
                 users::ActiveModel {
-                    pid: ActiveValue::set(uuid::Uuid::new_v4()),
+                    pid: ActiveValue::set(Uuid::new_v4()),
                     email: ActiveValue::set(profile.email.to_string()),
                     name: ActiveValue::set(profile.name.to_string()),
                     email_verified_at: ActiveValue::set(Some(Utc::now().naive_utc())),

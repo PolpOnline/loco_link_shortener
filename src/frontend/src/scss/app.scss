@@ -20,10 +20,6 @@
   width: 90% !important;
 }
 
-.aspect-ratio-1-2 {
-  aspect-ratio: 0.5;
-}
-
 .glass {
   // take the elems background color and make it transparent
   //background-color: red;
@@ -33,4 +29,8 @@
 
 .text-justified {
   text-align: justify;
+}
+
+.aspect-ratio-16-9 {
+  aspect-ratio: 16 / 9; // This gives the div a 16:9 aspect ratio. Adjust as needed
 }
