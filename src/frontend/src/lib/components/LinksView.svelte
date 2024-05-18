@@ -33,7 +33,7 @@
 				<LinkCard image={link.image}
 									original={link.original}
 									shortened={link.shortened}
-									created_at={new Date(link.created_at)}
+									created_at={new Date(link.created_at + 'Z')}
 									name={link.name}
 				/>
 			</div>
