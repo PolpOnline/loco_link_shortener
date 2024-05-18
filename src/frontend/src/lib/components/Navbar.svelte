@@ -20,8 +20,6 @@
 				<NavbarItem href="/" text="Home" />
 				<NavbarItem href="/about" text="About" />
 			</ul>
-		</div>
-		<div class="d-flex justify-content-end">
 			<a class="text-white" href="https://github.com/PolpOnline/loco_link_shortener" target="_blank">
 				<LineMdGithub class="fs-3" />
 			</a>
