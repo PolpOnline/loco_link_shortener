@@ -1,3 +1,7 @@
+<svelte:head>
+	<title>About</title>
+</svelte:head>
+
 <script lang="ts">
 	import Bootstrap from '$images/Bootstrap.png?enhanced';
 	import Loco from '$images/Loco.png?enhanced';
