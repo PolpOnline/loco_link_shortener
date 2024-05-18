@@ -14,32 +14,32 @@
 <hr class="w-75 mx-auto my-3">
 
 <div class="text-justified w-75 mx-auto">
-	<p class="my-5">
+	<p class="my-4">
 		The frontend is built with SvelteKit and Bootstrap 5.
 	</p>
 
 	<div class="container">
 		<div class="row">
-			<div class="col-12 col-md-6 img-fluid d-flex align-items-center justify-content-center">
+			<div class="col-12 col-md-6 img-fluid d-flex align-items-center justify-content-center py-2">
 				<Svelte --shadow-color="#FF3E00" class="uniform-height drop-shadow" />
 			</div>
-			<div class="col-12 col-md-6 img-fluid d-flex align-items-center justify-content-center">
+			<div class="col-12 col-md-6 img-fluid d-flex align-items-center justify-content-center py-2">
 				<enhanced:img alt="Bootstrap logo" class="uniform-height drop-shadow" src={Bootstrap}
 											style="--shadow-color: #7610F6" />
 			</div>
 		</div>
 	</div>
 
-	<p class="my-5">
+	<p class="my-4">
 		The backend is built with the Loco Framework, a Rust web framework that uses Axum and SeaORM.
 	</p>
 
 	<div class="container">
 		<div class="row">
-			<div class="col-12 col-md-4">
+			<div class="col-12 col-md-4 d-flex align-items-center justify-content-center py-2">
 				<enhanced:img alt="Loco logo" class="uniform-height drop-shadow" src={Loco} style="--shadow-color: #FC9E12" />
 			</div>
-			<div class="col-12 col-md-4 img-fluid d-flex align-items-center justify-content-center">
+			<div class="col-12 col-md-4 img-fluid d-flex align-items-center justify-content-center py-2">
 				<Axum --shadow-color="white" class="uniform-height drop-shadow" />
 			</div>
 			<div class="col-12 col-md-4 img-fluid d-flex align-items-center justify-content-center">
@@ -49,7 +49,7 @@
 		</div>
 	</div>
 
-	<p class="my-5">
+	<p class="my-4">
 		The database is PostgreSQL.
 	</p>
 
@@ -61,11 +61,11 @@
 		</div>
 	</div>
 
-	<p class="my-5">
+	<p class="my-4">
 		The application is deployed on Railway.
 	</p>
 
-	<div class="container">
+	<div class="container mb-5">
 		<div class="row">
 			<div class="col-12 img-fluid d-flex align-items-center justify-content-center">
 				<Railway --shadow-color="white" class="uniform-height drop-shadow" />
