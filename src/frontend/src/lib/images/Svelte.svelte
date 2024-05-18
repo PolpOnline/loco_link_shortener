@@ -7,7 +7,7 @@
 	export { className as class };
 </script>
 
-<svg class={className} id="Layer_1" role="img"
+<svg class={className} id="Layer_1"
 		 style="enable-background:new 0 0 98.1 118;"
 		 viewBox="0 0 98.1 118" x="0px" xml:space="preserve"
 		 xmlns="http://www.w3.org/2000/svg"

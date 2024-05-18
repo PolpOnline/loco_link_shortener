@@ -25,11 +25,15 @@
 	<div class="container w-50">
 		<div class="row">
 			<div class="col-12 col-md-6 img-fluid d-flex align-items-center justify-content-center py-2">
-				<Svelte --shadow-color="#FF3E00" class="uniform-height drop-shadow" />
+				<a class="flex-a-fix" href="https://svelte.dev/" target="_blank">
+					<Svelte --shadow-color="#FF3E00" class="uniform-height drop-shadow" />
+				</a>
 			</div>
 			<div class="col-12 col-md-6 img-fluid d-flex align-items-center justify-content-center py-2">
-				<enhanced:img alt="Bootstrap logo" class="uniform-height drop-shadow" src={Bootstrap}
-											style="--shadow-color: #7610F6" />
+				<a href="https://getbootstrap.com/" target="_blank">
+					<enhanced:img alt="Bootstrap logo" class="uniform-height drop-shadow" src={Bootstrap}
+												style="--shadow-color: #7610F6" />
+				</a>
 			</div>
 		</div>
 	</div>
@@ -41,14 +45,20 @@
 	<div class="container w-75">
 		<div class="row">
 			<div class="col-12 col-md-4 d-flex align-items-center justify-content-center py-2">
-				<enhanced:img alt="Loco logo" class="uniform-height drop-shadow" src={Loco} style="--shadow-color: #FC9E12" />
+				<a href="https://loco.rs/" target="_blank">
+					<enhanced:img alt="Loco logo" class="uniform-height drop-shadow" src={Loco} style="--shadow-color: #FC9E12" />
+				</a>
 			</div>
 			<div class="col-12 col-md-4 img-fluid d-flex align-items-center justify-content-center py-2">
-				<Axum --shadow-color="white" class="uniform-height drop-shadow" />
+				<a href="https://github.com/tokio-rs/axum" target="_blank">
+					<Axum --shadow-color="white" class="uniform-height drop-shadow" />
+				</a>
 			</div>
 			<div class="col-12 col-md-4 img-fluid d-flex align-items-center justify-content-center">
-				<enhanced:img alt="SeaORM logo" class="uniform-height drop-shadow" src={SeaORM}
-											style="--shadow-color: #2564D8" />
+				<a href="https://www.sea-ql.org/SeaORM/" target="_blank">
+					<enhanced:img alt="SeaORM logo" class="uniform-height drop-shadow" src={SeaORM}
+												style="--shadow-color: #2564D8" />
+				</a>
 			</div>
 		</div>
 	</div>
@@ -60,7 +70,9 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-12 img-fluid d-flex align-items-center justify-content-center">
-				<PostgreSQL --shadow-color="white" class="uniform-height drop-shadow" />
+				<a href="https://www.postgresql.org/" target="_blank">
+					<PostgreSQL --shadow-color="white" class="uniform-height drop-shadow" />
+				</a>
 			</div>
 		</div>
 	</div>
@@ -72,7 +84,9 @@
 	<div class="container mb-5">
 		<div class="row">
 			<div class="col-12 img-fluid d-flex align-items-center justify-content-center">
-				<Railway --shadow-color="white" class="uniform-height drop-shadow" />
+				<a href="https://railway.app/" target="_blank">
+					<Railway --shadow-color="white" class="uniform-height drop-shadow" />
+				</a>
 			</div>
 		</div>
 	</div>
@@ -80,8 +94,8 @@
 
 <style lang="scss">
   :global(.uniform-height) {
-    max-height: 200px;
-    max-width: 200px;
+    max-height: 150px;
+    max-width: 150px;
     object-fit: contain;
   }
 
@@ -91,5 +105,9 @@
 
   :global(.drop-shadow:hover) {
     filter: drop-shadow(0 0 1rem var(--shadow-color));
+  }
+
+  .flex-a-fix {
+    flex: 1 0 0;
   }
 </style>

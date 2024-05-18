@@ -26,7 +26,7 @@
 						justify-content-center
             bg-body
             text-white
-						rounded-">
+						rounded">
 			<HeroiconsLink class="fs-1" />
 		</div>
 	{/if}
