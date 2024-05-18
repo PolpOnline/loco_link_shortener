@@ -22,6 +22,8 @@
 	import { type FlyParams, slide } from 'svelte/transition';
 	import { cubicIn } from 'svelte/easing';
 	import { flip, type FlipParams } from 'svelte/animate';
+	import LineMdClipboardArrow from '~icons/line-md/clipboard-arrow';
+	import LineMdConfirm from '~icons/line-md/confirm';
 
 
 	export let data: PageData;
@@ -67,6 +69,16 @@
 	const flipOptions: FlipParams = {
 		duration: 300
 	};
+
+	let isCheckMarkDisplayed = false;
+
+	function copyShortened() {
+		navigator.clipboard.writeText(fullShortened);
+		isCheckMarkDisplayed = true;
+		setTimeout(() => {
+			isCheckMarkDisplayed = false;
+		}, 1200);
+	}
 </script>
 
 <main class="mt-3">
@@ -89,23 +101,7 @@
 
 		<hr class="my-3" />
 
-		<div class="d-flex align-items-center mt-3">
-			<LucideExpand class="me-2" />
-			<span class="fw-bold me-1">
-				Original:
-			</span>
-			<a href={data.info.original} target="_blank">{fullOriginal}</a>
-		</div>
-
-		<div class="d-flex align-items-center mt-3">
-			<LucideShrink class="me-2" />
-			<span class="fw-bold me-1">
-				Shortened:
-			</span>
-			<a href={fullShortened} target="_blank">{fullShortenedView}</a>
-		</div>
-
-		<div class="d-flex align-items-center mt-3">
+		<div class="d-flex align-items-center my-3">
 			<HeroiconsCalendar class="me-2" />
 			<span class="fw-bold me-1">
 				Created:
@@ -113,7 +109,37 @@
 			{new Date(data.info.created_at).toLocaleString()}
 		</div>
 
-		<div class="table-responsive mt-3">
+		<div class="d-flex align-items-center my-3">
+			<LucideExpand class="me-2" />
+			<span class="fw-bold me-1">
+				Original:
+			</span>
+			<a href={data.info.original} target="_blank">{fullOriginal}</a>
+		</div>
+
+		<div class="d-flex align-items-center my-3">
+			<LucideShrink class="me-2" />
+			<span class="fw-bold me-1">
+				Shortened:
+			</span>
+			<a href={fullShortened} target="_blank">{fullShortenedView}</a>
+		</div>
+
+		<button class="btn btn-outline-secondary" on:click={copyShortened}>
+			{#if isCheckMarkDisplayed}
+				<span class="d-flex align-items-center">
+					<LineMdConfirm class="me-2" />
+					Copied!
+				</span>
+			{:else}
+			<span class="d-flex align-items-center">
+					<LineMdClipboardArrow class="me-2" />
+					Copy
+				</span>
+			{/if}
+		</button>
+
+		<div class="table-responsive my-3">
 			<table class="table caption-top rounded">
 				<caption>
 					{#if data.info.clicks.length === 1}
@@ -171,17 +197,17 @@
 		</div>
 
 
-		<div class="mt-5">
-			<p class="d-flex align-items-center fw-bold text-danger">
+		<div class="mt-5 text-center">
+			<p class="d-flex align-items-center fw-bold text-danger justify-content-center mb-1">
 				<LineMdAlert class="me-2" />
-				Danger zone:
+				Danger
 			</p>
 
 			<button class="btn btn-outline-danger" on:click={deleteUrl}>
-			<span class="d-flex align-items-center">
-				<HeroiconsTrash class="me-2" />
-				Delete this URL
-			</span>
+				<span class="d-flex align-items-center">
+					<HeroiconsTrash class="me-2" />
+					Delete this URL
+				</span>
 			</button>
 		</div>
 	</div>
