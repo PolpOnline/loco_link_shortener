@@ -1,10 +1,19 @@
 <script lang="ts">
 	import { LinkCard } from '$components';
 	import type { Link } from '$lib/models';
-	import { fly, type FlyParams } from 'svelte/transition';
+	import { fly } from 'svelte/transition';
 	import { cubicIn } from 'svelte/easing';
+	import { mediaQueryStore } from '$lib/stores/screenWidth';
 
-	const flyOptions: FlyParams = {
+	const smallThreshold = 768; // Bootstrap's md breakpoint
+
+	const small = mediaQueryStore(`(max-width: ${smallThreshold}px)`);
+
+	$: flyOptions = $small ? {
+		duration: 500,
+		easing: cubicIn,
+		y: '-25%'
+	} : {
 		duration: 500,
 		easing: cubicIn,
 		x: '-25%'
