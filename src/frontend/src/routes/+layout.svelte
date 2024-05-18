@@ -1,6 +1,6 @@
 <script lang="ts">
 	import '../scss/app.scss';
-	import { Footer, ListErrors, Loader, Navbar } from '$components/index';
+	import { Footer, Loader, Navbar } from '$components/index';
 	import { onMount } from 'svelte';
 	import { get as getStore } from 'svelte/store';
 	import { jwt } from '$lib/stores/auth';
@@ -44,8 +44,6 @@
 	{#if isLoading}
 		<Loader />
 	{/if}
-
-	<ListErrors />
 
 	{#key data.pathname}
 		<div in:fly={transitionIn} out:fly={transitionOut}>

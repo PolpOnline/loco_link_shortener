@@ -22,7 +22,9 @@
 // 		pub custom: Option<String>,
 // }
 
-export interface AddRequest {
+export type ApiResponse = any;
+
+export interface AddRequest extends ApiResponse {
 	name?: string;
 	url: string;
 	custom?: string;
@@ -32,7 +34,7 @@ export interface AddRequest {
 //         pub shortened: String,
 //     }
 
-export interface AddResponse {
+export interface AddResponse extends ApiResponse {
 	shortened: string;
 }
 
@@ -40,7 +42,7 @@ export interface AddResponse {
 // 	pub shortened: String,
 // }
 
-export interface DeleteRequest {
+export interface DeleteRequest extends ApiResponse {
 	shortened: string;
 }
 
@@ -60,7 +62,7 @@ export interface DeleteRequest {
 //     pub user_agent: Option<String>,
 // }
 
-export interface InfoLinkView {
+export interface InfoLinkView extends ApiResponse {
 	name: string;
 	original: string;
 	shortened: string;
@@ -78,7 +80,7 @@ export interface InfoClick {
 // 	links: Vec<Link>,
 // }
 
-export interface ListResponse {
+export interface ListResponse extends ApiResponse {
 	links: Link[];
 }
 
@@ -95,4 +97,9 @@ export interface Link {
 	original: string;
 	shortened: string;
 	created_at: string;
+}
+
+export interface ApiError {
+	error: string;
+	description: string;
 }

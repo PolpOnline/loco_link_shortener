@@ -2742,6 +2742,7 @@ dependencies = [
  "loco-rs 0.4.0",
  "migration",
  "rand",
+ "regex",
  "rstest",
  "sea-orm",
  "serde",

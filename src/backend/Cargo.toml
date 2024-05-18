@@ -47,6 +47,7 @@ axum-extra = { version = "0.9.3", features = ["typed-header"] }
 witty-phrase-generator = "0.2.0"
 tower-http = "0.5.2"
 webpage = "2.0.1"
+regex = "1.10.4"
 # /view engine
 
 [[bin]]

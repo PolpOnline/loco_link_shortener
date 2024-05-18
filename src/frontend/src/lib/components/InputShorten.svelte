@@ -4,7 +4,7 @@
 	import HeroiconsPencilSquareSolid from '~icons/heroicons/pencil-square-solid';
 	import GgShortcut from '~icons/gg/shortcut';
 	import { base, send } from '$lib/api';
-	import type { AddRequest, AddResponse } from '$lib/models';
+	import type { AddRequest, AddResponse, ApiError } from '$lib/models';
 	import MaterialSymbolsKeyboardArrowDownRounded from '~icons/material-symbols/keyboard-arrow-down-rounded';
 	import MaterialSymbolsKeyboardArrowUpRounded from '~icons/material-symbols/keyboard-arrow-up-rounded';
 	import { jwt } from '$lib/stores/auth';
@@ -50,15 +50,20 @@
 	}
 
 	async function submitForm() {
+		invalidForm = false;
+		invalidFeedback = '';
+
 		isShortening = true;
 
 		addProtocolIfNeeded();
 
-		checkIsValid();
-
-		if (invalidForm) {
-			return Error(invalidFeedback);
-		}
+		// checkIsValid();
+		//
+		// if (invalidForm) {
+		// 	isShortening = false;
+		// 	invalidForm = true;
+		// 	invalidFeedback = 'Please insert a valid url';
+		// }
 
 		let payload: AddRequest = {
 			url
@@ -72,12 +77,19 @@
 			payload.custom = customShortened;
 		}
 
-		let response: AddResponse = await send({
+		let response: AddResponse | ApiError = await send({
 			method: 'POST',
 			path: 'add',
 			data: payload,
 			token: storeGet(jwt)
 		});
+
+		if ('error' in response) {
+			invalidForm = true;
+			invalidFeedback = response.description;
+			isShortening = false;
+			return;
+		}
 
 		shortenedUrl = response.shortened;
 
@@ -113,8 +125,16 @@
 		<div class="col-md-10 col-12">
 			<div class="d-flex align-items-center text-body">
 				<HeroiconsLink class="me-2" />
-				<input bind:value={url} class="form-control" on:keydown={handleKeyDown} placeholder="Insert your link here"
-							 type="url" />
+				<div class="input-group has-validation">
+					<input bind:value={url} class="form-control" class:is-invalid={invalidForm} id="invalidationUrl"
+								 on:keydown={handleKeyDown} placeholder="Insert your link here" type="url"
+					/>
+					{#if invalidForm}
+						<div class="invalid-feedback">
+							{invalidFeedback}
+						</div>
+					{/if}
+				</div>
 			</div>
 		</div>
 		<div class="col-md-2 col-12 mt-2 mt-md-0">
@@ -151,13 +171,15 @@
 			<div class="col-md-6 col-12 mt-2">
 				<div class="d-flex align-items-center text-body">
 					<HeroiconsPencilSquareSolid class="me-2" />
-					<input bind:value={customName} class="form-control" placeholder="Custom name" type="text" />
+					<input bind:value={customName} class="form-control" placeholder="Custom name" type="text"
+								 id="validationCustomName" />
 				</div>
 			</div>
 			<div class="col-md-6 col-12 mt-2">
 				<div class="d-flex align-items-center text-body">
 					<GgShortcut class="me-2" />
-					<input bind:value={customShortened} class="form-control" placeholder="Custom shortened" type="text" />
+					<input bind:value={customShortened} class="form-control" placeholder="Custom shortened" type="text"
+								 id="validationCustomShortened" />
 				</div>
 			</div>
 		</div>

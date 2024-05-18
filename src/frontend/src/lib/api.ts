@@ -1,5 +1,5 @@
-import { error } from '@sveltejs/kit';
 import { dev } from '$app/environment';
+import type { ApiResponse } from '$lib/models';
 
 export let base = 'http://localhost:3000';
 
@@ -45,7 +45,7 @@ export async function send({
 	token,
 	credentialsRequired = false,
 	customFetch = fetch
-}: SendOptions): Promise<any> {
+}: SendOptions): Promise<ApiResponse> {
 	const opts: RequestOptions = { method, headers: {} };
 
 	if (data) {
@@ -62,16 +62,13 @@ export async function send({
 	}
 
 	const res = await customFetch(`${apiBase}/${path}`, opts);
-	if (res.ok || res.status === 422) {
-		// if the response is not a json, return the response object
-		const text = await res.text();
 
-		try {
-			return JSON.parse(text);
-		} catch (e) {
-			return text;
-		}
+	// if the response is not a json, return the response object
+	const text = await res.text();
+
+	try {
+		return JSON.parse(text);
+	} catch (e) {
+		return text;
 	}
-
-	throw error(res.status);
 }
