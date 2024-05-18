@@ -191,7 +191,7 @@
   // Fix for really small screens, causing the title to go on two lines
   @media screen and (max-width: 430px) {
     .info-name {
-      font-size: 1.4rem;
+      font-size: 6vw;
     }
   }
 
