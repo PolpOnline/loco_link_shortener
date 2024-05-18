@@ -22,6 +22,13 @@
 	let shortenedUrl = '';
 	let isAdvancedOpen = false;
 
+	function addProtocolIfNeeded() {
+		// use regex to check if the url has a protocol
+		if (!/^https?:\/\//i.test(url)) {
+			url = `https://${url}`;
+		}
+	}
+
 	function checkIsValid() {
 		invalidForm = !urlRegex.test(url);
 		invalidFeedback = invalidForm ? 'Please insert a valid url' : '';
@@ -40,6 +47,8 @@
 	}
 
 	async function submitForm() {
+		addProtocolIfNeeded();
+
 		checkIsValid();
 
 		if (invalidForm) {
