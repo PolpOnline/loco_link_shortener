@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { slide } from 'svelte/transition';
+	import { fly, type FlyParams, slide } from 'svelte/transition';
 	import HeroiconsLink from '~icons/heroicons/link';
 	import HeroiconsPencilSquareSolid from '~icons/heroicons/pencil-square-solid';
 	import GgShortcut from '~icons/gg/shortcut';
@@ -12,6 +12,8 @@
 	import { invalidateAll } from '$app/navigation';
 	import LineMdClipboardArrow from '~icons/line-md/clipboard-arrow';
 	import LineMdConfirm from '~icons/line-md/confirm';
+	import SvgSpinners90Ring from '~icons/svg-spinners/90-ring';
+	import { cubicIn } from 'svelte/easing';
 
 	const urlRegex = new RegExp('https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\+.~#?&/=]*)');
 	let url = '';
@@ -21,6 +23,7 @@
 	let invalidFeedback = '';
 	let shortenedUrl = '';
 	let isAdvancedOpen = false;
+	let isShortening = false;
 
 	function addProtocolIfNeeded() {
 		// use regex to check if the url has a protocol
@@ -47,6 +50,8 @@
 	}
 
 	async function submitForm() {
+		isShortening = true;
+
 		addProtocolIfNeeded();
 
 		checkIsValid();
@@ -78,6 +83,8 @@
 
 		await invalidateAll();
 
+		isShortening = false;
+
 		// Re-invalidate the cache again after 1 second (to load images)
 		setTimeout(() => {
 			invalidateAll();
@@ -89,6 +96,14 @@
 			submitForm();
 		}
 	}
+
+	// Shorten transition, fly from left to right when in, fade out when out
+	const transitionFlyIn: FlyParams = {
+		delay: 0,
+		duration: 300,
+		easing: cubicIn,
+		x: '-25%'
+	};
 </script>
 
 
@@ -103,7 +118,17 @@
 			</div>
 		</div>
 		<div class="col-md-2 col-12 mt-2 mt-md-0">
-			<button class="btn btn-primary w-100" disabled={!url} on:click={submitForm} on:keydown={handleKeyDown}>Shorten
+			<button class="btn btn-primary w-100" disabled={!url} on:click={submitForm} on:keydown={handleKeyDown}>
+				{#if isShortening}
+						<span class="d-flex align-items-center justify-content-center" in:fly={transitionFlyIn}>
+							<SvgSpinners90Ring class="me-2" />
+							Shortening...
+						</span>
+				{:else}
+					<span in:fly={transitionFlyIn}>
+						Shorten
+					</span>
+				{/if}
 			</button>
 		</div>
 	</div>
@@ -148,7 +173,7 @@
 			</div>
 			<div class="row mt-2">
 				<div class="col-md-10 col-12">
-					<input disabled={true} type="text" class="form-control" value={fullShortened} />
+					<input disabled={true} type="text" class="form-control bg-black" value={fullShortened} />
 				</div>
 				<div class="col-md-2 col-12 mt-2 mt-md-0">
 					<button class="btn btn-primary w-100" on:click={copyShortened}>

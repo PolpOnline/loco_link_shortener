@@ -17,6 +17,7 @@
 	import HeroiconsCalendar from '~icons/heroicons/calendar';
 	import type { PageData } from './$types';
 	import { goto } from '$app/navigation';
+	import LineMdAlert from '~icons/line-md/alert';
 
 	export let data: PageData;
 
@@ -142,12 +143,20 @@
 			</table>
 		</div>
 
-		<button class="btn btn-outline-danger mt-5" on:click={deleteUrl}>
+
+		<div class="mt-5">
+			<p class="d-flex align-items-center fw-bold text-danger">
+				<LineMdAlert class="me-2" />
+				Danger zone:
+			</p>
+
+			<button class="btn btn-outline-danger" on:click={deleteUrl}>
 			<span class="d-flex align-items-center">
 				<HeroiconsTrash class="me-2" />
 				Delete this URL
 			</span>
-		</button>
+			</button>
+		</div>
 	</div>
 </main>
 
