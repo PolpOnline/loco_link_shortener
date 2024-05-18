@@ -4,13 +4,9 @@
 
 <script lang="ts">
 	import { InputShorten, LinksView } from '$components/index';
-	import type { ListResponse } from '$lib/models';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
-
-	// @ts-ignore
-	const listResponse: ListResponse = data.listResponse;
 </script>
 
 <main>
@@ -19,7 +15,7 @@
 			<InputShorten />
 		</div>
 		<div class="my-3">
-			<LinksView links={listResponse.links} />
+			<LinksView links={data.listResponse.links} />
 		</div>
 	</div>
 </main>
