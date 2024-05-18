@@ -65,7 +65,7 @@
 	}
 
 	const slideInOptions: SlideParams = {
-		axis: 'x',
+		axis: 'y',
 		duration: 300,
 		easing: cubicIn
 	};
