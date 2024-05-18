@@ -1,3 +1,7 @@
+<svelte:head>
+	<title>Link Shortener</title>
+</svelte:head>
+
 <script lang="ts">
 	import { InputShorten, LinksView } from '$components/index';
 	import type { ListResponse } from '$lib/models';

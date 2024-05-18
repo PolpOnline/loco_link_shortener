@@ -1,3 +1,7 @@
+<svelte:head>
+	<title>Logging you in...</title>
+</svelte:head>
+
 <script lang="ts">
 	import { jwt } from '$lib/stores/auth';
 	import { page } from '$app/stores';

@@ -1,3 +1,7 @@
+<svelte:head>
+	<title>Details for {info.name}</title>
+</svelte:head>
+
 <script lang="ts">
 	import { base, send } from '$lib/api';
 	import type { DeleteRequest, InfoLinkView } from '$lib/models';

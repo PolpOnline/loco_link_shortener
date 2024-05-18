@@ -1,3 +1,7 @@
+<svelte:head>
+	<title>Login</title>
+</svelte:head>
+
 <script lang="ts">
 	import FlatColorIconsGoogle from '~icons/flat-color-icons/google';
 	import { send } from '$lib/api';
