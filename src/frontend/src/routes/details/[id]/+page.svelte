@@ -24,7 +24,8 @@
 	// @ts-ignore
 	const info: InfoLinkView = data.info;
 
-	let fullShortened = `${base}/x/${info.shortened}`.replace(/^(?:https?:\/\/)?(?:www\.)?/i, '');
+	let fullShortened = `${base}/x/${info.shortened}`;
+	let fullShortenedView = fullShortened.replace(/^(?:https?:\/\/)?(?:www\.)?/i, '');
 	let fullOriginal = info.original.replace(/^(?:https?:\/\/)?(?:www\.)?/i, '');
 
 	async function deleteUrl() {
@@ -67,7 +68,7 @@
 			<span class="fw-bold me-1">
 				Original:
 			</span>
-			<a href={info.original}>{fullOriginal}</a>
+			<a href={info.original} target="_blank">{fullOriginal}</a>
 		</div>
 
 		<div class="d-flex align-items-center mt-3">
@@ -75,7 +76,7 @@
 			<span class="fw-bold me-1">
 				Shortened:
 			</span>
-			<a href={fullShortened}>{fullShortened}</a>
+			<a href={fullShortened} target="_blank">{fullShortenedView}</a>
 		</div>
 
 		<div class="d-flex align-items-center mt-3">
