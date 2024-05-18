@@ -44,9 +44,7 @@ impl worker::Worker<LinkGetterWorkerArgs> for LinkGetterWorker {
 }
 
 pub fn retrieve_og_image(url: &str) -> Option<String> {
-    let mut options = WebpageOptions::default();
-
-    options.follow_location = false; // Disable redirects for security reasons
+    let options = WebpageOptions::default();
 
     let info = match Webpage::from_url(url, options) {
         Ok(info) => info,
