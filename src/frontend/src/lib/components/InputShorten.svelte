@@ -22,7 +22,7 @@
 	let invalidForm = false;
 	let invalidFeedback = '';
 	let shortenedUrl = '';
-	let isAdvancedOpen = false;
+	let isOptionsOpen = false;
 	let isShortening = false;
 
 	function addProtocolIfNeeded() {
@@ -156,18 +156,17 @@
 	<!--	advanced options part-->
 	<div class="row mt-2">
 		<div class="col-12">
-			<button class="btn btn-outline-primary w-100" on:click={() => isAdvancedOpen = !isAdvancedOpen}>
-				{#if isAdvancedOpen}
+			<button class="btn btn-outline-primary w-100" on:click={() => isOptionsOpen = !isOptionsOpen}>
+				{#if isOptionsOpen}
 					<MaterialSymbolsKeyboardArrowUpRounded />
-					Advanced
 				{:else}
 					<MaterialSymbolsKeyboardArrowDownRounded />
-					Advanced
 				{/if}
+				Options
 			</button>
 		</div>
 	</div>
-	{#if isAdvancedOpen}
+	{#if isOptionsOpen}
 		<div class="row" transition:slide>
 			<div class="col-md-6 col-12 mt-2">
 				<div class="d-flex align-items-center text-body">
