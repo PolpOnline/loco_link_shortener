@@ -147,8 +147,8 @@
 								Save
 							{/if}
 						</button>
-						<button class="btn btn-outline-secondary ms-2" on:click={async () => await goto(baseDetailsPage)}>Cancel
-						</button>
+						<a class="btn btn-outline-secondary ms-2" href={baseDetailsPage}>Cancel
+						</a>
 					</div>
 
 					{#if isError}

@@ -89,17 +89,15 @@
 <main class="mt-3">
 	<div class="w-90 mx-auto">
 		<div class="d-flex align-items-center">
-			<button class="btn btn-outline-secondary me-auto" on:click={async () => await goto('/')}>
+			<a class="btn btn-outline-secondary me-auto" href="/">
 				<HeroiconsArrowLeft />
-			</button>
-
+			</a>
 			<h1 class="mb-0 d-flex flex-1 justify-content-center responsive-title-size">
 				{data.info.name}
 			</h1>
-
-			<button class="btn btn-outline-primary ms-auto" on:click={() => goto(`/edit/${data.info.shortened}`)}>
+			<a class="btn btn-outline-primary ms-auto" href={`/edit/${data.info.shortened}`}>
 				<LineMdEdit />
-			</button>
+			</a>
 		</div>
 
 		<hr class="my-3" />
