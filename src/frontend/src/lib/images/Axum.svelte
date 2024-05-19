@@ -10,10 +10,6 @@
 
 <svg class={className} height="108px" role="img" viewBox="0 0 120 108"
 		 width="120px" xmlns="http://www.w3.org/2000/svg">
-	<!-- Generator: Sketch 40.1 (33804) - http://www.bohemiancoding.com/sketch -->
-	<title>Mark Copy</title>
-	<desc>Created with Sketch.</desc>
-	<defs />
 	<g fill="none" fill-rule="evenodd" id="Page-1" stroke="none" stroke-width="1">
 		<g fill="#FFFFFF" id="01" transform="translate(-900.000000, -275.000000)">
 			<g id="Group-Copy-2" transform="translate(900.000000, 275.000000)">
