@@ -2,7 +2,9 @@
 	import HeroiconsLink from '~icons/heroicons/link';
 	import { NavbarItem } from '$components/index';
 	import LineMdGithub from '~icons/line-md/github';
-	import { isUserLoggedIn } from '$lib/utils';
+	import { jwt } from '$lib/stores/auth';
+
+	$: isUserLoggedIn = $jwt !== "";
 </script>
 
 <nav class="navbar navbar-expand-lg bg-transparent">
@@ -11,7 +13,7 @@
 			<HeroiconsLink --shadow-color="white" class="me-2 my-auto drop-shadow" />
 			<span class="colored-text">Link Shortener</span>
 		</a>
-		{#if isUserLoggedIn()}
+		{#if isUserLoggedIn}
 			<button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
 							class="navbar-toggler"
 							data-bs-target="#navbarSupportedContent" data-bs-toggle="collapse" type="button">

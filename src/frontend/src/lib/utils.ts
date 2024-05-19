@@ -8,6 +8,6 @@ export async function loginCheck() {
 	}
 }
 
-export function isUserLoggedIn() {
+function isUserLoggedIn() {
 	return !!getStore(jwt);
 }
