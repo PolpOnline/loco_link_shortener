@@ -93,7 +93,7 @@
 				<HeroiconsArrowLeft />
 			</button>
 
-			<h1 class="mb-0 d-flex flex-1 justify-content-center info-name">
+			<h1 class="mb-0 d-flex flex-1 justify-content-center responsive-title-size">
 				{data.info.name}
 			</h1>
 
@@ -231,3 +231,9 @@
 		</div>
 	</div>
 </main>
+
+<style>
+    .responsive-title-size {
+        font-size: calc(0.6em + 1vw);
+    }
+</style>

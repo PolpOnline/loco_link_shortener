@@ -93,7 +93,7 @@
 
 <main class="mt-3">
 	<div class="w-90 mx-auto">
-		<h1 class="mb-0 d-flex flex-1 justify-content-center align-items-center info-name">
+		<h1 class="mb-0 d-flex flex-1 justify-content-center align-items-center responsive-title-size">
 			Editing <a class="ms-2 text-decoration-none" href={baseDetailsPage}> {data.info.name}</a>
 		</h1>
 
@@ -102,13 +102,13 @@
 		<div class="container">
 			<div class="row g-4">
 				<div class="col-12">
-					<label for="name">Name</label>
+					<label class="responsive-label-size" for="name">Name</label>
 					<input autocomplete="off" bind:value={name} class="form-control" id="name" placeholder={data.info.name}
 								 type="text" />
 				</div>
 
 				<div class="col-12">
-					<label for="original">
+					<label class="responsive-label-size" for="original">
 							<span class="d-flex align-items-center">
 								Original
 								<span class="text-warning ms-2 justify-content-end d-flex align-items-center">
@@ -122,7 +122,7 @@
 				</div>
 
 				<div class="col-12">
-					<label for="shortened">
+					<label class="responsive-label-size" for="shortened">
 							<span class="d-flex align-items-center">
 								Shortened
 								<span class="text-warning ms-2 justify-content-end d-flex align-items-center">
@@ -162,3 +162,13 @@
 		</div>
 	</div>
 </main>
+
+<style>
+    .responsive-title-size {
+        font-size: calc(0.7em + 1vw);
+    }
+
+    .responsive-label-size {
+        font-size: calc(0.4em + 0.7vw);
+    }
+</style>

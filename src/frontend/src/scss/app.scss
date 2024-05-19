@@ -47,13 +47,6 @@
   filter: drop-shadow(0 0 1rem var(--shadow-color));
 }
 
-// Fix for really small screens, causing the title to go on two lines
-@media screen and (max-width: 430px) {
-  .info-name {
-    font-size: 6vw;
-  }
-}
-
 .flex-1 {
   flex: 1;
 }
