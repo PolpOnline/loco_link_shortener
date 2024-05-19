@@ -37,7 +37,7 @@
 
 	<div class="row">
 		{#each links as link (link.shortened)}
-			<div class="col-md-3 col-12 g-4 d-flex align-items-stretch justify-content-center" transition:fly={flyOptions}
+			<div class="col-12 col-lg-3 col-md-4 g-4 d-flex align-items-stretch justify-content-center" transition:fly={flyOptions}
 					 animate:flip={flipOptions}>
 				<LinkCard image={link.image}
 									original={link.original}
