@@ -46,6 +46,7 @@
 
 	let isSaving = false;
 	let isError = false;
+	let errorDescription = '';
 
 	async function saveForm() {
 		isError = false;
@@ -73,6 +74,9 @@
 		if (res.status !== 200) {
 			console.error('Error saving data');
 			isError = true;
+			const responseText = await res.text();
+			const responseJson = JSON.parse(responseText);
+			errorDescription = responseJson.description;
 			return;
 		}
 
@@ -129,28 +133,31 @@
 					<input bind:value={shortened} class="form-control" id="shortened" placeholder={data.info.shortened}
 								 type="text" />
 				</div>
-			</div>
-		</div>
 
-		<div class="d-flex justify-content-center mt-3">
-			<button class="btn btn-primary" on:click={saveForm}>
-				{#if isSaving}
+				<div class="col-12">
+					<div class="d-flex justify-content-center mt-3">
+						<button class="btn btn-primary" on:click={saveForm}>
+							{#if isSaving}
 					<span class="d-flex align-items-center" in:fly={flyInOptions}>
 						<LineMdLoadingLoop class="ms-1" />
 						Saving...
 					</span>
-				{:else}
-					Save
-				{/if}
-			</button>
-			<button class="btn btn-outline-secondary ms-2" on:click={async () => await goto(baseDetailsPage)}>Cancel</button>
-		</div>
+							{:else}
+								Save
+							{/if}
+						</button>
+						<button class="btn btn-outline-secondary ms-2" on:click={async () => await goto(baseDetailsPage)}>Cancel
+						</button>
+					</div>
 
-		{#if isError}
-			<div class="alert alert-danger mt-3 d-flex justify-content-center align-items-center" role="alert">
-				<LineMdRemove class="me-2" />
-				Error saving data
+					{#if isError}
+						<div class="alert alert-danger mt-3 d-flex justify-content-center align-items-center mt-5" role="alert">
+							<LineMdRemove class="me-2" />
+							Error saving data: {errorDescription}
+						</div>
+					{/if}
+				</div>
 			</div>
-		{/if}
+		</div>
 	</div>
 </main>
