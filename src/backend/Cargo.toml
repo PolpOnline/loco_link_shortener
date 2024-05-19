@@ -49,6 +49,7 @@ tower-http = "0.5.2"
 webpage = "2.0.1"
 regex = "1.10.4"
 rustrict = "0.7.25"
+sysinfo = { version = "0.30.12", features = ["serde"], default-features = false }
 # /view engine
 
 [[bin]]
