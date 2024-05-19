@@ -32,7 +32,7 @@
 
 <div>
 	{#if links.length !== 0}
-		<h1> Your links </h1>
+		<h1 class="mt-5 text-center custom-underline"> Your links </h1>
 	{/if}
 
 	<div class="row">
@@ -50,4 +50,14 @@
 	</div>
 </div>
 
-
+<style lang="scss">
+  .custom-underline {
+    user-select: none;
+    --offset: 1em;
+    text-decoration: underline;
+    text-underline-offset: var(--offset);
+    margin-bottom: var(--offset);
+    text-decoration-thickness: 1px;
+    text-decoration-color: rgba(var(--bs-body-color-rgb), 0.25);
+  }
+</style>
