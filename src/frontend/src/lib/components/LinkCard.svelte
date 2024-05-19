@@ -10,11 +10,13 @@
 
 	let detailsPage = `details/${shortened}`;
 	let imageAlt = `Image for ${name}`;
+
+	import { Image } from "@unpic/svelte";
 </script>
 
 <div class="card glass w-100">
 	{#if image}
-		<img alt={imageAlt} class="card-img-top" src={image} />
+		<Image alt={imageAlt} class="card-img-top" src={image} />
 	{:else}
 		<div class="
 						card-img-top
