@@ -1,15 +1,13 @@
-use std::{net::IpAddr, result::Result as StdResult};
+use std::net::IpAddr;
 
 use axum::http::StatusCode;
 use axum_extra::TypedHeader;
 use loco_rs::{app::AppContext, controller::ErrorDetail, prelude::*, Error};
-use regex::Regex;
 use tracing::error;
 use uuid::Uuid;
 
 use super::custom_headers::x_envoy_external_address::XEnvoyExternalAddress;
 use crate::{
-    controllers::api::{add::AddError, edit::EditError},
     models::_entities::users,
     workers::image_getter::{LinkGetterWorker, LinkGetterWorkerArgs},
 };
@@ -60,7 +58,7 @@ pub fn get_ip(
 }
 
 pub async fn schedule_link_getter(ctx: &AppContext, id: i32, url: String) -> Result<()> {
-    LinkGetterWorker::perform_later(&ctx, LinkGetterWorkerArgs { id, url })
+    LinkGetterWorker::perform_later(ctx, LinkGetterWorkerArgs { id, url })
         .await
         .unwrap_or_else(|e| {
             error!("Error scheduling image getter worker: {}", e);
