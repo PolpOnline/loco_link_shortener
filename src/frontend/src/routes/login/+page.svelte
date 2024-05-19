@@ -7,7 +7,9 @@
 	import { send } from '$lib/api';
 
 	async function goToLogin() {
-		window.location.href = await send({ method: 'GET', path: 'oauth2/google', credentialsRequired: true });
+		let res = await send({ method: 'GET', path: 'oauth2/google', credentialsRequired: true });
+
+		window.location.href = await res.text();
 	}
 </script>
 

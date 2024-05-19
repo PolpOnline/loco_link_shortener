@@ -10,12 +10,14 @@ export const prerender = false;
 const loadList = async ({ fetch }: { fetch: customFetchType }) => {
 	const token = storeGet(jwt);
 
-	const listResponse: ListResponse = await send({
+	const res: Response = await send({
 		method: 'GET',
 		path: 'list',
 		token,
 		customFetch: fetch
 	});
+
+	const listResponse: ListResponse = await res.json();
 
 	return listResponse;
 };

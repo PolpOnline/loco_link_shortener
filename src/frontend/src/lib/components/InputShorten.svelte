@@ -4,7 +4,7 @@
 	import HeroiconsPencilSquareSolid from '~icons/heroicons/pencil-square-solid';
 	import GgShortcut from '~icons/gg/shortcut';
 	import { base, send } from '$lib/api';
-	import type { AddRequest, AddResponse, ApiError } from '$lib/models';
+	import type { AddRequest, AddResponse } from '$lib/models';
 	import MaterialSymbolsKeyboardArrowDownRounded from '~icons/material-symbols/keyboard-arrow-down-rounded';
 	import MaterialSymbolsKeyboardArrowUpRounded from '~icons/material-symbols/keyboard-arrow-up-rounded';
 	import { jwt } from '$lib/stores/auth';
@@ -78,15 +78,18 @@
 			payload.custom = customShortened;
 		}
 
-		let response: AddResponse | ApiError = await send({
+		const res = await send({
 			method: 'POST',
 			path: 'add',
 			data: payload,
 			token: storeGet(jwt)
 		});
 
-		if ('error' in response) {
+		const response: AddResponse = await res.json();
+
+		if (res.status !== 200) {
 			invalidForm = true;
+			// @ts-ignore
 			invalidFeedback = response.description;
 			isShortening = false;
 			return;
@@ -111,7 +114,7 @@
 	}
 
 	// Shorten transition, fly from left to right when in, fade out when out
-	const transitionFlyIn: FlyParams = {
+	const flyInOptions: FlyParams = {
 		delay: 0,
 		duration: 300,
 		easing: cubicIn,
@@ -141,12 +144,12 @@
 		<div class="col-md-2 col-12 mt-2 mt-md-0">
 			<button class="btn btn-primary w-100" disabled={!url} on:click={submitForm} on:keydown={handleKeyDown}>
 				{#if isShortening}
-						<span class="d-flex align-items-center justify-content-center" in:fly={transitionFlyIn}>
+						<span class="d-flex align-items-center justify-content-center" in:fly={flyInOptions}>
 							<SvgSpinners90Ring class="me-2" />
 							Shortening...
 						</span>
 				{:else}
-					<span in:fly={transitionFlyIn}>
+					<span in:fly={flyInOptions}>
 						Shorten
 					</span>
 				{/if}

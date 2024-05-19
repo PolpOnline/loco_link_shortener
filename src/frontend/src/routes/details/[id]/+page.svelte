@@ -25,6 +25,7 @@
 	import LineMdClipboardArrow from '~icons/line-md/clipboard-arrow';
 	import LineMdConfirm from '~icons/line-md/confirm';
 	import LineMdLoadingLoop from '~icons/line-md/loading-loop';
+	import LineMdEdit from '~icons/line-md/edit';
 
 
 	export let data: PageData;
@@ -87,7 +88,7 @@
 
 <main class="mt-3">
 	<div class="w-90 mx-auto">
-		<div class="d-flex align-items-center link-header">
+		<div class="d-flex align-items-center">
 			<button class="btn btn-outline-secondary me-auto" on:click={async () => await goto('/')}>
 				<HeroiconsArrowLeft />
 			</button>
@@ -96,10 +97,8 @@
 				{data.info.name}
 			</h1>
 
-			<button class="btn btn-outline-primary ms-auto" on:click={refresh}>
-				<span class="d-inline-block" class:rotating={isRefreshing}>
-					<TablerRefresh />
-				</span>
+			<button class="btn btn-outline-primary ms-auto" on:click={() => goto(`/edit/${data.info.shortened}`)}>
+				<LineMdEdit />
 			</button>
 		</div>
 
@@ -141,6 +140,15 @@
 					Copy
 				</span>
 			{/if}
+		</button>
+
+		<button class="btn btn-outline-primary" on:click={refresh}>
+				<span class="d-flex align-items-center">
+					<span class="d-inline-block me-1" class:rotating={isRefreshing}>
+						<TablerRefresh />
+					</span>
+					Refresh table
+				</span>
 		</button>
 
 		<div class="table-responsive my-3">
@@ -223,29 +231,3 @@
 		</div>
 	</div>
 </main>
-
-<style lang="scss">
-  // Fix for really small screens, causing the title to go on two lines
-  @media screen and (max-width: 430px) {
-    .info-name {
-      font-size: 6vw;
-    }
-  }
-
-  .flex-1 {
-    flex: 1;
-  }
-
-  @keyframes rotating {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
-  }
-
-  .rotating {
-    animation: rotating 2s linear infinite;
-  }
-</style>

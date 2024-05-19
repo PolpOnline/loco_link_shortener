@@ -46,3 +46,27 @@
 .drop-shadow:hover {
   filter: drop-shadow(0 0 1rem var(--shadow-color));
 }
+
+// Fix for really small screens, causing the title to go on two lines
+@media screen and (max-width: 430px) {
+  .info-name {
+    font-size: 6vw;
+  }
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+@keyframes rotating {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.rotating {
+  animation: rotating 2s linear infinite;
+}

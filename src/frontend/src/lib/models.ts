@@ -22,9 +22,15 @@
 // 		pub custom: Option<String>,
 // }
 
-export type ApiResponse = any;
+export interface OkApiResponse {}
 
-export interface AddRequest extends ApiResponse {
+export type ApiResponse = OkApiResponse | ApiError;
+
+export interface StringApiResponse extends OkApiResponse {
+	string: string;
+}
+
+export interface AddRequest extends OkApiResponse {
 	name?: string;
 	url: string;
 	custom?: string;
@@ -34,7 +40,7 @@ export interface AddRequest extends ApiResponse {
 //         pub shortened: String,
 //     }
 
-export interface AddResponse extends ApiResponse {
+export interface AddResponse extends OkApiResponse {
 	shortened: string;
 }
 
@@ -42,7 +48,7 @@ export interface AddResponse extends ApiResponse {
 // 	pub shortened: String,
 // }
 
-export interface DeleteRequest extends ApiResponse {
+export interface DeleteRequest extends OkApiResponse {
 	shortened: string;
 }
 
@@ -62,7 +68,7 @@ export interface DeleteRequest extends ApiResponse {
 //     pub user_agent: Option<String>,
 // }
 
-export interface InfoLinkView extends ApiResponse {
+export interface InfoLinkView extends OkApiResponse {
 	name: string;
 	original: string;
 	shortened: string;
@@ -80,7 +86,7 @@ export interface InfoClick {
 // 	links: Vec<Link>,
 // }
 
-export interface ListResponse extends ApiResponse {
+export interface ListResponse extends OkApiResponse {
 	links: Link[];
 }
 
@@ -99,7 +105,7 @@ export interface Link {
 	created_at: string;
 }
 
-export interface ApiError {
+export interface ApiError extends OkApiResponse {
 	error: string;
 	description: string;
 }

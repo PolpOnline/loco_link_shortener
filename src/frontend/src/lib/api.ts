@@ -1,5 +1,4 @@
 import { dev } from '$app/environment';
-import type { ApiResponse } from '$lib/models';
 
 export let base = 'http://localhost:3000';
 
@@ -45,7 +44,7 @@ export async function send({
 	token,
 	credentialsRequired = false,
 	customFetch = fetch
-}: SendOptions): Promise<ApiResponse> {
+}: SendOptions): Promise<Response> {
 	const opts: RequestOptions = { method, headers: {} };
 
 	if (data) {
@@ -61,14 +60,5 @@ export async function send({
 		opts.credentials = 'include';
 	}
 
-	const res = await customFetch(`${apiBase}/${path}`, opts);
-
-	// if the response is not a json, return the response object
-	const text = await res.text();
-
-	try {
-		return JSON.parse(text);
-	} catch (e) {
-		return text;
-	}
+	return await customFetch(`${apiBase}/${path}`, opts);
 }

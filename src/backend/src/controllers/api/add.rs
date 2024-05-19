@@ -1,5 +1,3 @@
-use std::result::Result as StdResult;
-
 use axum::http::StatusCode;
 use loco_rs::{controller::ErrorDetail, model::ModelError, prelude::*};
 use rand::{distributions::Alphanumeric, Rng};
@@ -10,26 +8,12 @@ use witty_phrase_generator::WPGen;
 
 use crate::{
     common,
-    controllers::utils::get_user_from_jwt,
+    controllers::{
+        utils::{get_user_from_jwt, schedule_link_getter},
+        validations::{custom::check_custom, url::check_url},
+    },
     models::_entities::links,
-    workers::image_getter::{LinkGetterWorker, LinkGetterWorkerArgs},
 };
-
-pub fn is_custom_valid(custom: &str, max_length: usize) -> StdResult<(), AddError> {
-    if custom.chars().any(|c| !c.is_alphanumeric()) {
-        return Err(AddError::InvalidCustom(
-            "Custom shortened link contains invalid characters".to_string(),
-        ));
-    }
-
-    if custom.len() > max_length {
-        return Err(AddError::InvalidCustom(
-            "Custom shortened link is too long".to_string(),
-        ));
-    }
-
-    Ok(())
-}
 
 #[derive(Deserialize)]
 pub struct AddRequest {
@@ -79,7 +63,9 @@ pub async fn add(
 
     let shortened = match &params.custom {
         Some(custom) => {
-            is_custom_valid(custom, settings.max_custom_length).map_err(|e| {
+            check_custom(custom, settings.max_custom_length).map_err(|e| {
+                let e: AddError = e.into();
+
                 Error::CustomError(
                     StatusCode::BAD_REQUEST,
                     ErrorDetail::new("INVALID_CUSTOM", &e.to_string()),
@@ -89,6 +75,15 @@ pub async fn add(
         }
         None => generate_shortened(settings.shortened_length),
     };
+
+    check_url(&params.url).map_err(|e| {
+        let e: AddError = e.into();
+
+        Error::CustomError(
+            StatusCode::BAD_REQUEST,
+            ErrorDetail::new("INVALID_URL", &e.to_string()),
+        )
+    })?;
 
     let id = links::Model::add(
         &ctx.db,
@@ -116,17 +111,7 @@ pub async fn add(
         Error::CustomError(status_code, ErrorDetail::new(err_shorthand, &err_desc))
     })?;
 
-    LinkGetterWorker::perform_later(
-        &ctx,
-        LinkGetterWorkerArgs {
-            id,
-            url: params.url,
-        },
-    )
-    .await
-    .unwrap_or_else(|e| {
-        error!("Error scheduling image getter worker: {}", e);
-    });
+    schedule_link_getter(&ctx, id, params.url.clone()).await?;
 
     Ok(Json(AddResponse { shortened }))
 }
