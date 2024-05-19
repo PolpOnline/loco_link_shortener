@@ -7,8 +7,8 @@
 <nav class="navbar navbar-expand-lg bg-transparent">
 	<div class="container-fluid">
 		<a class="navbar-brand p-0" href="/">
-			<HeroiconsLink class="me-2" />
-			Link Shortener
+			<HeroiconsLink class="me-2 my-auto" />
+			<span class="colored-text">Link Shortener</span>
 		</a>
 		<button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
 						class="navbar-toggler"
@@ -26,3 +26,22 @@
 		</div>
 	</div>
 </nav>
+
+<style>
+    .colored-text {
+        font-weight: 600;
+        background: -webkit-linear-gradient(0deg, #0055FF 0%, #08F794 50%, #0055FF 100%);
+        background-size: 200% auto;
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        color: transparent;
+        animation: glint 5s linear infinite;
+    }
+
+    @keyframes glint {
+        to {
+            background-position: 200% center;
+        }
+    }
+</style>
