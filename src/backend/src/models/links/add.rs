@@ -1,5 +1,5 @@
 use loco_rs::{model::ModelError, prelude::*};
-use sea_orm::DatabaseConnection;
+use sea_orm::{ColumnTrait, DatabaseConnection, QueryFilter};
 
 pub use super::super::_entities::prelude::*;
 use crate::{
@@ -15,10 +15,22 @@ impl links::Model {
         shortened: T,
         user_id: i32,
     ) -> std::result::Result<i32, AddError> {
+        let shortened = shortened.into();
+
+        if links::Entity::find()
+            .filter(links::Column::Shortened.eq(&shortened))
+            .one(db)
+            .await
+            .map_err(ModelError::from)?
+            .is_some()
+        {
+            return Err(AddError::from(ModelError::EntityAlreadyExists));
+        }
+
         let link = ActiveModel {
             name: Set(name.into()),
             original: Set(original.into()),
-            shortened: Set(shortened.into()),
+            shortened: Set(shortened),
             user_id: Set(user_id),
             ..Default::default()
         };

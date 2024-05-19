@@ -12,6 +12,18 @@ impl links::Model {
         original: T,
         shortened: T,
     ) -> Result<i32, EditError> {
+        let shortened = shortened.into();
+
+        if links::Entity::find()
+            .filter(links::Column::Shortened.eq(&shortened))
+            .one(db)
+            .await
+            .map_err(ModelError::from)?
+            .is_some()
+        {
+            return Err(EditError::from(ModelError::EntityAlreadyExists));
+        }
+
         let link = links::Entity::find()
             .filter(links::Column::Shortened.eq(current_shortened.into()))
             .filter(links::Column::UserId.eq(user_id))
@@ -23,7 +35,7 @@ impl links::Model {
 
         link.name = Set(name.into());
         link.original = Set(original.into());
-        link.shortened = Set(shortened.into());
+        link.shortened = Set(shortened);
 
         let updated = link.update(db).await.map_err(ModelError::from)?;
 
