@@ -39,7 +39,7 @@ export default defineConfig({
 				 * Defines the default `font-display` value used for the generated
 				 * `@font-rule` classes.
 				 */
-				display: 'auto',
+				display: 'swap',
 
 				/**
 				 * Using `<link rel="preload">` will trigger a request for the WebFont

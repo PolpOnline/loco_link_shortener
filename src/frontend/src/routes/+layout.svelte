@@ -1,3 +1,7 @@
+<svelte:head>
+	<link rel="preconnect" href={base} />
+</svelte:head>
+
 <script lang="ts">
 	import '../scss/app.scss';
 	import 'unfonts.css';
@@ -7,6 +11,7 @@
 	import { cubicIn, cubicOut } from 'svelte/easing';
 	import { afterNavigate, beforeNavigate } from '$app/navigation';
 	import { loginCheck } from '$lib/utils';
+	import { base } from '$lib/api';
 
 	onMount(async () => {
 		await import('bootstrap');
