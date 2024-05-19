@@ -98,14 +98,22 @@ pub async fn add(
         let err_shorthand;
         let mut err_desc = err.to_string();
 
-        if let AddError::InvalidUrl(ref _e) = err {
-            status_code = StatusCode::BAD_REQUEST;
-            err_shorthand = "INVALID_URL";
-        } else {
-            error!("Error adding: {:?}", err);
-            status_code = StatusCode::INTERNAL_SERVER_ERROR;
-            err_shorthand = "INTERNAL_SERVER_ERROR";
-            err_desc = "Internal server error".to_string();
+        match err {
+            AddError::InvalidUrl(ref _e) => {
+                status_code = StatusCode::BAD_REQUEST;
+                err_shorthand = "INVALID_URL";
+            },
+            AddError::ModelError(ModelError::EntityAlreadyExists) => {
+                status_code = StatusCode::CONFLICT;
+                err_shorthand = "ENTITY_EXISTS";
+                err_desc = "Shortened link already exists".to_string();
+            },
+            _ => {
+                error!("Error adding: {:?}", err);
+                status_code = StatusCode::INTERNAL_SERVER_ERROR;
+                err_shorthand = "INTERNAL_SERVER_ERROR";
+                err_desc = "Internal server error".to_string();
+            }
         }
 
         Error::CustomError(status_code, ErrorDetail::new(err_shorthand, &err_desc))

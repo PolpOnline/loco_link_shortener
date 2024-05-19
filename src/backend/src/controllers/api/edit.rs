@@ -90,6 +90,11 @@ pub async fn edit(
                 status_code = StatusCode::BAD_REQUEST;
                 err_shorthand = "BAD_REQUEST";
             }
+            EditError::ModelError(ModelError::EntityAlreadyExists) => {
+                status_code = StatusCode::CONFLICT;
+                err_shorthand = "CONFLICT";
+                err_desc = "Shortened link already exists".to_string();
+            }
             EditError::InternalServerError(_) | EditError::ModelError(_) => {
                 error!("Error editing link: {:?}", e);
                 status_code = StatusCode::INTERNAL_SERVER_ERROR;
