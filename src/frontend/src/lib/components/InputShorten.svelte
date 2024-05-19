@@ -49,14 +49,20 @@
 		}, 1200);
 	}
 
+	function trimFields() {
+		url = url.trim();
+		customName = customName.trim();
+		customShortened = customShortened.trim();
+	}
+
 	async function submitForm() {
 		invalidForm = false;
 		invalidFeedback = '';
 
 		isShortening = true;
 
+		trimFields();
 		addProtocolIfNeeded();
-
 		checkIsValid();
 
 		if (invalidForm) {

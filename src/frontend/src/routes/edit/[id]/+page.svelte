@@ -31,6 +31,19 @@
 		}
 	}
 
+	function addProtocolIfNeeded() {
+		// use regex to check if the url has a protocol
+		if (!/^https?:\/\//i.test(original)) {
+			original = `https://${original}`;
+		}
+	}
+
+	function trimFields() {
+		name = name.trim();
+		original = original.trim();
+		shortened = shortened.trim();
+	}
+
 	let isSaving = false;
 	let isError = false;
 
@@ -38,6 +51,8 @@
 		isError = false;
 		isSaving = true;
 		fillFieldsIfEmpty();
+		trimFields();
+		addProtocolIfNeeded();
 
 		const payload = {
 			current_shortened: data.info.shortened,
