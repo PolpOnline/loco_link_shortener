@@ -38,3 +38,11 @@
 .aspect-ratio-16-9 {
   aspect-ratio: 16 / 9; // This gives the div a 16:9 aspect ratio. Adjust as needed
 }
+
+.drop-shadow {
+  transition: filter 1s;
+}
+
+.drop-shadow:hover {
+  filter: drop-shadow(0 0 1rem var(--shadow-color));
+}

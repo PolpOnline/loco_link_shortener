@@ -7,7 +7,7 @@
 <nav class="navbar navbar-expand-lg bg-transparent">
 	<div class="container-fluid">
 		<a class="navbar-brand p-0" href="/">
-			<HeroiconsLink class="me-2 my-auto" />
+			<HeroiconsLink --shadow-color="white" class="me-2 my-auto drop-shadow" />
 			<span class="colored-text">Link Shortener</span>
 		</a>
 		<button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
@@ -21,7 +21,7 @@
 				<NavbarItem href="/about" text="About" />
 			</ul>
 			<a class="text-white" href="https://github.com/PolpOnline/loco_link_shortener" target="_blank">
-				<LineMdGithub class="fs-3" />
+				<LineMdGithub --shadow-color="white" class="fs-3 drop-shadow" />
 			</a>
 		</div>
 	</div>

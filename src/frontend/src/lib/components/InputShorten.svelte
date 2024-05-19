@@ -171,7 +171,7 @@
 			<div class="col-md-6 col-12 mt-2">
 				<div class="d-flex align-items-center text-body">
 					<HeroiconsPencilSquareSolid class="me-2" />
-					<input bind:value={customName} class="form-control" placeholder="Custom name" type="text"
+					<input bind:value={customName} class="form-control" placeholder="Custom title" type="text"
 								 id="validationCustomName" />
 				</div>
 			</div>

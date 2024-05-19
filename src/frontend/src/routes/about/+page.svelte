@@ -134,14 +134,6 @@
     object-fit: contain;
   }
 
-  :global(.drop-shadow) {
-    transition: filter 1s;
-  }
-
-  :global(.drop-shadow:hover) {
-    filter: drop-shadow(0 0 1rem var(--shadow-color));
-  }
-
   .flex-a-fix {
     flex: 1 0 0;
   }
