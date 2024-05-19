@@ -3,21 +3,14 @@
 	import 'unfonts.css';
 	import { Footer, Loader, Navbar } from '$components/index';
 	import { onMount } from 'svelte';
-	import { get as getStore } from 'svelte/store';
-	import { jwt } from '$lib/stores/auth';
 	import { fly } from 'svelte/transition';
 	import { cubicIn, cubicOut } from 'svelte/easing';
-	import { afterNavigate, beforeNavigate, goto } from '$app/navigation';
+	import { afterNavigate, beforeNavigate } from '$app/navigation';
+	import { loginCheck } from '$lib/utils';
 
 	onMount(async () => {
 		await import('bootstrap');
 	});
-
-	async function loginCheck() {
-		if (!getStore(jwt)) {
-			await goto('/login');
-		}
-	}
 
 	loginCheck();
 
