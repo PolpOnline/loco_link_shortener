@@ -1,5 +1,6 @@
 <script lang="ts">
 	import '../scss/app.scss';
+	import 'unfonts.css';
 	import { Footer, Loader, Navbar } from '$components/index';
 	import { onMount } from 'svelte';
 	import { get as getStore } from 'svelte/store';
@@ -38,7 +39,7 @@
 </script>
 
 
-<div class="text-body poppins bg-black actual-body">
+<div class="text-body bg-black actual-body">
 	<Navbar />
 
 	{#if isLoading}
@@ -59,9 +60,5 @@
         min-height: 100vh;
         display: flex;
         flex-direction: column;
-    }
-
-    .poppins {
-        font-family: 'Poppins', sans-serif;
     }
 </style>
