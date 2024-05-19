@@ -34,7 +34,7 @@
 		The frontend is built with
 		<UnderlinedText color={svelteColor}>SvelteKit</UnderlinedText>
 		and
-		<UnderlinedText color={bootstrapColor}>Bootstrap 5</UnderlinedText>
+		<UnderlinedText class="ms-1 me-0" color={bootstrapColor}>Bootstrap 5</UnderlinedText>
 		.
 	</p>
 
