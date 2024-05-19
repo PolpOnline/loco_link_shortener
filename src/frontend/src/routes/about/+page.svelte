@@ -34,8 +34,7 @@
 		The frontend is built with
 		<UnderlinedText color={svelteColor}>SvelteKit</UnderlinedText>
 		and
-		<UnderlinedText class="ms-1 me-0" color={bootstrapColor}>Bootstrap 5</UnderlinedText>
-		.
+		<span><UnderlinedText class="ms-1 me-0" color={bootstrapColor}>Bootstrap 5</UnderlinedText>.</span>
 	</p>
 
 	<div class="container w-50">
@@ -61,8 +60,7 @@
 		Framework, a Rust web framework that uses
 		<UnderlinedText color={axumColor}>Axum</UnderlinedText>
 		and
-		<UnderlinedText color={seaORMColor}>SeaORM</UnderlinedText>
-		.
+		<span><UnderlinedText color={seaORMColor}>SeaORM</UnderlinedText>.</span>
 	</p>
 
 	<div class="container w-75">
@@ -89,8 +87,7 @@
 
 	<p class="my-4 text-center">
 		The database is
-		<UnderlinedText color={postgreSQLColor}>PostgreSQL</UnderlinedText>
-		.
+		<span><UnderlinedText color={postgreSQLColor}>PostgreSQL</UnderlinedText>.</span>
 	</p>
 
 	<div class="container">
@@ -107,8 +104,7 @@
 		The application is deployed on
 		<UnderlinedText color={railwayColor}>Railway</UnderlinedText>
 		and
-		<UnderlinedText color={cloudflarePagesColor}>Cloudflare Pages</UnderlinedText>
-		.
+		<span><UnderlinedText color={cloudflarePagesColor}>Cloudflare Pages</UnderlinedText>.</span>
 	</p>
 
 	<div class="container mb-5">
