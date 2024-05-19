@@ -15,11 +15,11 @@
 	$: flyOptions = $small ? {
 		duration: 500,
 		easing: cubicIn,
-		y: '-25%'
+		y: '-100%'
 	} : {
 		duration: 500,
 		easing: cubicIn,
-		x: '-25%'
+		x: '-100%'
 	};
 
 	const flipOptions: FlipParams = {
