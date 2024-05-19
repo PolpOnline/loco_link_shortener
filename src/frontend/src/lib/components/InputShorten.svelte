@@ -137,7 +137,7 @@
 				<HeroiconsLink class="me-2" />
 				<div class="input-group has-validation">
 					<input bind:value={url} class="form-control" class:is-invalid={invalidForm} id="invalidationUrl"
-								 on:keydown={handleKeyDown} placeholder="Insert your link here" type="url"
+								 autocomplete="off" on:keydown={handleKeyDown} placeholder="Insert your link here" type="url"
 					/>
 					{#if invalidForm}
 						<div class="invalid-feedback">
@@ -181,14 +181,14 @@
 				<div class="d-flex align-items-center text-body">
 					<HeroiconsPencilSquareSolid class="me-2" />
 					<input bind:value={customName} class="form-control" placeholder="Custom title" type="text"
-								 id="validationCustomName" />
+								 id="validationCustomName" autocomplete="off" />
 				</div>
 			</div>
 			<div class="col-md-6 col-12 mt-2">
 				<div class="d-flex align-items-center text-body">
 					<GgShortcut class="me-2" />
 					<input bind:value={customShortened} class="form-control" placeholder="Custom shortened" type="text"
-								 id="validationCustomShortened" />
+								 id="validationCustomShortened" autocomplete="off" />
 				</div>
 			</div>
 		</div>

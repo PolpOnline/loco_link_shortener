@@ -103,7 +103,8 @@
 			<div class="row g-4">
 				<div class="col-12">
 					<label for="name">Name</label>
-					<input bind:value={name} class="form-control" id="name" placeholder={data.info.name} type="text" />
+					<input autocomplete="off" bind:value={name} class="form-control" id="name" placeholder={data.info.name}
+								 type="text" />
 				</div>
 
 				<div class="col-12">
@@ -117,7 +118,7 @@
 							</span>
 					</label>
 					<input bind:value={original} class="form-control" id="original" placeholder={data.info.original}
-								 type="text" />
+								 autocomplete="off" type="text" />
 				</div>
 
 				<div class="col-12">
@@ -131,7 +132,7 @@
 							</span>
 					</label>
 					<input bind:value={shortened} class="form-control" id="shortened" placeholder={data.info.shortened}
-								 type="text" />
+								 autocomplete="off" type="text" />
 				</div>
 
 				<div class="col-12">
