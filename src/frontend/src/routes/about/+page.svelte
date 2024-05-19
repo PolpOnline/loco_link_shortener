@@ -21,6 +21,7 @@
 	const postgreSQLColor = '#336791';
 	const railwayColor = 'white';
 	const cloudflarePagesColor = '#FFA500';
+
 </script>
 
 
@@ -48,7 +49,7 @@
 			<div class="col-12 col-md-6 img-fluid d-flex align-items-center justify-content-center py-2">
 				<a href="https://getbootstrap.com/" target="_blank">
 					<enhanced:img alt="Bootstrap logo" class="uniform-height drop-shadow" src={Bootstrap}
-												style={`--shadow-color=${bootstrapColor}`} />
+												style={`--shadow-color: ${bootstrapColor}`} />
 				</a>
 			</div>
 		</div>
@@ -69,7 +70,7 @@
 			<div class="col-12 col-md-4 d-flex align-items-center justify-content-center py-2">
 				<a href="https://loco.rs/" target="_blank">
 					<enhanced:img alt="Loco logo" class="uniform-height drop-shadow" src={Loco}
-												style={`--shadow-color=${locoColor}`} />
+												style={`--shadow-color: ${locoColor}`} />
 				</a>
 			</div>
 			<div class="col-12 col-md-4 img-fluid d-flex align-items-center justify-content-center py-2">
@@ -80,7 +81,7 @@
 			<div class="col-12 col-md-4 img-fluid d-flex align-items-center justify-content-center">
 				<a href="https://www.sea-ql.org/SeaORM/" target="_blank">
 					<enhanced:img alt="SeaORM logo" class="uniform-height drop-shadow" src={SeaORM}
-												style={`--shadow-color=${seaORMColor}`} />
+												style={`--shadow-color: ${seaORMColor}`} />
 				</a>
 			</div>
 		</div>
