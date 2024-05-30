@@ -107,7 +107,7 @@
 			<span class="fw-bold me-1">
 				Created:
 			</span>
-			{new Date(data.info.created_at).toLocaleString()}
+			{new Date(data.info.created_at + 'Z').toLocaleString()}
 		</div>
 
 		<div class="d-flex align-items-center my-3">
