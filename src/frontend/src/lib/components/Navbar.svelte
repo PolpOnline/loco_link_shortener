@@ -5,11 +5,13 @@
 	import { jwt } from '$lib/stores/auth';
 
 	$: isUserLoggedIn = $jwt !== "";
+
+	$: href = isUserLoggedIn ? '/' : '';
 </script>
 
 <nav class="navbar navbar-expand-lg bg-transparent">
 	<div class="container-fluid">
-		<a class="navbar-brand p-0" href="/">
+		<a class="navbar-brand p-0" {href}>
 			<HeroiconsLink --shadow-color="white" class="me-2 my-auto drop-shadow" />
 			<span class="colored-text">Link Shortener</span>
 		</a>
