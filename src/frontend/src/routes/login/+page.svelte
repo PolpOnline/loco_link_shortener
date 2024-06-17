@@ -1,10 +1,11 @@
 <svelte:head>
 	<title>Login</title>
+	<link rel="preconnect" href={base} crossorigin="anonymous" />
 </svelte:head>
 
 <script lang="ts">
 	import FlatColorIconsGoogle from '~icons/flat-color-icons/google';
-	import { send } from '$lib/api';
+	import { base, send } from '$lib/api';
 
 	async function goToLogin() {
 		let res = await send({ method: 'GET', path: 'oauth2/google', credentialsRequired: true });

@@ -1,5 +1,5 @@
 <svelte:head>
-	<link rel="preconnect" href={base} />
+	<link rel="preconnect" href={base} crossorigin="use-credentials" />
 </svelte:head>
 
 <script lang="ts">
