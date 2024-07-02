@@ -12,7 +12,7 @@
 	<slot />
 </span>
 
-<style>
+<style lang="scss">
     .custom-underline {
         text-decoration: underline;
         text-underline-offset: 2px;
