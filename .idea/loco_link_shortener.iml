@@ -8,9 +8,11 @@
       <sourceFolder url="file://$MODULE_DIR$/backend/migration/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/backend/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/backend/examples" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/backend/migration/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/backend/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/backend/config" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/backend/migration" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/frontend/src" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/.idea/copilot/chatSessions" />
       <excludeFolder url="file://$MODULE_DIR$/.idea/dataSources" />
       <excludeFolder url="file://$MODULE_DIR$/frontend/.svelte-kit" />
@@ -18,6 +20,7 @@
       <excludeFolder url="file://$MODULE_DIR$/backend/target" />
       <excludeFolder url="file://$MODULE_DIR$/src/backend/target" />
       <excludeFolder url="file://$MODULE_DIR$/src/frontend/.svelte-kit" />
+      <excludeFolder url="file://$MODULE_DIR$/src/frontend/node_modules" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
