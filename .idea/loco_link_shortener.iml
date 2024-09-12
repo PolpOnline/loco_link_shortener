@@ -13,6 +13,7 @@
       <sourceFolder url="file://$MODULE_DIR$/src/backend/config" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/backend/migration" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/frontend/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/backend/migration/src" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/.idea/copilot/chatSessions" />
       <excludeFolder url="file://$MODULE_DIR$/.idea/dataSources" />
       <excludeFolder url="file://$MODULE_DIR$/frontend/.svelte-kit" />
