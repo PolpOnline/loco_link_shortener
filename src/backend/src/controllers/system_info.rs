@@ -50,7 +50,7 @@ pub async fn sys_info() -> Result<impl IntoResponse> {
     // Wait a bit because CPU usage is based on diff.
     sleep(sysinfo::MINIMUM_CPU_UPDATE_INTERVAL).await;
     // Refresh CPUs again.
-    s.refresh_cpu();
+    s.refresh_cpu_all();
 
     let res = SystemInfoResponse {
         cpu_info: get_cpu_info(&s),

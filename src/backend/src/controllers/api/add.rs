@@ -102,12 +102,12 @@ pub async fn add(
             AddError::InvalidUrl(ref _e) => {
                 status_code = StatusCode::BAD_REQUEST;
                 err_shorthand = "INVALID_URL";
-            },
+            }
             AddError::ModelError(ModelError::EntityAlreadyExists) => {
                 status_code = StatusCode::CONFLICT;
                 err_shorthand = "ENTITY_EXISTS";
                 err_desc = "Shortened link already exists".to_string();
-            },
+            }
             _ => {
                 error!("Error adding: {:?}", err);
                 status_code = StatusCode::INTERNAL_SERVER_ERROR;
@@ -142,6 +142,7 @@ fn generate_witty_name() -> Result<String> {
             1,        // phrases
             None,     // minimum length
             Some(25), // maximum length
+            None,     // maximum word length
             None,
         )
         .ok_or(Error::Message(

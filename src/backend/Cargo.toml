@@ -26,7 +26,7 @@ sea-orm = { version = "1.0.0-rc.1", features = [
     "macros",
 ] }
 
-axum = "0.7.1"
+axum = { version = "0.7.1", features = ["http2"] }
 include_dir = "0.7"
 uuid = { version = "1.8.0", features = ["v4"] }
 tracing-subscriber = { version = "0.3.17", features = ["env-filter", "json"] }
@@ -41,12 +41,12 @@ loco-oauth2 = "0.1.1"
 axum_session = "0.13.0"
 headers = "0.4.0"
 axum-extra = { version = "0.9.3", features = ["typed-header"] }
-witty-phrase-generator = "0.2.0"
+witty-phrase-generator = "0.3.0"
 tower-http = "0.5.2"
 webpage = "2.0.1"
 regex = "1.10.4"
 rustrict = "0.7.25"
-sysinfo = { version = "0.30.12", features = ["serde"], default-features = false }
+sysinfo = { version = "0.32.0", features = ["serde", "system"], default-features = false }
 
 [[bin]]
 name = "main"
