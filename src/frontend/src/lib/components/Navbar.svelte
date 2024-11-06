@@ -2,11 +2,9 @@
 	import HeroiconsLink from '~icons/heroicons/link';
 	import { NavbarItem } from '$components/index';
 	import LineMdGithub from '~icons/line-md/github';
-	import type { LoginStatus } from '../../app';
+	import { jwt } from '$lib/stores/auth';
 
-	export let loginStatus: LoginStatus;
-
-	$: isUserLoggedIn = loginStatus === 'logged_in';
+	$: isUserLoggedIn = $jwt !== "";
 
 	$: href = isUserLoggedIn ? '/' : '';
 </script>
