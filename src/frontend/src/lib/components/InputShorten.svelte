@@ -3,12 +3,10 @@
 	import HeroiconsLink from '~icons/heroicons/link';
 	import HeroiconsPencilSquareSolid from '~icons/heroicons/pencil-square-solid';
 	import GgShortcut from '~icons/gg/shortcut';
-	import { base, send } from '$lib/api';
+	import { API_URL } from '$lib/api';
 	import type { AddRequest, AddResponse } from '$lib/models';
 	import MaterialSymbolsKeyboardArrowDownRounded from '~icons/material-symbols/keyboard-arrow-down-rounded';
 	import MaterialSymbolsKeyboardArrowUpRounded from '~icons/material-symbols/keyboard-arrow-up-rounded';
-	import { jwt } from '$lib/stores/auth';
-	import { get as storeGet } from 'svelte/store';
 	import { invalidateAll } from '$app/navigation';
 	import LineMdClipboardArrow from '~icons/line-md/clipboard-arrow';
 	import LineMdConfirm from '~icons/line-md/confirm';
@@ -37,7 +35,7 @@
 		invalidFeedback = invalidForm ? 'Please insert a valid url' : '';
 	}
 
-	$: fullShortened = `${base}/x/${shortenedUrl}`;
+	$: fullShortened = `${API_URL}/x/${shortenedUrl}`;
 
 	let isCheckMarkDisplayed = false;
 
@@ -55,7 +53,7 @@
 		customShortened = customShortened.trim();
 	}
 
-	async function submitForm() {
+	async function handleFormSubmission(event: { currentTarget: EventTarget & HTMLFormElement }) {
 		invalidForm = false;
 		invalidFeedback = '';
 
@@ -72,34 +70,28 @@
 			return;
 		}
 
-		let payload: AddRequest = {
-			url
+		const payload: AddRequest = {
+			url,
+			name: customName || undefined,
+			custom: customShortened || undefined
 		};
 
-		if (customName) {
-			payload.name = customName;
-		}
-
-		if (customShortened) {
-			payload.custom = customShortened;
-		}
-
-		const res = await send({
+		const res = await fetch('/api/add', {
 			method: 'POST',
-			path: 'add',
-			data: payload,
-			token: storeGet(jwt)
+			body: JSON.stringify(payload),
+			headers: {
+				'Content-Type': 'application/json'
+			}
 		});
-
-		const response: AddResponse = await res.json();
 
 		if (res.status !== 200) {
 			invalidForm = true;
-			// @ts-ignore
-			invalidFeedback = response.description;
+			invalidFeedback = await res.text();
 			isShortening = false;
 			return;
 		}
+
+		const response: AddResponse = await res.json();
 
 		shortenedUrl = response.shortened;
 
@@ -111,12 +103,6 @@
 		setTimeout(() => {
 			invalidateAll();
 		}, 1000);
-	}
-
-	function handleKeyDown(event: KeyboardEvent) {
-		if (event.key === 'Enter') {
-			submitForm();
-		}
 	}
 
 	// Shorten transition, fly from left to right when in, fade out when out
@@ -131,68 +117,70 @@
 
 <div class="container px-0">
 	<!-- input part -->
-	<div class="row">
-		<div class="col-md-10 col-12">
-			<div class="d-flex align-items-center text-body">
-				<HeroiconsLink class="me-2" />
-				<div class="input-group has-validation">
-					<input bind:value={url} class="form-control" class:is-invalid={invalidForm} id="invalidationUrl"
-								 autocomplete="off" on:keydown={handleKeyDown} placeholder="Insert your link here" type="url"
-					/>
-					{#if invalidForm}
-						<div class="invalid-feedback">
-							{invalidFeedback}
-						</div>
-					{/if}
+	<form on:submit|preventDefault={handleFormSubmission}>
+		<div class="row">
+			<div class="col-md-10 col-12">
+				<div class="d-flex align-items-center text-body">
+					<HeroiconsLink class="me-2" />
+					<div class="input-group has-validation">
+						<input bind:value={url} class="form-control" class:is-invalid={invalidForm} id="invalidationUrl"
+									 autocomplete="off" placeholder="Insert your link here" type="text"
+						/>
+						{#if invalidForm}
+							<div class="invalid-feedback">
+								{invalidFeedback}
+							</div>
+						{/if}
+					</div>
 				</div>
 			</div>
-		</div>
-		<div class="col-md-2 col-12 mt-2 mt-md-0">
-			<button class="btn btn-primary w-100" disabled={!url} on:click={submitForm} on:keydown={handleKeyDown}>
-				{#if isShortening}
+			<div class="col-md-2 col-12 mt-2 mt-md-0">
+				<button class="btn btn-primary w-100" disabled={!url} type="submit">
+					{#if isShortening}
 						<span class="d-flex align-items-center justify-content-center" in:fly={flyInOptions}>
 							<SvgSpinners90Ring class="me-2" />
 							Shortening...
 						</span>
-				{:else}
+					{:else}
 					<span in:fly={flyInOptions}>
 						Shorten
 					</span>
-				{/if}
-			</button>
-		</div>
-	</div>
-	<!--	advanced options part-->
-	<div class="row mt-2">
-		<div class="col-12">
-			<button class="btn btn-outline-primary w-100" on:click={() => isOptionsOpen = !isOptionsOpen}>
-				{#if isOptionsOpen}
-					<MaterialSymbolsKeyboardArrowUpRounded />
-				{:else}
-					<MaterialSymbolsKeyboardArrowDownRounded />
-				{/if}
-				Options
-			</button>
-		</div>
-	</div>
-	{#if isOptionsOpen}
-		<div class="row" transition:slide>
-			<div class="col-md-6 col-12 mt-2">
-				<div class="d-flex align-items-center text-body">
-					<HeroiconsPencilSquareSolid class="me-2" />
-					<input bind:value={customName} class="form-control" placeholder="Custom title" type="text"
-								 id="validationCustomName" autocomplete="off" />
-				</div>
-			</div>
-			<div class="col-md-6 col-12 mt-2">
-				<div class="d-flex align-items-center text-body">
-					<GgShortcut class="me-2" />
-					<input bind:value={customShortened} class="form-control" placeholder="Custom shortened" type="text"
-								 id="validationCustomShortened" autocomplete="off" />
-				</div>
+					{/if}
+				</button>
 			</div>
 		</div>
-	{/if}
+		<!--	advanced options part-->
+		<div class="row mt-2">
+			<div class="col-12">
+				<button class="btn btn-outline-primary w-100" on:click={() => isOptionsOpen = !isOptionsOpen}>
+					{#if isOptionsOpen}
+						<MaterialSymbolsKeyboardArrowUpRounded />
+					{:else}
+						<MaterialSymbolsKeyboardArrowDownRounded />
+					{/if}
+					Options
+				</button>
+			</div>
+		</div>
+		{#if isOptionsOpen}
+			<div class="row" transition:slide>
+				<div class="col-md-6 col-12 mt-2">
+					<div class="d-flex align-items-center text-body">
+						<HeroiconsPencilSquareSolid class="me-2" />
+						<input bind:value={customName} class="form-control" placeholder="Custom title" type="text"
+									 id="validationCustomName" autocomplete="off" />
+					</div>
+				</div>
+				<div class="col-md-6 col-12 mt-2">
+					<div class="d-flex align-items-center text-body">
+						<GgShortcut class="me-2" />
+						<input bind:value={customShortened} class="form-control" placeholder="Custom shortened" type="text"
+									 id="validationCustomShortened" autocomplete="off" />
+					</div>
+				</div>
+			</div>
+		{/if}
+	</form>
 
 	<!-- result part -->
 	{#if shortenedUrl}
