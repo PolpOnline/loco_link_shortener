@@ -3,8 +3,10 @@
 </svelte:head>
 
 <script lang="ts">
-	import { API_URL } from '$lib/api';
+	import { base, send } from '$lib/api';
 	import type { DeleteRequest } from '$lib/models';
+	import { get as storeGet } from 'svelte/store';
+	import { jwt } from '$lib/stores/auth';
 	import HeroiconsTrash from '~icons/heroicons/trash';
 	import HeroiconsClock from '~icons/heroicons/clock';
 	import HeroiconsArrowLeft from '~icons/heroicons/arrow-left';
@@ -28,7 +30,7 @@
 
 	export let data: PageData;
 
-	let fullShortened = `${API_URL}/x/${data.info.shortened}`;
+	let fullShortened = `${base}/x/${data.info.shortened}`;
 	let fullShortenedView = fullShortened.replace(/^(?:https?:\/\/)?(?:www\.)?/i, '');
 	let fullOriginal = data.info.original.replace(/^(?:https?:\/\/)?(?:www\.)?/i, '');
 
@@ -36,25 +38,22 @@
 
 	async function deleteUrl() {
 		isDeleting = true;
+		try {
+			let payload: DeleteRequest = {
+				shortened: data.info.shortened
+			};
 
-		let payload: DeleteRequest = {
-			shortened: data.info.shortened
-		};
-
-		const res = await fetch(`/api/delete`, {
-			method: 'DELETE',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify(payload)
-		});
-
-		if (res.ok) {
-			await goto('/');
-		} else {
-			isDeleting = false;
-			console.error('Failed to delete URL');
+			await send({
+				method: 'DELETE',
+				path: `delete`,
+				data: payload,
+				token: storeGet(jwt)
+			});
+		} catch (error) {
+			console.error(error);
 		}
+
+		await goto('/');
 	}
 
 	let isRefreshing = false;

@@ -1,18 +1,24 @@
 <svelte:head>
 	<title>Login</title>
+	<link rel="preconnect" href={base} crossorigin="anonymous" />
 </svelte:head>
 
 <script lang="ts">
 	import FlatColorIconsGoogle from '~icons/flat-color-icons/google';
+	import { base, send } from '$lib/api';
 
-	export let data;
+	async function goToLogin() {
+		let res = await send({ method: 'GET', path: 'oauth2/google', credentialsRequired: true });
+
+		window.location.href = await res.text();
+	}
 </script>
 
 <div class="d-flex flex-column justify-content-center align-items-center vh-100">
-	<a class="btn btn-outline-primary d-flex align-items-center" href={data.gotoUrl}>
+	<button class="btn btn-outline-primary d-flex align-items-center" on:click={goToLogin}>
 		<FlatColorIconsGoogle />
 		<span class="ms-2">Login with Google</span>
-	</a>
+	</button>
 </div>
 
 

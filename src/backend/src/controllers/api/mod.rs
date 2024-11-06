@@ -1,4 +1,3 @@
-use axum::routing::patch;
 use loco_rs::prelude::*;
 
 pub mod add;
@@ -14,5 +13,5 @@ pub fn routes() -> Routes {
         .add("/delete", delete(delete::delete))
         .add("/info/:shortened", get(info::info))
         .add("/list", get(list::list))
-        .add("/edit", patch(edit::edit))
+        .add("/edit", put(edit::edit))
 }
