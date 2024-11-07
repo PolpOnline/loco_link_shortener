@@ -53,9 +53,10 @@
 	"type": "module",
 	"dependencies": {
 		"@popperjs/core": "^2.11.8",
-		"@unpic/svelte": "^0.0.53",
+		"@types/set-cookie-parser": "^2.4.10",
 		"bootstrap": "^5.3.3",
-		"svelte-persisted-store": "^0.9.4",
+		"cookie": "^1.0.1",
+		"set-cookie-parser": "^2.7.1",
 		"unplugin-icons": "^0.19.3"
 	}
 }

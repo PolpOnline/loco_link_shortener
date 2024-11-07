@@ -3,24 +3,19 @@
 </svelte:head>
 
 <script lang="ts">
-	import { jwt } from '$lib/stores/auth';
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
+	import { onMount } from 'svelte';
 
-	const token = $page.data.t;
+	const token = $page.data.token;
 
-	// Gets the jwt token from the oauth2/protected code
-	async function getJWT() {
-		if (!token) {
-			Error('Bad Request: No token found');
+	onMount(async () => {
+		if (token) {
+			document.cookie = `jwt=${token}; path=/`;
 		}
 
-		jwt.set(token);
-
 		await goto('/');
-	}
-
-	getJWT();
+	})
 </script>
 
 <div class="d-flex flex-column justify-content-center align-items-center vh-100">
