@@ -1,3 +1,7 @@
+<svelte:head>
+	<link rel="preconnect" href={base} crossorigin="use-credentials" />
+</svelte:head>
+
 <script lang="ts">
 	import '../scss/app.scss';
 	import 'unfonts.css';
@@ -6,13 +10,16 @@
 	import { fly } from 'svelte/transition';
 	import { cubicIn, cubicOut } from 'svelte/easing';
 	import { afterNavigate, beforeNavigate } from '$app/navigation';
-	import type { LayoutData } from './$types';
+	import { loginCheck } from '$lib/utils';
+	import { base } from '$lib/api';
 
 	onMount(async () => {
 		await import('bootstrap');
 	});
 
-	export let data: LayoutData;
+	loginCheck();
+
+	export let data;
 
 	const duration = 300;
 	const delay = duration + 100;
@@ -31,7 +38,7 @@
 
 
 <div class="text-body bg-black actual-body">
-	<Navbar loginStatus={data.loginStatus} />
+	<Navbar />
 
 	{#if isLoading}
 		<Loader />
