@@ -1,6 +1,6 @@
 use axum::http::StatusCode;
 use loco_rs::{controller::ErrorDetail, model::ModelError, prelude::*};
-use rand::{distributions::Alphanumeric, Rng};
+use rand::{distr::Alphanumeric, Rng};
 use serde::{Deserialize, Serialize};
 use thiserror::Error;
 use tracing::error;
@@ -126,7 +126,7 @@ pub async fn add(
 
 /// Generates a random string of a given length
 fn generate_shortened(length: usize) -> String {
-    rand::thread_rng()
+    rand::rng()
         .sample_iter(&Alphanumeric)
         .take(length)
         .map(char::from)
