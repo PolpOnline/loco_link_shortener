@@ -35,6 +35,6 @@ COPY --from=builder /app/target/release/main ./bin/main
 COPY --from=builder /app/config ./config
 
 # Expose the port the app runs on
-EXPOSE 3000
+EXPOSE 8080
 
 ENTRYPOINT ["./bin/main", "start", "-e", "production"]
