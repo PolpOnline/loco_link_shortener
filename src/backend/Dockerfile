@@ -37,5 +37,4 @@ COPY --from=builder /app/config ./config
 # Expose the port the app runs on
 EXPOSE 3000
 
-# Run the binary
-ENTRYPOINT ["./bin/main", "start", "-e production"]
+ENTRYPOINT ["./bin/main", "start", "-e", "production"]
