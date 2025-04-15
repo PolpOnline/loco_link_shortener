@@ -2,8 +2,12 @@
 	import HeroiconsLink from '~icons/heroicons/link';
 	import HeroiconsClock from '~icons/heroicons/clock';
 
-	export let createdAt: Date;
-	export let original: string;
+	interface Props {
+		createdAt: Date;
+		original: string;
+	}
+
+	let { createdAt, original }: Props = $props();
 
 	let domainOriginal = new URL(original).hostname;
 

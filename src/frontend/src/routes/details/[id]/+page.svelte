@@ -1,7 +1,3 @@
-<svelte:head>
-	<title>Details for {data.info.name}</title>
-</svelte:head>
-
 <script lang="ts">
 	import { base, send } from '$lib/api';
 	import type { DeleteRequest } from '$lib/models';
@@ -27,14 +23,17 @@
 	import LineMdLoadingLoop from '~icons/line-md/loading-loop';
 	import LineMdEdit from '~icons/line-md/edit';
 
+	interface Props {
+		data: PageData;
+	}
 
-	export let data: PageData;
+	let { data }: Props = $props();
 
 	let fullShortened = `${base}/x/${data.info.shortened}`;
 	let fullShortenedView = fullShortened.replace(/^(?:https?:\/\/)?(?:www\.)?/i, '');
 	let fullOriginal = data.info.original.replace(/^(?:https?:\/\/)?(?:www\.)?/i, '');
 
-	let isDeleting = false;
+	let isDeleting = $state(false);
 
 	async function deleteUrl() {
 		isDeleting = true;
@@ -56,7 +55,7 @@
 		await goto('/');
 	}
 
-	let isRefreshing = false;
+	let isRefreshing = $state(false);
 
 	async function refresh() {
 		if (isRefreshing) return;
@@ -75,7 +74,7 @@
 		duration: 300
 	};
 
-	let isCheckMarkDisplayed = false;
+	let isCheckMarkDisplayed = $state(false);
 
 	function copyShortened() {
 		navigator.clipboard.writeText(fullShortened);
@@ -85,6 +84,10 @@
 		}, 1200);
 	}
 </script>
+
+<svelte:head>
+	<title>Details for {data.info.name}</title>
+</svelte:head>
 
 <main class="mt-3">
 	<div class="w-90 mx-auto">
@@ -104,49 +107,43 @@
 
 		<div class="d-flex align-items-center my-3">
 			<HeroiconsCalendar class="me-2" />
-			<span class="fw-bold me-1">
-				Created:
-			</span>
+			<span class="fw-bold me-1"> Created: </span>
 			{new Date(data.info.created_at + 'Z').toLocaleString()}
 		</div>
 
 		<div class="d-flex align-items-center my-3">
 			<LucideExpand class="me-2" />
-			<span class="fw-bold me-1">
-				Original:
-			</span>
+			<span class="fw-bold me-1"> Original: </span>
 			<a href={data.info.original} target="_blank">{fullOriginal}</a>
 		</div>
 
 		<div class="d-flex align-items-center my-3">
 			<LucideShrink class="me-2" />
-			<span class="fw-bold me-1">
-				Shortened:
-			</span>
+			<span class="fw-bold me-1"> Shortened: </span>
 			<a href={fullShortened} target="_blank">{fullShortenedView}</a>
 		</div>
 
-		<button class="btn btn-outline-secondary" on:click={copyShortened}>
+		<button class="btn btn-outline-secondary" onclick={copyShortened}>
 			{#if isCheckMarkDisplayed}
 				<span class="d-flex align-items-center">
 					<LineMdConfirm class="me-2" />
 					Copied!
 				</span>
 			{:else}
-			<span class="d-flex align-items-center">
+				<span class="d-flex align-items-center">
 					<LineMdClipboardArrow class="me-2" />
 					Copy
 				</span>
 			{/if}
 		</button>
 
-		<button class="btn btn-outline-primary" on:click={refresh}>
-				<span class="d-flex align-items-center">
-					<span class="d-inline-block me-1" class:rotating={isRefreshing}>
-						<TablerRefresh />
-					</span>
-					Refresh table
+		<button class="btn btn-outline-primary" onclick={refresh}>
+			<span class="d-flex align-items-center">
+				<span class="d-inline-block me-1" class:rotating={isRefreshing}>
+					<TablerRefresh />
 				</span>
+				Refresh table
+			</span>
 		</button>
 
 		<div class="table-responsive my-3">
@@ -206,14 +203,13 @@
 			</table>
 		</div>
 
-
 		<div class="mt-5 text-center">
 			<p class="d-flex align-items-center fw-bold text-danger justify-content-center mb-1">
 				<LineMdAlert class="me-2" />
 				Danger
 			</p>
 
-			<button class="btn btn-outline-danger" on:click={deleteUrl}>
+			<button class="btn btn-outline-danger" onclick={deleteUrl}>
 				{#if isDeleting}
 					<span class="d-flex align-items-center">
 						<LineMdLoadingLoop class="me-2" />
@@ -231,7 +227,7 @@
 </main>
 
 <style>
-    .responsive-title-size {
-        font-size: calc(0.6em + 1vw);
-    }
+	.responsive-title-size {
+		font-size: calc(0.6em + 1vw);
+	}
 </style>

@@ -1,5 +1,9 @@
 <script lang="ts">
-	export let errors: Record<string, string> = {};
+	interface Props {
+		errors?: Record<string, string>;
+	}
+
+	let { errors = {} }: Props = $props();
 </script>
 
 {#if errors}

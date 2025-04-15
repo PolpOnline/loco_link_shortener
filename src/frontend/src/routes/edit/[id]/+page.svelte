@@ -11,13 +11,17 @@
 	import { cubicIn } from 'svelte/easing';
 	import LineMdRemove from '~icons/line-md/remove';
 
-	export let data: PageData;
+	interface Props {
+		data: PageData;
+	}
+
+	let { data }: Props = $props();
 
 	const baseDetailsPage = `/details/${data.info.shortened}`;
 
-	let name: string = data.info.name;
-	let original: string = data.info.original;
-	let shortened: string = data.info.shortened;
+	let name: string = $state(data.info.name);
+	let original: string = $state(data.info.original);
+	let shortened: string = $state(data.info.shortened);
 
 	function fillFieldsIfEmpty() {
 		if (!name) {
@@ -44,9 +48,9 @@
 		shortened = shortened.trim();
 	}
 
-	let isSaving = false;
-	let isError = false;
-	let errorDescription = '';
+	let isSaving = $state(false);
+	let isError = $state(false);
+	let errorDescription = $state('');
 
 	async function saveForm() {
 		isError = false;
@@ -103,56 +107,76 @@
 			<div class="row g-4">
 				<div class="col-12">
 					<label class="responsive-label-size" for="name">Name</label>
-					<input autocomplete="off" bind:value={name} class="form-control" id="name" placeholder={data.info.name}
-								 type="text" />
+					<input
+						autocomplete="off"
+						bind:value={name}
+						class="form-control"
+						id="name"
+						placeholder={data.info.name}
+						type="text"
+					/>
 				</div>
 
 				<div class="col-12">
 					<label class="responsive-label-size" for="original">
-							<span class="d-flex align-items-center">
-								Original
-								<span class="text-warning ms-2 justify-content-end d-flex align-items-center">
-									<LineMdAlert class="me-1" />
-									Editing this will redirect all traffic
-								</span>
+						<span class="d-flex align-items-center">
+							Original
+							<span class="text-warning ms-2 justify-content-end d-flex align-items-center">
+								<LineMdAlert class="me-1" />
+								Editing this will redirect all traffic
 							</span>
+						</span>
 					</label>
-					<input bind:value={original} class="form-control" id="original" placeholder={data.info.original}
-								 autocomplete="off" type="text" />
+					<input
+						bind:value={original}
+						class="form-control"
+						id="original"
+						placeholder={data.info.original}
+						autocomplete="off"
+						type="text"
+					/>
 				</div>
 
 				<div class="col-12">
 					<label class="responsive-label-size" for="shortened">
-							<span class="d-flex align-items-center">
-								Shortened
-								<span class="text-warning ms-2 justify-content-end d-flex align-items-center">
-									<LineMdAlert class="me-1" />
-									Editing this will make the previous url invalid
-								</span>
+						<span class="d-flex align-items-center">
+							Shortened
+							<span class="text-warning ms-2 justify-content-end d-flex align-items-center">
+								<LineMdAlert class="me-1" />
+								Editing this will make the previous url invalid
 							</span>
+						</span>
 					</label>
-					<input bind:value={shortened} class="form-control" id="shortened" placeholder={data.info.shortened}
-								 autocomplete="off" type="text" />
+					<input
+						bind:value={shortened}
+						class="form-control"
+						id="shortened"
+						placeholder={data.info.shortened}
+						autocomplete="off"
+						type="text"
+					/>
 				</div>
 
 				<div class="col-12">
 					<div class="d-flex justify-content-center mt-3">
-						<button class="btn btn-primary" on:click={saveForm}>
+						<button class="btn btn-primary" onclick={saveForm}>
 							{#if isSaving}
-					<span class="d-flex align-items-center" in:fly={flyInOptions}>
-						<LineMdLoadingLoop class="ms-1" />
-						Saving...
-					</span>
+								<span class="d-flex align-items-center" in:fly={flyInOptions}>
+									<LineMdLoadingLoop class="ms-1" />
+									Saving...
+								</span>
 							{:else}
 								Save
 							{/if}
 						</button>
-						<a class="btn btn-outline-secondary ms-2" href={baseDetailsPage}>Cancel
-						</a>
+						<a class="btn btn-outline-secondary ms-2" href={baseDetailsPage}>Cancel </a>
 					</div>
 
 					{#if isError}
-						<div class="alert alert-danger mt-3 d-flex justify-content-center align-items-center mt-5" role="alert">
+						<div
+							class="alert alert-danger mt-3 d-flex justify-content-center align-items-center mt-5"
+							role="alert"
+						>
 							<LineMdRemove class="me-2" />
 							Error saving data: {errorDescription}
 						</div>
@@ -164,11 +188,11 @@
 </main>
 
 <style>
-    .responsive-title-size {
-        font-size: calc(0.7em + 1vw);
-    }
+	.responsive-title-size {
+		font-size: calc(0.7em + 1vw);
+	}
 
-    .responsive-label-size {
-        font-size: calc(0.4em + 0.7vw);
-    }
+	.responsive-label-size {
+		font-size: calc(0.4em + 0.7vw);
+	}
 </style>

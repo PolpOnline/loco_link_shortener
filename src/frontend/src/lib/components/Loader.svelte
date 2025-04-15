@@ -2,7 +2,6 @@
 	import { slide } from 'svelte/transition';
 	import { cubicIn, cubicOut } from 'svelte/easing';
 
-
 	let transitionIn = { easing: cubicOut, duration: 300 };
 	let transitionOut = { easing: cubicIn, duration: 300 };
 </script>

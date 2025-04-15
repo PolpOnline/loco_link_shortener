@@ -15,15 +15,17 @@
 	import SvgSpinners90Ring from '~icons/svg-spinners/90-ring';
 	import { cubicIn } from 'svelte/easing';
 
-	const urlRegex = new RegExp('https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\+.~#?&/=]*)');
-	let url = '';
-	let customName = '';
-	let customShortened = '';
-	let invalidForm = false;
-	let invalidFeedback = '';
-	let shortenedUrl = '';
-	let isOptionsOpen = false;
-	let isShortening = false;
+	const urlRegex = new RegExp(
+		'https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\+.~#?&/=]*)'
+	);
+	let url = $state('');
+	let customName = $state('');
+	let customShortened = $state('');
+	let invalidForm = $state(false);
+	let invalidFeedback = $state('');
+	let shortenedUrl = $state('');
+	let isOptionsOpen = $state(false);
+	let isShortening = $state(false);
 
 	function addProtocolIfNeeded() {
 		// use regex to check if the url has a protocol
@@ -37,9 +39,9 @@
 		invalidFeedback = invalidForm ? 'Please insert a valid url' : '';
 	}
 
-	$: fullShortened = `${base}/x/${shortenedUrl}`;
+	let fullShortened = $derived(`${base}/x/${shortenedUrl}`);
 
-	let isCheckMarkDisplayed = false;
+	let isCheckMarkDisplayed = $state(false);
 
 	function copyShortened() {
 		navigator.clipboard.writeText(fullShortened);
@@ -128,7 +130,6 @@
 	};
 </script>
 
-
 <div class="container px-0">
 	<!-- input part -->
 	<div class="row">
@@ -136,8 +137,15 @@
 			<div class="d-flex align-items-center text-body">
 				<HeroiconsLink class="me-2" />
 				<div class="input-group has-validation">
-					<input bind:value={url} class="form-control" class:is-invalid={invalidForm} id="invalidationUrl"
-								 autocomplete="off" on:keydown={handleKeyDown} placeholder="Insert your link here" type="url"
+					<input
+						bind:value={url}
+						class="form-control"
+						class:is-invalid={invalidForm}
+						id="invalidationUrl"
+						autocomplete="off"
+						onkeydown={handleKeyDown}
+						placeholder="Insert your link here"
+						type="url"
 					/>
 					{#if invalidForm}
 						<div class="invalid-feedback">
@@ -148,16 +156,19 @@
 			</div>
 		</div>
 		<div class="col-md-2 col-12 mt-2 mt-md-0">
-			<button class="btn btn-primary w-100" disabled={!url} on:click={submitForm} on:keydown={handleKeyDown}>
+			<button
+				class="btn btn-primary w-100"
+				disabled={!url}
+				onclick={submitForm}
+				onkeydown={handleKeyDown}
+			>
 				{#if isShortening}
-						<span class="d-flex align-items-center justify-content-center" in:fly={flyInOptions}>
-							<SvgSpinners90Ring class="me-2" />
-							Shortening...
-						</span>
-				{:else}
-					<span in:fly={flyInOptions}>
-						Shorten
+					<span class="d-flex align-items-center justify-content-center" in:fly={flyInOptions}>
+						<SvgSpinners90Ring class="me-2" />
+						Shortening...
 					</span>
+				{:else}
+					<span in:fly={flyInOptions}> Shorten </span>
 				{/if}
 			</button>
 		</div>
@@ -165,7 +176,10 @@
 	<!--	advanced options part-->
 	<div class="row mt-2">
 		<div class="col-12">
-			<button class="btn btn-outline-primary w-100" on:click={() => isOptionsOpen = !isOptionsOpen}>
+			<button
+				class="btn btn-outline-primary w-100"
+				onclick={() => (isOptionsOpen = !isOptionsOpen)}
+			>
 				{#if isOptionsOpen}
 					<MaterialSymbolsKeyboardArrowUpRounded />
 				{:else}
@@ -180,15 +194,27 @@
 			<div class="col-md-6 col-12 mt-2">
 				<div class="d-flex align-items-center text-body">
 					<HeroiconsPencilSquareSolid class="me-2" />
-					<input bind:value={customName} class="form-control" placeholder="Custom title" type="text"
-								 id="validationCustomName" autocomplete="off" />
+					<input
+						bind:value={customName}
+						class="form-control"
+						placeholder="Custom title"
+						type="text"
+						id="validationCustomName"
+						autocomplete="off"
+					/>
 				</div>
 			</div>
 			<div class="col-md-6 col-12 mt-2">
 				<div class="d-flex align-items-center text-body">
 					<GgShortcut class="me-2" />
-					<input bind:value={customShortened} class="form-control" placeholder="Custom shortened" type="text"
-								 id="validationCustomShortened" autocomplete="off" />
+					<input
+						bind:value={customShortened}
+						class="form-control"
+						placeholder="Custom shortened"
+						type="text"
+						id="validationCustomShortened"
+						autocomplete="off"
+					/>
 				</div>
 			</div>
 		</div>
@@ -198,16 +224,14 @@
 	{#if shortenedUrl}
 		<div transition:slide>
 			<div class="row mt-2">
-				<div class="col-12 text-body">
-					Your shortened url is:
-				</div>
+				<div class="col-12 text-body">Your shortened url is:</div>
 			</div>
 			<div class="row mt-2">
 				<div class="col-md-10 col-12">
 					<input disabled={true} type="text" class="form-control bg-black" value={fullShortened} />
 				</div>
 				<div class="col-md-2 col-12 mt-2 mt-md-0">
-					<button class="btn btn-primary w-100" on:click={copyShortened}>
+					<button class="btn btn-primary w-100" onclick={copyShortened}>
 						{#if isCheckMarkDisplayed}
 							<LineMdConfirm />
 						{:else}

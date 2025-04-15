@@ -4,9 +4,9 @@
 	import LineMdGithub from '~icons/line-md/github';
 	import { jwt } from '$lib/stores/auth';
 
-	$: isUserLoggedIn = $jwt !== "";
+	let isUserLoggedIn = $derived($jwt !== '');
 
-	$: href = isUserLoggedIn ? '/' : '';
+	let href = $derived(isUserLoggedIn ? '/' : '');
 </script>
 
 <nav class="navbar navbar-expand-lg bg-transparent">
@@ -16,9 +16,15 @@
 			<span class="colored-text">Link Shortener</span>
 		</a>
 		{#if isUserLoggedIn}
-			<button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
-							class="navbar-toggler"
-							data-bs-target="#navbarSupportedContent" data-bs-toggle="collapse" type="button">
+			<button
+				aria-controls="navbarSupportedContent"
+				aria-expanded="false"
+				aria-label="Toggle navigation"
+				class="navbar-toggler"
+				data-bs-target="#navbarSupportedContent"
+				data-bs-toggle="collapse"
+				type="button"
+			>
 				<span class="navbar-toggler-icon"></span>
 			</button>
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -26,7 +32,11 @@
 					<NavbarItem href="/" text="Home" />
 					<NavbarItem href="/about" text="About" />
 				</ul>
-				<a class="text-white" href="https://github.com/PolpOnline/loco_link_shortener" target="_blank">
+				<a
+					class="text-white"
+					href="https://github.com/PolpOnline/loco_link_shortener"
+					target="_blank"
+				>
 					<LineMdGithub --shadow-color="white" class="fs-3 drop-shadow" />
 				</a>
 			</div>
@@ -35,20 +45,20 @@
 </nav>
 
 <style>
-    .colored-text {
-        font-weight: 600;
-        background: -webkit-linear-gradient(0deg, #0055FF 0%, #08F794 50%, #0055FF 100%);
-        background-size: 200% auto;
-        background-clip: text;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        color: transparent;
-        animation: glint 5s linear infinite;
-    }
+	.colored-text {
+		font-weight: 600;
+		background: -webkit-linear-gradient(0deg, #0055ff 0%, #08f794 50%, #0055ff 100%);
+		background-size: 200% auto;
+		background-clip: text;
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		color: transparent;
+		animation: glint 5s linear infinite;
+	}
 
-    @keyframes glint {
-        to {
-            background-position: 200% center;
-        }
-    }
+	@keyframes glint {
+		to {
+			background-position: 200% center;
+		}
+	}
 </style>

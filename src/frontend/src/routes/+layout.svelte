@@ -1,7 +1,3 @@
-<svelte:head>
-	<link rel="preconnect" href={base} crossorigin="use-credentials" />
-</svelte:head>
-
 <script lang="ts">
 	import '../scss/app.scss';
 	import 'unfonts.css';
@@ -19,7 +15,7 @@
 
 	loginCheck();
 
-	export let data;
+	let { data, children } = $props();
 
 	const duration = 300;
 	const delay = duration + 100;
@@ -28,14 +24,16 @@
 	const transitionIn = { easing: cubicOut, y, duration, delay };
 	const transitionOut = { easing: cubicIn, y: -y, duration };
 
-
-	let isLoading = false;
+	let isLoading = $state(false);
 
 	// Show loader only when navigating between internal pages
 	beforeNavigate(({ to }) => (isLoading = !!to?.route.id));
 	afterNavigate(() => (isLoading = false));
 </script>
 
+<svelte:head>
+	<link rel="preconnect" href={base} crossorigin="use-credentials" />
+</svelte:head>
 
 <div class="text-body bg-black actual-body">
 	<Navbar />
@@ -46,7 +44,7 @@
 
 	{#key data.pathname}
 		<div in:fly={transitionIn} out:fly={transitionOut}>
-			<slot />
+			{@render children?.()}
 		</div>
 	{/key}
 
@@ -54,9 +52,9 @@
 </div>
 
 <style>
-    .actual-body {
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-    }
+	.actual-body {
+		min-height: 100vh;
+		display: flex;
+		flex-direction: column;
+	}
 </style>

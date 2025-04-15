@@ -1,65 +1,65 @@
 // Bring in Bootstrap
-@import "bootstrap/scss/bootstrap";
+@import 'bootstrap/scss/bootstrap';
 
 :root {
-  color-scheme: dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+	color-scheme: dark;
+	color: rgba(255, 255, 255, 0.87);
+	background-color: #242424;
 
-  font-synthesis: none;
+	font-synthesis: none;
 }
 
 * {
-  font-family: 'Cascadia Code Regular', system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+	font-family: 'Cascadia Code Regular', system-ui, Avenir, Helvetica, Arial, sans-serif;
+	line-height: 1.5;
+	font-weight: 400;
 
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: subpixel-antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  font-optical-sizing: auto;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: subpixel-antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	font-optical-sizing: auto;
 }
 
 .w-90 {
-  width: 90% !important;
+	width: 90% !important;
 }
 
 .glass {
-  // take the elems background color and make it transparent
-  //background-color: red;
-  backdrop-filter: blur(10px);
-  border-radius: 10px;
+	// take the elems background color and make it transparent
+	//background-color: red;
+	backdrop-filter: blur(10px);
+	border-radius: 10px;
 }
 
 .text-justified {
-  text-align: justify;
+	text-align: justify;
 }
 
 .aspect-ratio-16-9 {
-  aspect-ratio: 16 / 9; // This gives the div a 16:9 aspect ratio. Adjust as needed
+	aspect-ratio: 16 / 9; // This gives the div a 16:9 aspect ratio. Adjust as needed
 }
 
 .drop-shadow {
-  transition: filter 1s;
+	transition: filter 1s;
 }
 
 .drop-shadow:hover {
-  filter: drop-shadow(0 0 1rem var(--shadow-color));
+	filter: drop-shadow(0 0 1rem var(--shadow-color));
 }
 
 .flex-1 {
-  flex: 1;
+	flex: 1;
 }
 
 @keyframes rotating {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
 }
 
 .rotating {
-  animation: rotating 2s linear infinite;
+	animation: rotating 2s linear infinite;
 }

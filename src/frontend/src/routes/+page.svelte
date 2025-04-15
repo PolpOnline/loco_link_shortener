@@ -1,13 +1,17 @@
-<svelte:head>
-	<title>Link Shortener</title>
-</svelte:head>
-
 <script lang="ts">
 	import { InputShorten, LinksView } from '$components/index';
 	import type { PageData } from './$types';
 
-	export let data: PageData;
+	interface Props {
+		data: PageData;
+	}
+
+	let { data }: Props = $props();
 </script>
+
+<svelte:head>
+	<title>Link Shortener</title>
+</svelte:head>
 
 <main>
 	<div class="w-90 mx-auto">
