@@ -16,7 +16,7 @@
 	import { cubicIn } from 'svelte/easing';
 
 	const urlRegex = new RegExp(
-		'https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\+.~#?&/=]*)'
+		'https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)'
 	);
 	let url = $state('');
 	let customName = $state('');
@@ -97,7 +97,7 @@
 
 		if (res.status !== 200) {
 			invalidForm = true;
-			// @ts-ignore
+			// @ts-expect-error
 			invalidFeedback = response.description;
 			isShortening = false;
 			return;

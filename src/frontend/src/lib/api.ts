@@ -6,7 +6,7 @@ if (!dev) {
 	base = 'https://s.polp.online';
 }
 
-let apiBase = base + '/api';
+const apiBase = base + '/api';
 
 type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
 
