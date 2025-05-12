@@ -2,7 +2,7 @@ use loco_rs::{
     model::{ModelError, ModelResult},
     prelude::*,
 };
-use sea_orm::{entity::prelude::*, QueryOrder};
+use sea_orm::{QueryOrder, entity::prelude::*};
 
 pub use super::super::_entities::prelude::*;
 use crate::models::_entities::clicks;

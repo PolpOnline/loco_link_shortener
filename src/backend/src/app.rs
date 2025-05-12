@@ -3,14 +3,14 @@ use std::{net::SocketAddr, path::Path};
 use async_trait::async_trait;
 use axum::Router as AxumRouter;
 use loco_rs::{
+    Result,
     app::{AppContext, Hooks, Initializer},
-    boot::{create_app, BootResult, ServeParams, StartMode},
+    boot::{BootResult, ServeParams, StartMode, create_app},
     controller::AppRoutes,
     db::truncate_table,
     environment::Environment,
     task::Tasks,
     worker::Processor,
-    Result,
 };
 use migration::Migrator;
 use sea_orm::DatabaseConnection;

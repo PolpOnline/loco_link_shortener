@@ -1,6 +1,5 @@
 use axum::response::IntoResponse;
-use loco_rs::controller::Json;
-use loco_rs::prelude::*;
+use loco_rs::{controller::Json, prelude::*};
 use serde::Serialize;
 use sysinfo::System;
 use tokio::time::sleep;

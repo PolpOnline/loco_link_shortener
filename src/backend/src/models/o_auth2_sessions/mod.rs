@@ -1,13 +1,13 @@
 use async_trait::async_trait;
 use chrono::Utc;
 use loco_oauth2::{
-    basic::BasicTokenResponse, models::oauth2_sessions::OAuth2SessionsTrait, TokenResponse,
+    TokenResponse, basic::BasicTokenResponse, models::oauth2_sessions::OAuth2SessionsTrait,
 };
 use loco_rs::{
     model::{ModelError, ModelResult},
     prelude::*,
 };
-use sea_orm::{entity::prelude::*, ActiveValue, TransactionTrait};
+use sea_orm::{ActiveValue, TransactionTrait, entity::prelude::*};
 
 use crate::models::_entities::{o_auth2_sessions, users};
 

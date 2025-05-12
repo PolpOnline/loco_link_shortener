@@ -1,4 +1,4 @@
-use axum::{async_trait, Router as AxumRouter};
+use axum::{Router as AxumRouter, async_trait};
 use axum_client_ip::SecureClientIpSource;
 use loco_rs::prelude::*;
 

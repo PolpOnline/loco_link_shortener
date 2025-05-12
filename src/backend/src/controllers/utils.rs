@@ -2,7 +2,7 @@ use std::net::IpAddr;
 
 use axum::http::StatusCode;
 use axum_extra::TypedHeader;
-use loco_rs::{app::AppContext, controller::ErrorDetail, prelude::*, Error};
+use loco_rs::{Error, app::AppContext, controller::ErrorDetail, prelude::*};
 use tracing::error;
 use uuid::Uuid;
 

@@ -1,6 +1,6 @@
 use axum::http::StatusCode;
 use loco_rs::{controller::ErrorDetail, model::ModelError, prelude::*};
-use rand::{distr::Alphanumeric, Rng};
+use rand::{Rng, distr::Alphanumeric};
 use serde::{Deserialize, Serialize};
 use thiserror::Error;
 use tracing::error;

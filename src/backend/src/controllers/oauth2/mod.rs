@@ -1,10 +1,10 @@
 use std::fmt::Debug;
 
-use axum::{response::Response, Extension};
+use axum::{Extension, response::Response};
 use axum_session::{DatabasePool, Session, SessionNullPool};
 use loco_oauth2::{
-    controllers::oauth2::{get_authorization_url, google_callback},
     OAuth2ClientStore,
+    controllers::oauth2::{get_authorization_url, google_callback},
 };
 use loco_rs::prelude::*;
 

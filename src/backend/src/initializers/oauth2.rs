@@ -1,5 +1,5 @@
-use axum::{async_trait, Extension, Router as AxumRouter};
-use loco_oauth2::{config::OAuth2Config, OAuth2ClientStore};
+use axum::{Extension, Router as AxumRouter, async_trait};
+use loco_oauth2::{OAuth2ClientStore, config::OAuth2Config};
 use loco_rs::prelude::*;
 
 pub struct OAuth2StoreInitializer;
