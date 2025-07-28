@@ -1,5 +1,6 @@
 onlyBuiltDependencies:
   - '@parcel/watcher'
   - esbuild
+  - sharp
   - svelte-preprocess
   - workerd
