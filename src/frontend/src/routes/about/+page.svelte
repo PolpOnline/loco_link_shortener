@@ -4,7 +4,7 @@
 	import Loco from '$images/Loco.png?enhanced';
 	import SeaORM from '$images/SeaORM.png?enhanced';
 	import PostgreSQL from '$images/PostgreSQL.svelte';
-	import Railway from '$images/Railway.svelte';
+	import Coolify from '$images/Coolify.svelte';
 	import Axum from '$images/Axum.svelte';
 	import Svelte from '$images/Svelte.svelte';
 	import CloudflarePages from '$images/CloudflarePages.svelte';
@@ -15,7 +15,7 @@
 	const axumColor = 'white';
 	const seaORMColor = '#2564D8';
 	const postgreSQLColor = '#336791';
-	const railwayColor = 'white';
+	const coolifyColor = '#8550FC';
 	const cloudflarePagesColor = '#FFA500';
 </script>
 
@@ -116,8 +116,8 @@
 	</div>
 
 	<p class="my-4 text-center">
-		The application is deployed on
-		<UnderlinedText color={railwayColor}>Railway</UnderlinedText>
+		The application is deployed on a VPS using
+		<UnderlinedText color={coolifyColor}>Coolify</UnderlinedText>
 		and
 		<span><UnderlinedText color={cloudflarePagesColor}>Cloudflare Pages</UnderlinedText>.</span>
 	</p>
@@ -125,8 +125,8 @@
 	<div class="container mb-5">
 		<div class="row">
 			<div class="col-12 col-md-6 img-fluid d-flex align-items-center justify-content-center py-2">
-				<a href="https://railway.app/" target="_blank">
-					<Railway --shadow-color={railwayColor} class="uniform-height drop-shadow" />
+				<a href="https://coolify.io" target="_blank">
+					<Coolify --shadow-color={coolifyColor} class="uniform-height drop-shadow" />
 				</a>
 			</div>
 			<div class="col-12 col-md-6 img-fluid d-flex align-items-center justify-content-center py-2">

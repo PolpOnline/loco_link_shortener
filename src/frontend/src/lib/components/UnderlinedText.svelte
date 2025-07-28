@@ -6,7 +6,7 @@
 		children?: import('svelte').Snippet;
 	}
 
-	let { color, children }: Props = $props();
+	const { color, children }: Props = $props();
 
 	const lighteningLevel = 20;
 
